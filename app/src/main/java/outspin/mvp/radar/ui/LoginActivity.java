@@ -17,17 +17,6 @@ import outspin.mvp.radar.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding loginBinding;
 
-    boolean isPhoneValid(String phoneNumber) {
-        return PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber);
-    }
-
-    boolean isPasswordValid(String password){
-        int passwordLength = password.length();
-        if(passwordLength > 8 && passwordLength < 21)
-            return true;
-        return false;
-    }
-
     boolean isLoginValidated(String phoneNumber, String password){
         if(phoneNumber.length() != 9) {
             Toast.makeText(LoginActivity.this,
@@ -76,8 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBinding.tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(intent);
+
             }
         });
 
