@@ -16,18 +16,21 @@ import outspin.mvp.radar.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding loginBinding;
+    private final int LOGIN = 0;
+    private final int SIGNUP = 1;
+    private int signStatus = 0;
 
-    boolean isLoginValidated(String phoneNumber, String password){
+    boolean isValidated(String phoneNumber, String password){
         if(phoneNumber.length() != 9) {
             Toast.makeText(LoginActivity.this,
-                    "your phone number is invalid.", Toast.LENGTH_LONG).show();
+                    "your phone number is invalid.", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         int passwordLength = password.length();
         if(passwordLength < 9 || passwordLength > 20) {
             Toast.makeText(LoginActivity.this,
-                    "your password is invalid.", Toast.LENGTH_LONG).show();
+                    "your password is invalid.", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -47,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = loginBinding.etLoginPassword.getText().toString();
                 String phoneNumber = loginBinding.etLoginPhone.getText().toString();
 
-                if(isLoginValidated(phoneNumber, password)){
+                if(isValidated(phoneNumber, password)){
                     SharedPreferences sharedPref = getApplication().getSharedPreferences(
                             Macros.PREFERENCE_FILE_AUTHENTICATION, Context.MODE_PRIVATE);
 
@@ -62,10 +65,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginBinding.tvSignup.setOnClickListener(new View.OnClickListener() {
+        loginBinding.tvSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                switch (signStatus) {
+                    case LOGIN:
+                        loginBinding.tvMember.setText(getString(R.string.member));
+                        loginBinding.tvSign.setText(getString(R.string.login));
+                        signStatus = SIGNUP;
+                        break;
+                    case SIGNUP:
+                        loginBinding.tvMember.setText(getString(R.string.not_member));
+                        loginBinding.tvSign.setText(getString(R.string.signup));
+                        signStatus = LOGIN;
+                        break;
+                }
             }
         });
 
