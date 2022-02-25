@@ -9,7 +9,7 @@
 
     <EditText
         android:id="@+id/et_login_phone"
-        android:inputType="phone"
+        android:inputType="numberSigned"
         android:hint="@string/login_phone"
         android:gravity="center"
         android:textColorHint="@drawable/selector_hint"

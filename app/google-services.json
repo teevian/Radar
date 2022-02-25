@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "320130392111",
+    "project_id": "outspinmvp",
+    "storage_bucket": "outspinmvp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320130392111:android:d9b13e28439e8a9a7f66da",
+        "android_client_info": {
+          "package_name": "outspin.mvp.radar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320130392111-cbf95permqaoc351ghnfkvu7co3tv1ir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1C3m3zGsClJwpYnA5_SwHMZce4txoUXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320130392111-cbf95permqaoc351ghnfkvu7co3tv1ir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
