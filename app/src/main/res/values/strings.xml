@@ -3,6 +3,12 @@
 
     <string name="login_phone">phone number</string>
     <string name="login_password">password</string>
+    <string name="signup_confirmation_password">confirm password</string>
+    <string name="not_member">not a member yet?</string>
+    <string name="member">are you a member?</string>
+    <string name="login">login</string>
+    <string name="signup">sign up</string>
+    <string name="submit">submit</string>
 
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="tap">Tap</string>

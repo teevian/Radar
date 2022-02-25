@@ -24,12 +24,14 @@ public class LaunchScreenActivity extends AppCompatActivity {
         String validatedPassword = sharedPref.getString(Macros.PREFERENCE_PASSWORD_KEY, password);
         String validatedPhoneNumber = sharedPref.getString(Macros.PREFERENCE_PHONE_NUMBER_KEY, phoneNumber);
 
-        if(validatedPassword == "" || validatedPhoneNumber == "") {
+        if(validatedPassword.equals("") || validatedPhoneNumber.equals("")) {
             Intent launchIntent = new Intent(this, LoginActivity.class);
             startActivity(launchIntent);
             finish();
         } else{
-
+            Intent launchIntent = new Intent(this, LoginActivity.class);
+            startActivity(launchIntent);
+            finish();
         }
 
 

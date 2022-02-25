@@ -8,7 +8,7 @@
     android:background="@color/dark_blue">
 
     <LinearLayout
-        android:id="@+id/ll_login"
+        android:id="@+id/ll_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -20,7 +20,7 @@
         tools:context=".ui.LoginActivity">
 
         <EditText
-            android:id="@+id/et_login_phone"
+            android:id="@+id/et_signup_phone"
             android:layout_width="@dimen/login_input_width"
             android:layout_height="@dimen/login_input_height"
             android:layout_margin="@dimen/login_input_margin"
@@ -32,7 +32,7 @@
             android:textColorHint="@drawable/selector_hint" />
 
         <EditText
-            android:id="@+id/et_login_password"
+            android:id="@+id/et_signup_password"
             android:layout_width="@dimen/login_input_width"
             android:layout_height="@dimen/login_input_height"
             android:layout_margin="@dimen/login_input_margin"
@@ -42,6 +42,17 @@
             android:inputType="textPassword"
             android:textColor="@color/white"
             android:textColorHint="@drawable/selector_hint" />
+
+        <EditText
+            android:id="@+id/et_signup_2_password"
+            android:layout_width="@dimen/login_input_width"
+            android:layout_height="@dimen/login_input_height"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            android:hint="@string/signup_confirmation_password"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="@drawable/selector_hint"/>
     </LinearLayout>
 
     <Button
@@ -56,11 +67,11 @@
         app:strokeColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_login"
-        app:layout_constraintBottom_toBottomOf="@id/ll_signup"/>
+        app:layout_constraintTop_toBottomOf="@+id/ll_signup"
+        app:layout_constraintBottom_toBottomOf="@id/ll_login"/>
 
     <LinearLayout
-        android:id="@+id/ll_signup"
+        android:id="@+id/ll_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
@@ -74,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="@string/not_member"
+            android:text="@string/member"
             android:textColor="@color/light_gray" />
 
         <TextView
@@ -82,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/signup"
+            android:text="@string/login"
             android:textColor="@color/white" />
 
     </LinearLayout>
