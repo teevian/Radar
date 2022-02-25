@@ -5,7 +5,6 @@
     <string name="login_password">password</string>
 
     <string name="title_activity_navigation">NavigationActivity</string>
-
     <string name="tap">Tap</string>
     <string name="dance">invite to dance</string>
 </resources>

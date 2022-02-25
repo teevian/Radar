@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import outspin.mvp.radar.R;
+import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,13 +29,12 @@ public class LoginActivity extends AppCompatActivity {
                 String password = loginBinding.etLoginPassword.getText().toString();
                 String phoneNumber = loginBinding.etLoginPhone.getText().toString();
 
-                String sharedPrefsFile = "outspin.mvp.radar.PREFERENCE_FILE_TOKEN";
                 SharedPreferences sharedPref = getApplication().getSharedPreferences(
-                        sharedPrefsFile, Context.MODE_PRIVATE);
+                        Macros.PREFERENCE_FILE_AUTHENTICATION, Context.MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("password", password);
-                editor.putString("phoneNumber", phoneNumber);
+                editor.putString(Macros.PREFERENCE_PASSWORD_KEY, password);
+                editor.putString(Macros.PREFERENCE_PHONE_NUMBER_KEY, phoneNumber);
                 editor.apply();
 
                 Intent intent =  new Intent(LoginActivity.this, LaunchScreenActivity.class);

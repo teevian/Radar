@@ -7,19 +7,22 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import javax.crypto.Mac;
+
+import outspin.mvp.radar.data.Macros;
+
 public class LaunchScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String sharedPrefsFile = "outspin.mvp.radar.PREFERENCE_FILE_TOKEN";
         SharedPreferences sharedPref = this.getSharedPreferences(
-                sharedPrefsFile, Context.MODE_PRIVATE);
+                Macros.PREFERENCE_FILE_AUTHENTICATION, Context.MODE_PRIVATE);
 
         String password = "";
         String phoneNumber = "";
-        String validatedPassword = sharedPref.getString("password", password);
-        String validatedPhoneNumber = sharedPref.getString("phoneNumber", phoneNumber);
+        String validatedPassword = sharedPref.getString(Macros.PREFERENCE_PASSWORD_KEY, password);
+        String validatedPhoneNumber = sharedPref.getString(Macros.PREFERENCE_PHONE_NUMBER_KEY, phoneNumber);
 
         if(validatedPassword == "" || validatedPhoneNumber == "") {
             Intent launchIntent = new Intent(this, LoginActivity.class);

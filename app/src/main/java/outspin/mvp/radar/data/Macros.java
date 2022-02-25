@@ -10,4 +10,8 @@ public class Macros {
     public static final int CONST_INTERNET_TCP_PORT = 52126;        // open port for ping
     public static final int CONST_INTERNET_SOCKET_TIMEOUT = 1000;  // milliseconds
 
+    // shared preferences
+    public static final String PREFERENCE_FILE_AUTHENTICATION = "outspin.mvp.radar.PREFERENCE_FILE_TOKEN";
+    public static final String PREFERENCE_PASSWORD_KEY = "password";
+    public static final String PREFERENCE_PHONE_NUMBER_KEY = "phoneNumber";
 }
