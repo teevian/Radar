@@ -27,4 +27,11 @@
         android:layout_height="@dimen/login_input_height"
         android:layout_margin="@dimen/login_input_margin"/>
 
+    <Button
+        android:id="@+id/bt_submit"
+        android:text="submit"
+        android:backgroundTint="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>
