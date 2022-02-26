@@ -3,8 +3,11 @@ package outspin.mvp.radar.ui;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
+import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.ActivityMainBinding;
+import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding mainBinding;
@@ -14,5 +17,11 @@ public class MainActivity extends AppCompatActivity {
 
         mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mainBinding.getRoot());
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, new RadarInsideFragment())
+                .addToBackStack("inside")
+                .commit();
     }
 }
