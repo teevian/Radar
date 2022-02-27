@@ -2,11 +2,8 @@ package outspin.mvp.radar.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +21,10 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.zip.Inflater;
+import java.util.Objects;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.data.DummieData;
@@ -55,7 +50,8 @@ public class RadarInsideFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(),R.style.BottomSheetDialogTheme);
+                BottomSheetDialog bottomSheetDialog =
+                        new BottomSheetDialog(requireContext(),R.style.BottomSheetDialogTheme);
                 View contactView = LayoutInflater.from(getContext()).inflate(R.layout.not_my_profile,
                         (LinearLayout) view.findViewById(R.id.ll_radar_inside));
 
@@ -67,6 +63,7 @@ public class RadarInsideFragment extends Fragment {
                         .centerCrop()
                         .into(profileIcon);
 
+                /* TODO(5) change to viewbinding */
                 TextView profileName = (TextView) contactView.findViewById(R.id.profile_name);
                 profileName.setText(users.get(i).getUsername());
 
@@ -92,15 +89,16 @@ public class RadarInsideFragment extends Fragment {
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
+    /* TODO(5) get window height from class screenhelper */
     private int getWindowHeight() {
         // Calculate window height for fullscreen use
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        ((Activity) requireContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.heightPixels;
     }
 
 
-    public class RadarInsideGridAdapter extends BaseAdapter {
+    public static class RadarInsideGridAdapter extends BaseAdapter {
         private LayoutInflater inflater;
         private ArrayList<User> users;
 
@@ -127,7 +125,7 @@ public class RadarInsideFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             if(view == null){
-                view = inflater.inflate(R.layout.profile_icon,viewGroup, false);
+                view = inflater.inflate(R.layout.user_profile_thumbnail,viewGroup, false);
 
                 ImageView profileIcon = (ImageView) view.findViewById(R.id.profile_icon);
 

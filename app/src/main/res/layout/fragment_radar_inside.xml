@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:background="@color/dark_blue">
 
+    <!-- TODO(1) problemas com o design -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"

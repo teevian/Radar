@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- TODO(4) image vector instead of drag and drop -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -49,6 +50,7 @@
                 app:layout_constraintStart_toEndOf="@+id/im_burn"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- TODO(3) change to same reference -->
         <ImageView
             android:id="@+id/profile_icon"
             android:layout_weight="4"

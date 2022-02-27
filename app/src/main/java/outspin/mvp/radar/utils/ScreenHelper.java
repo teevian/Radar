@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 public class ScreenHelper {
 
     @NonNull
-    //public static Pair<Integer, Integer> getScreenResolution(Context context) {
     public static int[] getScreenResolution(@NonNull Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();

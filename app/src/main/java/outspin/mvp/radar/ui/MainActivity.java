@@ -9,6 +9,7 @@ import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.ActivityMainBinding;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
 
+/* TODO(2) mudar nome de classse / layout */
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding mainBinding;
 

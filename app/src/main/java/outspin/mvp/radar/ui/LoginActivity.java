@@ -16,6 +16,7 @@ import outspin.mvp.radar.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding loginBinding;
+
     private final int LOGIN = 0;
     private final int SIGNUP = 1;
     private int signStatus = 0;

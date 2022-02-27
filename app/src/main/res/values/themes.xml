@@ -28,4 +28,16 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="roundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="roundedProfileThumbnail">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="android:padding">5dp</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/white</item>
+    </style>
 </resources>
