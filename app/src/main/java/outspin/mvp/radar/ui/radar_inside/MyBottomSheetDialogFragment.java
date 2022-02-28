@@ -19,8 +19,7 @@ import outspin.mvp.radar.databinding.NotMyProfileBinding;
 
 public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
-    public MyBottomSheetDialogFragment() {
-    }
+    public MyBottomSheetDialogFragment() {}
 
     @NonNull
     @Override
@@ -30,17 +29,8 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
         dialog.setContentView(view);
 
         BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
-        bottomSheetBehavior.setPeekHeight(800);
+        bottomSheetBehavior.setPeekHeight(800); // height of the first state
 
         return dialog;
-
-/*
-        NotMyProfileBinding notMyProfileBinding = NotMyProfileBinding.inflate(inflater, container, false);
-
-        BottomSheetDialog bottomSheetDialog =
-                new BottomSheetDialog(requireContext(),R.style.BottomSheetDialogTheme);
-        View contactView = LayoutInflater.from(getContext()).inflate(R.layout.not_my_profile,
-                (LinearLayout) view.findViewById(R.id.ll_radar_inside));
-        */
     }
 }

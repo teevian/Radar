@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.ActivityMainBinding;
+import outspin.mvp.radar.network.NetworkManager;
 import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
 
 public class RadarContainerActivity extends AppCompatActivity {
@@ -23,5 +24,8 @@ public class RadarContainerActivity extends AppCompatActivity {
                 .replace(R.id.container, new RadarInsideFragment())
                 .addToBackStack("inside")
                 .commit();
+
+        NetworkManager.JSONTask jsonTask = new NetworkManager.JSONTask();
+        jsonTask.execute();
     }
 }
