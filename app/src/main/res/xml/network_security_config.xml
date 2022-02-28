@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- TODO(10.1) IMPORTANT: SHOULD BE HTTPS AND THIS SHOULD BE FALSE (CHECK 10.2) -->
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

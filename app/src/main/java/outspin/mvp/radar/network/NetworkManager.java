@@ -12,13 +12,97 @@ import android.widget.Toast;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
+import java.net.URL;
+
+import outspin.mvp.radar.models.User;
 
 public class NetworkManager {
+
+        public static class JSONTask extends AsyncTask<String, String, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected String doInBackground(String... strings) {
+
+                HttpURLConnection connection = null;
+                BufferedReader reader = null;
+
+                try {
+                    // TODO(10.2) IMPORTANT: SHOULD BE HTTPS AND THIS SHOULD BE FALSE (CHECK 10.1)
+                    URL url = new URL("http://92.222.10.201:62126/dummy/users");
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.connect();
+
+                    InputStream stream = connection.getInputStream();
+                    reader = new BufferedReader(new InputStreamReader(stream));
+
+                    StringBuilder buffer = new StringBuilder();
+
+                    String line = "";
+                    Log.d("OH OH", "NOT A TEST");
+
+                    while(null != (line = reader.readLine())) {
+                        buffer.append(line).append("\n");
+                        Log.d("JSON from server: ", line);
+                    }
+
+                    return buffer.toString();
+                } catch (IOException e) {
+                    Log.d("ERROR", "COULDNT CONNECT");
+                    e.printStackTrace();
+                } finally {
+                    if(connection != null) {
+                        connection.disconnect();
+                    }
+                    try {
+                        if(reader != null) {
+                            reader.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String jsonResult) {
+                super.onPostExecute(jsonResult);
+
+                try {
+                    JSONArray json = new JSONArray(jsonResult);
+                    int lenght = json.length();
+
+                    //for(int i = 0; i < lenght; i++) {
+                    //    JSONObject jsonArray = json.getJSONObject(i);
+                    Log.d("JSON: ", json.getJSONObject(0).toString());
+
+                    } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+
 /*
     // Returns connection type. 0: none; 1: mobile data; 2: wifi; 3: vpn;
     @IntRange(from = 0, to = 3)
