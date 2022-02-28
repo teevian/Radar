@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -60,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString(Macros.PREFERENCE_PHONE_NUMBER_KEY, phoneNumber);
                     editor.apply();
 
-                    Intent intent =  new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent =  new Intent(LoginActivity.this, RadarContainerActivity.class);
                     startActivity(intent);
                 }
             }

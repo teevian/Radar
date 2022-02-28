@@ -3,15 +3,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:background="@color/dark_blue">
+
+    <View
+        android:layout_width="70dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="@dimen/not_my_profile_height"
         android:orientation="horizontal"
         android:gravity="center">
 
@@ -50,17 +57,77 @@
                 app:layout_constraintStart_toEndOf="@+id/im_burn"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <!-- TODO(3) change to same reference -->
-        <ImageView
-            android:id="@+id/profile_icon"
-            android:layout_weight="4"
-            android:layout_width="@dimen/profile_thumbnail_big_side"
-            android:layout_height="@dimen/profile_thumbnail_big_side"/>
+
+        <include layout="@layout/user_profile_thumbnail" />
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <outspin.mvp.radar.ui.MaxHeightNestedScrollView
+        android:id="@+id/nested"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        app:maxHeight="420dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="andorid button"
+                android:gravity="center"
+                style="@style/TextAppearance.AppCompat.Headline"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate ex sit amet mollis consequat. Ut sed urna at ligula sodales scelerisque non quis justo. Vivamus egestas iaculis tincidunt. Etiam ultrices, ligula vitae rhoncus posuere, ipsum mauris sagittis dui, ac fringilla erat turpis sit amet sapien. Pellentesque vehicula rutrum tellus, ac laoreet magna. Nunc efficitur magna dui, vitae blandit orci sodales ac. Ut ipsum sem, malesuada a nulla eu, pulvinar consectetur leo."
+                style="@style/TextAppearance.AppCompat.Medium"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate ex sit amet mollis consequat. Ut sed urna at ligula sodales scelerisque non quis justo. Vivamus egestas iaculis tincidunt. Etiam ultrices, ligula vitae rhoncus posuere, ipsum mauris sagittis dui, ac fringilla erat turpis sit amet sapien. Pellentesque vehicula rutrum tellus, ac laoreet magna. Nunc efficitur magna dui, vitae blandit orci sodales ac. Ut ipsum sem, malesuada a nulla eu, pulvinar consectetur leo."
+                style="@style/TextAppearance.AppCompat.Medium"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate ex sit amet mollis consequat. Ut sed urna at ligula sodales scelerisque non quis justo. Vivamus egestas iaculis tincidunt. Etiam ultrices, ligula vitae rhoncus posuere, ipsum mauris sagittis dui, ac fringilla erat turpis sit amet sapien. Pellentesque vehicula rutrum tellus, ac laoreet magna. Nunc efficitur magna dui, vitae blandit orci sodales ac. Ut ipsum sem, malesuada a nulla eu, pulvinar consectetur leo."
+                style="@style/TextAppearance.AppCompat.Medium"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate ex sit amet mollis consequat. Ut sed urna at ligula sodales scelerisque non quis justo. Vivamus egestas iaculis tincidunt. Etiam ultrices, ligula vitae rhoncus posuere, ipsum mauris sagittis dui, ac fringilla erat turpis sit amet sapien. Pellentesque vehicula rutrum tellus, ac laoreet magna. Nunc efficitur magna dui, vitae blandit orci sodales ac. Ut ipsum sem, malesuada a nulla eu, pulvinar consectetur leo."
+                style="@style/TextAppearance.AppCompat.Medium"/>
+
+
+        </LinearLayout>
+    </outspin.mvp.radar.ui.MaxHeightNestedScrollView>
 
 </LinearLayout>

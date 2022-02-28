@@ -1,9 +1,11 @@
-package outspin.mvp.radar.ui;
+package outspin.mvp.radar.ui.radar_inside;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ import java.util.Objects;
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.data.DummieData;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
+import outspin.mvp.radar.databinding.NotMyProfileBinding;
 import outspin.mvp.radar.models.User;
 
 
@@ -50,8 +54,11 @@ public class RadarInsideFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BottomSheetDialog bottomSheetDialog =
-                        new BottomSheetDialog(requireContext(),R.style.BottomSheetDialogTheme);
+
+                BottomSheetDialogFragment myBottomSheetDialogFragment = new MyBottomSheetDialogFragment();
+                myBottomSheetDialogFragment.show(getChildFragmentManager(), myBottomSheetDialogFragment.getTag());
+
+
                 View contactView = LayoutInflater.from(getContext()).inflate(R.layout.not_my_profile,
                         (LinearLayout) view.findViewById(R.id.ll_radar_inside));
 
@@ -62,41 +69,10 @@ public class RadarInsideFragment extends Fragment {
                         .resize(150, 150)
                         .centerCrop()
                         .into(profileIcon);
-
-                /* TODO(5) change to viewbinding */
-                TextView profileName = (TextView) contactView.findViewById(R.id.profile_name);
-                profileName.setText(users.get(i).getUsername());
-
-                bottomSheetDialog.setContentView(contactView);
-                setupFullHeight(bottomSheetDialog);
-                bottomSheetDialog.show();
             }
         });
-
         return root;
     }
-
-    private void setupFullHeight(BottomSheetDialog bottomSheetDialog) {
-        FrameLayout bottomSheet = (FrameLayout) bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
-        BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
-        ViewGroup.LayoutParams layoutParams = bottomSheet.getLayoutParams();
-
-        int windowHeight = getWindowHeight();
-        if (layoutParams != null) {
-            layoutParams.height = windowHeight;
-        }
-        bottomSheet.setLayoutParams(layoutParams);
-        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-    }
-
-    /* TODO(5) get window height from class screenhelper */
-    private int getWindowHeight() {
-        // Calculate window height for fullscreen use
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity) requireContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        return displayMetrics.heightPixels;
-    }
-
 
     public static class RadarInsideGridAdapter extends BaseAdapter {
         private LayoutInflater inflater;

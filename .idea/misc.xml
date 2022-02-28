@@ -15,8 +15,9 @@
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.12760416666666666" />
         <entry key="app/src/main/res/layout/ads.xml" value="0.25052083333333336" />
         <entry key="app/src/main/res/layout/fragment_radar_inside.xml" value="0.21302083333333333" />
-        <entry key="app/src/main/res/layout/not_my_profile.xml" value="0.14791666666666667" />
+        <entry key="app/src/main/res/layout/not_my_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/profile_icon.xml" value="0.14791666666666667" />
+        <entry key="app/src/main/res/layout/user_profile_thumbnail.xml" value="0.2677083333333333" />
       </map>
     </option>
   </component>

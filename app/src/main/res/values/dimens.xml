@@ -16,4 +16,8 @@
     <dimen name="profile_thumbnail_big_side">80dp</dimen>
 
     <dimen name="small_icon_side">30dp</dimen>
+
+    <dimen name="top_bar_height">75dp</dimen>
+
+    <dimen name="not_my_profile_height">190dp</dimen>
 </resources>
