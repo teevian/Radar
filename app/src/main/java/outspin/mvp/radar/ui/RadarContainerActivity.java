@@ -24,8 +24,5 @@ public class RadarContainerActivity extends AppCompatActivity {
                 .replace(R.id.container, new RadarInsideFragment())
                 .addToBackStack("inside")
                 .commit();
-
-        NetworkManager.JSONTask jsonTask = new NetworkManager.JSONTask();
-        jsonTask.execute();
     }
 }

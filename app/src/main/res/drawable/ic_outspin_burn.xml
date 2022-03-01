@@ -1,0 +1,5 @@
+<vector android:autoMirrored="true" android:height="1024dp"
+    android:viewportHeight="1024" android:viewportWidth="1024"
+    android:width="1024dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="@color/gradient_icon_burn" android:name="Outspin_icon_burn" android:pathData="m460 6c77.9 9.6 137.3 151.6 156 227c2.7 38.3 5.3 76.7 8 115c0.3 0 0.7 0 1 0c19.8 -54.4 67.6 -108.5 127 -121c0.3 0 0.7 0 1 0c-9.9 50.2 -24.9 117.3 -4 172c24.2 63.3 54.6 106.9 84 160c73.9 133.1 11.3 299.9 -71 373c-292.5 259.9 -729.7 -56.3 -566 -437c0.3 0 0.7 0 1 0c23.9 66.2 34.1 211.7 110 220c0 -0.7 0 -1.3 0 -2c-22.3 -30.8 -19.8 -72.8 -34 -113c-9.9 -28.1 -9.7 -80.8 -3 -112c43.1 -199.6 217.4 -280.6 190 -482z"/>
+</vector>

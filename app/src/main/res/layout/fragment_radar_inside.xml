@@ -4,7 +4,7 @@
     android:id="@+id/ll_radar_inside"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue">
+    android:background="@color/outspin_black">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:id="@+id/imageView"
             android:layout_width="@dimen/small_icon_side"
             android:layout_height="@dimen/small_icon_side"
-            android:src="@drawable/burn"
+            android:src="@drawable/ic_outspin_burn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,8 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="69 people"
+                android:id="@+id/tv_inside_header_population"
+                android:text="# people"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

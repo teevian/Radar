@@ -1,5 +1,7 @@
 package outspin.mvp.radar.ui.radar_inside;
 
+import static java.lang.String.*;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,21 +44,30 @@ public class RadarInsideFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        fragmentRadarInsideBinding = FragmentRadarInsideBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
+        fragmentRadarInsideBinding =
+                FragmentRadarInsideBinding.inflate(inflater, container, false);
         View root = fragmentRadarInsideBinding.getRoot();
 
-        gridView = fragmentRadarInsideBinding.gv;
+
         ArrayList<User> users =  new ArrayList<>(DummieData.DUMMY_USERS_FULL);
         BaseAdapter radarInsideGridAdapter = new RadarInsideGridAdapter(root.getContext(), users);
 
+        fragmentRadarInsideBinding.tvInsideHeaderPopulation.setText(valueOf(users.size()));
+
+        gridView = fragmentRadarInsideBinding.gv;
         gridView.setAdapter(radarInsideGridAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                BottomSheetDialogFragment myBottomSheetDialogFragment = new MyBottomSheetDialogFragment();
-                myBottomSheetDialogFragment.show(getChildFragmentManager(), myBottomSheetDialogFragment.getTag());
+                BottomSheetDialogFragment myBottomSheetDialogFragment =
+                        new MyBottomSheetDialogFragment(getContext());
+                myBottomSheetDialogFragment.show(getChildFragmentManager(),
+                        myBottomSheetDialogFragment.getTag());
 
 
                 View contactView = LayoutInflater.from(getContext()).inflate(R.layout.not_my_profile,
@@ -112,6 +123,7 @@ public class RadarInsideFragment extends Fragment {
                         .centerCrop()
                         .into(profileIcon);
             }
+
             return view;
         }
     }

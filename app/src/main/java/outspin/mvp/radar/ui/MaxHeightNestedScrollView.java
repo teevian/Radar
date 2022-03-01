@@ -22,7 +22,9 @@ public class MaxHeightNestedScrollView extends NestedScrollView {
         this(context, attrs, 0); // Modified changes
     }
 
-    public MaxHeightNestedScrollView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MaxHeightNestedScrollView(@NonNull Context context,
+                                     @Nullable AttributeSet attrs,
+                                     int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr); // Modified changes
     }

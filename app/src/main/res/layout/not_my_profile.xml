@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/dark_blue">
+    android:background="@color/outspin_black">
 
     <View
         android:layout_width="70dp"
@@ -60,7 +60,12 @@
         <include layout="@layout/user_profile_thumbnail" />
 
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_interactions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
+    <!-- TODO(1) remove shit
     <outspin.mvp.radar.ui.MaxHeightNestedScrollView
         android:id="@+id/nested"
         android:layout_width="match_parent"
@@ -75,58 +80,10 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="andorid button"
-                android:gravity="center"
-                style="@style/TextAppearance.AppCompat.Headline"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate ex sit amet mollis consequat. Ut sed urna at ligula sodales scelerisque non quis justo. Vivamus egestas iaculis tincidunt. Etiam ultrices, ligula vitae rhoncus posuere, ipsum mauris sagittis dui, ac fringilla erat turpis sit amet sapien. Pellentesque vehicula rutrum tellus, ac laoreet magna. Nunc efficitur magna dui, vitae blandit orci sodales ac. Ut ipsum sem, malesuada a nulla eu, pulvinar consectetur leo."
-                style="@style/TextAppearance.AppCompat.Medium"/>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate ex sit amet mollis consequat. Ut sed urna at ligula sodales scelerisque non quis justo. Vivamus egestas iaculis tincidunt. Etiam ultrices, ligula vitae rhoncus posuere, ipsum mauris sagittis dui, ac fringilla erat turpis sit amet sapien. Pellentesque vehicula rutrum tellus, ac laoreet magna. Nunc efficitur magna dui, vitae blandit orci sodales ac. Ut ipsum sem, malesuada a nulla eu, pulvinar consectetur leo."
-                style="@style/TextAppearance.AppCompat.Medium"/>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate ex sit amet mollis consequat. Ut sed urna at ligula sodales scelerisque non quis justo. Vivamus egestas iaculis tincidunt. Etiam ultrices, ligula vitae rhoncus posuere, ipsum mauris sagittis dui, ac fringilla erat turpis sit amet sapien. Pellentesque vehicula rutrum tellus, ac laoreet magna. Nunc efficitur magna dui, vitae blandit orci sodales ac. Ut ipsum sem, malesuada a nulla eu, pulvinar consectetur leo."
-                style="@style/TextAppearance.AppCompat.Medium"/>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate ex sit amet mollis consequat. Ut sed urna at ligula sodales scelerisque non quis justo. Vivamus egestas iaculis tincidunt. Etiam ultrices, ligula vitae rhoncus posuere, ipsum mauris sagittis dui, ac fringilla erat turpis sit amet sapien. Pellentesque vehicula rutrum tellus, ac laoreet magna. Nunc efficitur magna dui, vitae blandit orci sodales ac. Ut ipsum sem, malesuada a nulla eu, pulvinar consectetur leo."
-                style="@style/TextAppearance.AppCompat.Medium"/>
 
 
         </LinearLayout>
     </outspin.mvp.radar.ui.MaxHeightNestedScrollView>
-
+-->
 </LinearLayout>

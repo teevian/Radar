@@ -23,4 +23,8 @@
     <color name="light_blue">#FF03DAC5</color>
     <color name="light_gray">#979393</color>
     <color name="gray">#FF353635</color>
+
+    <color name="outspin_black">#171717</color>
+    <color name="outspin_pink_gradient">#c3027f</color>
+    <color name="outspin_red_gradient">#e3383d</color>
 </resources>
