@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:gravity="bottom"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/floating_button"
+        android:src="@mipmap/profile_thumbnail_default_joidk_easter_egg_round"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+
+        app:shapeAppearanceOverlay="@style/roundedProfileThumbnail"
+        style="@style/roundedProfileThumbnail"
+        android:elevation="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:layout_marginStart="10dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/white"
+        android:backgroundTint="@color/white"/>
+
+</RelativeLayout>

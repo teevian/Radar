@@ -39,7 +39,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
         dialog.setContentView(view);
 
         BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
-        bottomSheetBehavior.setPeekHeight(800); // height of the first state
+        bottomSheetBehavior.setPeekHeight(1500); // height of the first state
 
         ArrayList<Interaction> interactions = new ArrayList<>(DummieData.DUMMY_INTERACTIONS_FULL);
 
