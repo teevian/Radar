@@ -38,16 +38,17 @@
 
             <ImageView
                 android:id="@+id/im_burn"
-                android:src="@drawable/burn"
+                android:src="@drawable/ic_outspin_burn"
                 android:layout_width="@dimen/small_icon_side"
                 android:layout_height="@dimen/small_icon_side"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profile_name"
                 app:layout_constraintEnd_toStartOf="@id/iv_tap" />
+
             <ImageView
                 android:id="@+id/iv_tap"
-                android:src="@drawable/tap"
+                android:src="@drawable/ic_outspin_wave"
                 android:layout_width="@dimen/small_icon_side"
                 android:layout_height="@dimen/small_icon_side"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +58,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include layout="@layout/user_profile_thumbnail" />
+        <include layout="@layout/user_profile_thumbnail_small" />
 
     </LinearLayout>
 

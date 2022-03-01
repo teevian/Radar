@@ -6,12 +6,11 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26666666666666666" />
         <entry key="app/src/main/res/drawable/button_format.xml" value="0.14375" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.26666666666666666" />
-        <entry key="app/src/main/res/drawable/ic_outspin_burn.xml" value="0.2537037037037037" />
         <entry key="app/src/main/res/drawable/selector_hint.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/splash_background_gradient.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1684877523262612" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.14791666666666667" />
         <entry key="app/src/main/res/layout/activity_radar_outside.xml" value="0.25052083333333336" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.12760416666666666" />
         <entry key="app/src/main/res/layout/ads.xml" value="0.25052083333333336" />
@@ -20,7 +19,6 @@
         <entry key="app/src/main/res/layout/not_my_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/profile_icon.xml" value="0.14791666666666667" />
         <entry key="app/src/main/res/layout/user_profile_thumbnail.xml" value="0.2677083333333333" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/profile_thumbnail_default_joidk_easter_egg_round.xml" value="0.16302083333333334" />
       </map>
     </option>
   </component>

@@ -60,7 +60,7 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
             super(itemView);
 
             this.textViewMessage = (TextView) itemView.findViewById(R.id.tv_interaction_message);
-            this.imageView = (ShapeableImageView) itemView.findViewById(R.id.iv_profile_thumbnail);
+            this.imageView = (ShapeableImageView) itemView.findViewById(R.id.profile_thumbnail_picture);
         }
-    }
+    } //profile_thumbnail_picture
 }

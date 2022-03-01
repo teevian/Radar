@@ -2,39 +2,30 @@ package outspin.mvp.radar.ui.radar_inside;
 
 import static java.lang.String.*;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.data.DummieData;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
-import outspin.mvp.radar.databinding.NotMyProfileBinding;
 import outspin.mvp.radar.models.User;
 
 
@@ -73,7 +64,7 @@ public class RadarInsideFragment extends Fragment {
                 View contactView = LayoutInflater.from(getContext()).inflate(R.layout.not_my_profile,
                         (LinearLayout) view.findViewById(R.id.ll_radar_inside));
 
-                ImageView profileIcon = contactView.findViewById(R.id.profile_icon);
+                ImageView profileIcon = contactView.findViewById(R.id.profile_thumbnail_picture);
                 String uriPath = users.get(i).getPhotoURL();
                 Picasso.with(getContext())
                         .load(uriPath)
@@ -112,9 +103,9 @@ public class RadarInsideFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             if(view == null){
-                view = inflater.inflate(R.layout.user_profile_thumbnail,viewGroup, false);
+                view = inflater.inflate(R.layout.user_profile_thumbnail_medium,viewGroup, false);
 
-                ImageView profileIcon = (ImageView) view.findViewById(R.id.profile_icon);
+                ImageView profileIcon = (ImageView) view.findViewById(R.id.profile_thumbnail_picture);
 
                 String uriPath = users.get(i).getPhotoURL();
                 Picasso.with(viewGroup.getContext())

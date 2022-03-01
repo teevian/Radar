@@ -8,6 +8,8 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.squareup.picasso.Picasso;
+
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.network.NetworkManager;
 
