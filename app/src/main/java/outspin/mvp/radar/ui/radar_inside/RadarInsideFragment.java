@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,7 +42,6 @@ public class RadarInsideFragment extends Fragment {
                 FragmentRadarInsideBinding.inflate(inflater, container, false);
         View root = fragmentRadarInsideBinding.getRoot();
 
-
         ArrayList<User> users =  new ArrayList<>(DummieData.DUMMY_USERS_FULL);
         BaseAdapter radarInsideGridAdapter = new RadarInsideGridAdapter(root.getContext(), users);
 
@@ -51,27 +49,23 @@ public class RadarInsideFragment extends Fragment {
 
         gridView = fragmentRadarInsideBinding.gv;
         gridView.setAdapter(radarInsideGridAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                BottomSheetDialogFragment myBottomSheetDialogFragment =
-                        new MyBottomSheetDialogFragment(getContext());
-                myBottomSheetDialogFragment.show(getChildFragmentManager(),
-                        myBottomSheetDialogFragment.getTag());
+        gridView.setOnItemClickListener((adapterView, view, i, l) -> {
+            BottomSheetDialogFragment myBottomSheetDialogFragment =
+                    new MyBottomSheetDialogFragment(getContext());
+            myBottomSheetDialogFragment.show(getChildFragmentManager(),
+                    myBottomSheetDialogFragment.getTag());
 
+            View contactView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_notifications,
+                    view.findViewById(R.id.ll_radar_inside));
 
-                View contactView = LayoutInflater.from(getContext()).inflate(R.layout.not_my_profile,
-                        (LinearLayout) view.findViewById(R.id.ll_radar_inside));
-
-                ImageView profileIcon = contactView.findViewById(R.id.profile_thumbnail_picture);
-                String uriPath = users.get(i).getPhotoURL();
-                Picasso.with(getContext())
-                        .load(uriPath)
-                        .resize(150, 150)
-                        .centerCrop()
-                        .into(profileIcon);
-            }
+            ImageView profileIcon = contactView.findViewById(R.id.profile_thumbnail_picture);
+            String uriPath = users.get(i).getPhotoURL();
+            Picasso.with(getContext())
+                    .load(uriPath)
+                    .resize(150, 150)
+                    .centerCrop()
+                    .into(profileIcon);
         });
         return root;
     }
@@ -105,7 +99,7 @@ public class RadarInsideFragment extends Fragment {
             if(view == null){
                 view = inflater.inflate(R.layout.user_profile_thumbnail_medium,viewGroup, false);
 
-                ImageView profileIcon = (ImageView) view.findViewById(R.id.profile_thumbnail_picture);
+                ImageView profileIcon = view.findViewById(R.id.profile_thumbnail_picture);
 
                 String uriPath = users.get(i).getPhotoURL();
                 Picasso.with(viewGroup.getContext())

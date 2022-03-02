@@ -44,42 +44,36 @@ public class LoginActivity extends AppCompatActivity {
         loginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(loginBinding.getRoot());
 
-        loginBinding.btSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String password = loginBinding.etLoginPassword.getText().toString();
-                String phoneNumber = loginBinding.etLoginPhone.getText().toString();
+        loginBinding.btSubmit.setOnClickListener(view -> {
+            String password = loginBinding.etLoginPassword.getText().toString();
+            String phoneNumber = loginBinding.etLoginPhone.getText().toString();
 
-                if(isValidated(phoneNumber, password)){
-                    SharedPreferences sharedPref = getApplication().getSharedPreferences(
-                            Macros.PREFERENCE_FILE_AUTHENTICATION, Context.MODE_PRIVATE);
+            if(isValidated(phoneNumber, password)){
+                SharedPreferences sharedPref = getApplication().getSharedPreferences(
+                        Macros.PREFERENCE_FILE_AUTHENTICATION, Context.MODE_PRIVATE);
 
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString(Macros.PREFERENCE_PASSWORD_KEY, password);
-                    editor.putString(Macros.PREFERENCE_PHONE_NUMBER_KEY, phoneNumber);
-                    editor.apply();
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(Macros.PREFERENCE_PASSWORD_KEY, password);
+                editor.putString(Macros.PREFERENCE_PHONE_NUMBER_KEY, phoneNumber);
+                editor.apply();
 
-                    Intent intent =  new Intent(LoginActivity.this, RadarContainerActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent =  new Intent(LoginActivity.this, RadarNavigationActivity.class);
+                startActivity(intent);
             }
         });
 
-        loginBinding.tvSign.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (signStatus) {
-                    case LOGIN:
-                        loginBinding.tvMember.setText(getString(R.string.member));
-                        loginBinding.tvSign.setText(getString(R.string.login));
-                        signStatus = SIGNUP;
-                        break;
-                    case SIGNUP:
-                        loginBinding.tvMember.setText(getString(R.string.not_member));
-                        loginBinding.tvSign.setText(getString(R.string.signup));
-                        signStatus = LOGIN;
-                        break;
-                }
+        loginBinding.tvSign.setOnClickListener(view -> {
+            switch (signStatus) {
+                case LOGIN:
+                    loginBinding.tvMember.setText(getString(R.string.member));
+                    loginBinding.tvSign.setText(getString(R.string.login));
+                    signStatus = SIGNUP;
+                    break;
+                case SIGNUP:
+                    loginBinding.tvMember.setText(getString(R.string.not_member));
+                    loginBinding.tvSign.setText(getString(R.string.signup));
+                    signStatus = LOGIN;
+                    break;
             }
         });
 

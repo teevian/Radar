@@ -1,12 +1,9 @@
 package outspin.mvp.radar.ui.radar_inside;
 
-
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,12 +18,10 @@ import java.util.ArrayList;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.data.DummieData;
-import outspin.mvp.radar.data.Macros;
-import outspin.mvp.radar.databinding.NotMyProfileBinding;
 import outspin.mvp.radar.models.Interaction;
 
 public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
-    private Context context;
+    private final Context context;
     public MyBottomSheetDialogFragment(Context parent) {
         this.context = parent;
     }
@@ -35,15 +30,15 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState) ;
-        final View view = View.inflate(getContext(), R.layout.not_my_profile, null);
+        final View view = View.inflate(getContext(), R.layout.bottom_sheet_notifications, null);
         dialog.setContentView(view);
 
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
+        BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setPeekHeight(1500); // height of the first state
 
         ArrayList<Interaction> interactions = new ArrayList<>(DummieData.DUMMY_INTERACTIONS_FULL);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_interactions);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_interactions);
         InteractionsAdapter interactionsAdapter = new InteractionsAdapter(interactions);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

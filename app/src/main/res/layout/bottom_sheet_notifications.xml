@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,10 +18,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/not_my_profile_height"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:baselineAligned="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3">
 
@@ -39,22 +39,24 @@
             <ImageView
                 android:id="@+id/im_burn"
                 android:src="@drawable/ic_outspin_burn"
-                android:layout_width="@dimen/small_icon_side"
-                android:layout_height="@dimen/small_icon_side"
+                android:layout_width="@dimen/profile_thumbnail_side_small"
+                android:layout_height="@dimen/profile_thumbnail_side_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profile_name"
-                app:layout_constraintEnd_toStartOf="@id/iv_tap" />
+                app:layout_constraintEnd_toStartOf="@id/iv_tap"
+                android:contentDescription="@string/accessibility_burn"/>
 
             <ImageView
                 android:id="@+id/iv_tap"
                 android:src="@drawable/ic_outspin_wave"
-                android:layout_width="@dimen/small_icon_side"
-                android:layout_height="@dimen/small_icon_side"
+                android:layout_width="@dimen/profile_thumbnail_side_small"
+                android:layout_height="@dimen/profile_thumbnail_side_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profile_name"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/im_burn"/>
+                app:layout_constraintStart_toEndOf="@+id/im_burn"
+                android:contentDescription="@string/accessibility_waving"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

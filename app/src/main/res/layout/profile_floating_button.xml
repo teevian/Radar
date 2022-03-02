@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.imageview.ShapeableImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:src="@mipmap/profile_thumbnail_default_joidk_easter_egg_round"
+
+    android:layout_height="@dimen/floating_button_size"
+    android:layout_width="@dimen/floating_button_size"
+
+    app:shapeAppearanceOverlay="@style/roundedProfileThumbnail"
+    style="@style/roundedProfileThumbnail"
+
+    android:elevation="@dimen/floating_button_elevation"
+
+    app:strokeWidth="@dimen/thumbnail_circular_stroke"
+    app:strokeColor="@color/white" />

@@ -15,9 +15,10 @@
 
     <ImageView
         android:id="@+id/profile_thumbnail_icon_interaction"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/thumbnail_interaction_icon_medium"
+        android:layout_height="@dimen/thumbnail_interaction_icon_medium"
         android:layout_alignParentEnd="true"
-        android:src="@mipmap/icon_outspin_wave_foreground" />
+        android:src="@mipmap/icon_outspin_wave_foreground"
+        android:contentDescription="@string/accessibility_waving"/>
 
 </RelativeLayout>

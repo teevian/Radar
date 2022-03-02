@@ -20,26 +20,22 @@
             android:layout_height="match_parent"
             android:layout_weight="10"
             android:orientation="vertical" >
+
             <TextView
                 android:id="@+id/tv_interaction_message"
-                android:text="Margarida waves wswswswswswsw  ed  "
+                android:text="@string/default_wave"
                 android:textSize="@dimen/text_notification_size"
                 android:textColor="@color/white"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent" />
-            <TextView
-                android:text="2 mins ago"
-                android:textColor="@color/gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <Button
             android:id="@+id/bt_wave_back"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:text="wave back"
-            android:textSize="10sp"
+            android:text="@string/interaction_wave_back"
+            android:textSize="@dimen/text_notification_size"
             android:visibility="gone"
             android:layout_gravity="center_vertical"
             android:textColor="@color/white"

@@ -4,6 +4,7 @@ import android.graphics.drawable.shapes.Shape;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,8 +19,6 @@ import outspin.mvp.radar.R;
 import outspin.mvp.radar.models.Interaction;
 
 public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapter.InteractionViewHolder>{
-
-    String interactionTextDummie = "Ricardo waved @ you!";
     ArrayList<Interaction> interactions;
 
     InteractionsAdapter(ArrayList<Interaction> interactions) {
@@ -45,6 +44,11 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
                 .resize(150, 150)
                 .centerCrop()
                 .into(holder.imageView);
+
+        if(position % 7 == 0) {
+            holder.btWaveBack.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
@@ -53,14 +57,16 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
     }
 
     protected static class InteractionViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewMessage = null;
-        public ShapeableImageView imageView = null;
+        public TextView textViewMessage;
+        public ShapeableImageView imageView;
+        public Button btWaveBack;
 
         public InteractionViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.textViewMessage = (TextView) itemView.findViewById(R.id.tv_interaction_message);
-            this.imageView = (ShapeableImageView) itemView.findViewById(R.id.profile_thumbnail_picture);
+            this.textViewMessage = itemView.findViewById(R.id.tv_interaction_message);
+            this.imageView = itemView.findViewById(R.id.profile_thumbnail_picture);
+            this.btWaveBack = itemView.findViewById(R.id.bt_wave_back);
         }
     } //profile_thumbnail_picture
 }
