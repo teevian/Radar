@@ -1,15 +1,16 @@
 package outspin.mvp.radar.ui;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.ActivityRadarNavigationBinding;
-import outspin.mvp.radar.ui.radar_inside.MyBottomSheetDialogFragment;
 import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
 
 public class RadarNavigationActivity extends AppCompatActivity {
@@ -22,10 +23,8 @@ public class RadarNavigationActivity extends AppCompatActivity {
         setContentView(mainBinding.getRoot());
 
         mainBinding.floatingButton.getRoot().setOnClickListener(view -> {
-            BottomSheetDialogFragment myBottomSheetDialogFragment =
-                    new MyBottomSheetDialogFragment(mainBinding.getRoot().getContext());
-            myBottomSheetDialogFragment.show(getSupportFragmentManager(),
-                    myBottomSheetDialogFragment.getTag());
+            BottomSheetDialogFragment myBottomSheetDialogFragment = new MyBottomSheetDialogFragment(this);
+            myBottomSheetDialogFragment.show(getSupportFragmentManager(), myBottomSheetDialogFragment.getTag());
         });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -34,4 +33,5 @@ public class RadarNavigationActivity extends AppCompatActivity {
                 .addToBackStack("inside")
                 .commit();
     }
+
 }

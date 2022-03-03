@@ -2,5 +2,5 @@
 <gradient xmlns:android="http://schemas.android.com/apk/res/android"
     android:type="linear"
     android:angle="135"
-    android:startColor="#9e42f5"
-    android:endColor="#7d65e1" />
+    android:startColor="@color/outspin_red_gradient"
+    android:endColor="@color/outspin_pink_gradient" />

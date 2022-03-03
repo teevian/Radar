@@ -7,17 +7,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,36 +25,46 @@ import java.util.ArrayList;
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.data.DummieData;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
+import outspin.mvp.radar.databinding.ProfileBottomSheetDialogBinding;
 import outspin.mvp.radar.models.User;
 
 
-public class RadarInsideFragment extends Fragment {
+public class RadarInsideFragment extends Fragment implements InsideGridAdapter.ItemClickListener {
     private FragmentRadarInsideBinding fragmentRadarInsideBinding;
-    private GridView gridView;
+    private final ArrayList<User> users = new ArrayList<>(DummieData.DUMMY_USERS_FULL);
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        fragmentRadarInsideBinding = FragmentRadarInsideBinding.inflate(inflater, container, false);
+        return fragmentRadarInsideBinding.getRoot();
+    }
 
-        fragmentRadarInsideBinding =
-                FragmentRadarInsideBinding.inflate(inflater, container, false);
-        View root = fragmentRadarInsideBinding.getRoot();
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<User> users =  new ArrayList<>(DummieData.DUMMY_USERS_FULL);
-        BaseAdapter radarInsideGridAdapter = new RadarInsideGridAdapter(root.getContext(), users);
-
+        // populate club info
         fragmentRadarInsideBinding.tvInsideHeaderPopulation.setText(valueOf(users.size()));
+        fragmentRadarInsideBinding.burnNumbered.tvNumberOfBurns.setText(valueOf(users.size()));
+
+        // TODO(2) get dummie data (users) from JSON http
+        InsideGridAdapter gridAdapter = new InsideGridAdapter(view.getContext(), users);
+        RecyclerView rvInsideGrid = fragmentRadarInsideBinding.rvInsideUsers;
+        rvInsideGrid.setLayoutManager(new GridLayoutManager(this.getContext(), 5));
+        gridAdapter.setClickListener(this);
+        rvInsideGrid.setAdapter(gridAdapter);
+
+/*
+        radarInsideGridAdapter = new RadarInsideGridAdapter(view.getContext(), users);
 
         gridView = fragmentRadarInsideBinding.gv;
         gridView.setAdapter(radarInsideGridAdapter);
 
-        gridView.setOnItemClickListener((adapterView, view, i, l) -> {
-            BottomSheetDialogFragment myBottomSheetDialogFragment =
-                    new MyBottomSheetDialogFragment(getContext());
-            myBottomSheetDialogFragment.show(getChildFragmentManager(),
-                    myBottomSheetDialogFragment.getTag());
+        // TODO(3) create listener when functionality becomes complex (+2 functions)
+        gridView.setOnItemClickListener((adapterView, thisView, i, l) -> {
+            BottomSheetDialogFragment myBottomSheetDialogFragment = new MyBottomSheetDialogFragment(getContext());
+            myBottomSheetDialogFragment.show(getChildFragmentManager(), myBottomSheetDialogFragment.getTag());
 
             View contactView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_notifications,
                     view.findViewById(R.id.ll_radar_inside));
@@ -67,50 +77,33 @@ public class RadarInsideFragment extends Fragment {
                     .centerCrop()
                     .into(profileIcon);
         });
-        return root;
+*/
     }
 
-    public static class RadarInsideGridAdapter extends BaseAdapter {
-        private LayoutInflater inflater;
-        private ArrayList<User> users;
+    @Override
+    public void onItemClick(View view, int position, Context parent) {
+        Toast.makeText(this.getContext(), "posi: " + position, Toast.LENGTH_SHORT).show();
 
-        RadarInsideGridAdapter(Context context, ArrayList<User> users){
-                this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                this.users = users;
-        }
+        BottomSheetDialogFragment myBottomSheetDialogFragment = new ProfileBottomSheetDialog(getContext());
+        myBottomSheetDialogFragment.show(getChildFragmentManager(), myBottomSheetDialogFragment.getTag());
 
-        @Override
-        public int getCount() {
-            return users.size();
-        }
+        ProfileBottomSheetDialogBinding profileDialogBinding =
+                ProfileBottomSheetDialogBinding.inflate(LayoutInflater.from(parent));
 
-        @Override
-        public Object getItem(int i) {
-            return users.get(i);
-        }
+        // TODO(3) image not changing
+        String uriPath = users.get(position).getPhotoURL();
+        //profileDialogBinding.profileThumbnail.profileThumbnailPicture.setImageResource(R.drawable.ic_outspin_burn);
+        //profileDialogBinding.ivTap.setVisibility(View.INVISIBLE);
+        ImageView iv = view.findViewById(R.id.profile_thumbnail_picture);
+        iv.setVisibility(View.INVISIBLE);
 
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            if(view == null){
-                view = inflater.inflate(R.layout.user_profile_thumbnail_medium,viewGroup, false);
-
-                ImageView profileIcon = view.findViewById(R.id.profile_thumbnail_picture);
-
-                String uriPath = users.get(i).getPhotoURL();
-                Picasso.with(viewGroup.getContext())
-                        .load(uriPath)
-                        .resize(150, 150)
-                        .centerCrop()
-                        .into(profileIcon);
-            }
-
-            return view;
-        }
+        /*
+        Picasso.with(getContext())
+                .load(uriPath)
+                .resize(150, 150)
+                .centerCrop()
+                .into(profileDialogBinding.profileThumbnail.profileThumbnailPicture);
+*/
     }
 }
 

@@ -18,8 +18,10 @@
     <string name="interaction_wave_back">wave back!</string>
 
     <!-- defaults -->
-    <string name="default_profile_name">António José Seguro</string>
+    <string name="default_profile_name">José Luís Magalhães</string>
     <string name="default_wave">somebody waved you</string>
+    <string name="default_blub_name">Urban Beach</string>
+    <string name="default_number_people_inside">2126 people</string>
 
     <!-- acessibility -->
     <string name="accessibility_wave">someone waved you</string>

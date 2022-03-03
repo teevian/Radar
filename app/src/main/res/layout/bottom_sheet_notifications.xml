@@ -1,73 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/container1"
+    android:id="@+id/dialog_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/outspin_black">
 
-    <View
-        android:layout_width="70dp"
-        android:layout_height="3dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"/>
+    <View style="@style/OutspinDraggable" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/not_my_profile_height"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:baselineAligned="false">
+    <include layout="@layout/profile_dialog_preview" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3">
-
-            <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/im_burn"/>
-
-            <ImageView
-                android:id="@+id/im_burn"
-                android:src="@drawable/ic_outspin_burn"
-                android:layout_width="@dimen/profile_thumbnail_side_small"
-                android:layout_height="@dimen/profile_thumbnail_side_small"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_name"
-                app:layout_constraintEnd_toStartOf="@id/iv_tap"
-                android:contentDescription="@string/accessibility_burn"/>
-
-            <ImageView
-                android:id="@+id/iv_tap"
-                android:src="@drawable/ic_outspin_wave"
-                android:layout_width="@dimen/profile_thumbnail_side_small"
-                android:layout_height="@dimen/profile_thumbnail_side_small"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_name"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/im_burn"
-                android:contentDescription="@string/accessibility_waving"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <include layout="@layout/user_profile_thumbnail_small" />
-
-    </LinearLayout>
+    <View style="@style/OutspinDivider" />
 
     <outspin.mvp.radar.ui.MaxHeightNestedScrollView
         android:id="@+id/nested"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:scrollbars="vertical"
         app:maxHeight="343dp">
 

@@ -55,4 +55,23 @@
     <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
+
+    <!-- layout components (dividers, draggables, etc) -->
+    <style name="OutspinDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray</item>
+
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="OutspinDraggable">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">3dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@color/gray</item>
+    </style>
+
 </resources>

@@ -1,6 +1,5 @@
-package outspin.mvp.radar.ui.radar_inside;
+package outspin.mvp.radar.ui;
 
-import android.graphics.drawable.shapes.Shape;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +30,12 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View item = inflater.inflate(R.layout.notification_item, parent, false);
 
+        item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return new InteractionViewHolder(item);
     }
 
