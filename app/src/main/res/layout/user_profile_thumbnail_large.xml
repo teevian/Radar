@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="48dp"
-    android:layout_width="@dimen/profile_thumbnail_side_small" >
+    android:layout_height="@dimen/profile_thumbnail_side_large"
+    android:layout_width="@dimen/profile_thumbnail_side_large" >
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profile_thumbnail_picture"

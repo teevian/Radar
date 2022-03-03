@@ -13,7 +13,7 @@
 
     <dimen name="top_bar_height">75dp</dimen>
 
-    <dimen name="not_my_profile_height">190dp</dimen>
+    <dimen name="dialog_interact_with_user_height">230dp</dimen>
 
     <dimen name="thumbnail_circular_stroke">2dp</dimen>
 
