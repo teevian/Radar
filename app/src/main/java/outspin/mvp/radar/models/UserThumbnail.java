@@ -1,11 +1,11 @@
 package outspin.mvp.radar.models;
 
-public class User {
+public class UserThumbnail {
     private String username;
     private String phonenumber; // ID
     private String photoURL;
 
-    public User(String username, String phonenumber, String photoURL) {
+    public UserThumbnail(String username, String phonenumber, String photoURL) {
         this.username = username;
         this.phonenumber = phonenumber;
         this.photoURL = photoURL;

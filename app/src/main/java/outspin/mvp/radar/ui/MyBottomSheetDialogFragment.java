@@ -30,7 +30,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState) ;
-        final View view = View.inflate(getContext(), R.layout.bottom_sheet_notifications, null);
+        final View view = View.inflate(getContext(), R.layout.dialog_notifications, null);
         dialog.setContentView(view);
 
         BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());

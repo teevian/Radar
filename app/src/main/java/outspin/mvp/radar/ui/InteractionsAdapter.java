@@ -1,5 +1,6 @@
 package outspin.mvp.radar.ui;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import outspin.mvp.radar.models.Interaction;
 
 public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapter.InteractionViewHolder>{
     ArrayList<Interaction> interactions;
+    InteractionClickListener notificationClickListener;
 
     InteractionsAdapter(ArrayList<Interaction> interactions) {
         this.interactions = interactions;
@@ -28,13 +30,10 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
     @Override
     public InteractionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View item = inflater.inflate(R.layout.notification_item, parent, false);
+        View item = inflater.inflate(R.layout.interaction_item, parent, false);
 
-        item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        item.setOnClickListener(view -> {
 
-            }
         });
         return new InteractionViewHolder(item);
     }
@@ -53,7 +52,6 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
         if(position % 7 == 0) {
             holder.btWaveBack.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override
@@ -61,7 +59,7 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
         return interactions.size();
     }
 
-    protected static class InteractionViewHolder extends RecyclerView.ViewHolder {
+    protected static class InteractionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView textViewMessage;
         public ShapeableImageView imageView;
         public Button btWaveBack;
@@ -73,5 +71,19 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
             this.imageView = itemView.findViewById(R.id.profile_thumbnail_picture);
             this.btWaveBack = itemView.findViewById(R.id.bt_wave_back);
         }
+
+        @Override
+        public void onClick(View view) {
+            //if(this.no != null) mClickListener.onItemClick(view, getAdapterPosition(), view.getContext());
+        }
     } //profile_thumbnail_picture
+
+
+    void setNotificationClickListener(InteractionClickListener clickListener) {
+        this.notificationClickListener = clickListener;
+    }
+
+    public interface InteractionClickListener {
+        void onItemClick(View view, int position, Context parent);
+    }
 }

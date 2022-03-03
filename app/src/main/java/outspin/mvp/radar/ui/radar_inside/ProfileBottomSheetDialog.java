@@ -15,15 +15,13 @@ import com.squareup.picasso.Picasso;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.DialogInteractWithUserBinding;
-import outspin.mvp.radar.models.User;
+import outspin.mvp.radar.models.UserThumbnail;
 
 public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
-    private final Context context;
-    private User user;
+    private final UserThumbnail userThumbnail;
 
-    public ProfileBottomSheetDialog(Context parent, User user) {
-        this.context = parent;
-        this.user = user;
+    public ProfileBottomSheetDialog(Context parent, UserThumbnail userThumbnail) {
+        this.userThumbnail = userThumbnail;
     }
 
     @NonNull
@@ -41,7 +39,7 @@ public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
         interactWithUserDialogbinding.dialogContainer.setLayoutParams(params);
 
         Picasso.with(getContext())
-                .load(user.getPhotoURL())
+                .load(userThumbnail.getPhotoURL())
                 .resize(150, 150)
                 .centerCrop()
                 .into(interactWithUserDialogbinding.profileThumbnail.profileThumbnailPicture);

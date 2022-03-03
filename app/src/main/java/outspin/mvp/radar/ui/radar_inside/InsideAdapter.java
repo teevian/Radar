@@ -14,14 +14,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.models.User;
+import outspin.mvp.radar.models.UserThumbnail;
 
-public class InsideGridAdapter extends RecyclerView.Adapter<InsideGridAdapter.ProfileThumbViewHolder> {
-    private final ArrayList<User> data;
+public class InsideAdapter extends RecyclerView.Adapter<InsideAdapter.ProfileThumbViewHolder> {
+    private final ArrayList<UserThumbnail> data;
     private final LayoutInflater inflater;
     private ItemClickListener mClickListener;
 
-    public InsideGridAdapter(Context context, ArrayList<User> data) {
+    public InsideAdapter(Context context, ArrayList<UserThumbnail> data) {
         this.inflater = LayoutInflater.from(context);
         this.data = data;
     }
@@ -49,8 +49,11 @@ public class InsideGridAdapter extends RecyclerView.Adapter<InsideGridAdapter.Pr
     public int getItemCount() { return data.size(); }
 
 
-    /*  inner class */
-    public class ProfileThumbViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    /*
+     * inner class
+     */
+    public class ProfileThumbViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         public ProfileThumbViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,11 +64,6 @@ public class InsideGridAdapter extends RecyclerView.Adapter<InsideGridAdapter.Pr
         public void onClick(View view) {
             if(mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition(), view.getContext());
         }
-
-    }
-
-    public User getItem(int id) {
-        return this.data.get(id);
     }
 
     void setClickListener(ItemClickListener itemClickListener) {

@@ -3,6 +3,8 @@ package outspin.mvp.radar.data;
 public class Macros {
     public static final int CONST_INTERNET_NUM_OF_DOWNLOADED_MOMENTS = 4;
 
+    public static final short CONST_RADAR_INSIDE_NUM_OF_COLUMNS = 4;
+
     // internet
     public static final String CONST_INTERNET_SERVER_NAME = "outspin.vps.ovh.pt";
     public static final String CONST_INTERNET_SERVER_IPV4 = "92.222.10.201";
