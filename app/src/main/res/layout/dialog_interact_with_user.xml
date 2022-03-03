@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +11,8 @@
         android:layout_height="@dimen/not_my_profile_height"
         android:orientation="horizontal"
         android:gravity="center"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:paddingEnd="50dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -31,8 +32,8 @@
             <ImageView
                 android:id="@+id/im_burn"
                 android:src="@drawable/ic_outspin_burn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/burn_icon_small"
+                android:layout_height="@dimen/burn_icon_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profile_name"
@@ -41,8 +42,8 @@
             <ImageView
                 android:id="@+id/iv_tap"
                 android:src="@drawable/ic_outspin_wave"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/burn_icon_small"
+                android:layout_height="@dimen/burn_icon_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profile_name"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +53,7 @@
 
         <include
             android:id="@+id/profile_thumbnail"
-            layout="@layout/user_profile_thumbnail_medium" />
+            layout="@layout/user_profile_thumbnail_medium"/>
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
