@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,7 +48,6 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideAdapter.ProfileThu
 
     @Override
     public int getItemCount() { return data.size(); }
-
 
     /*
      * inner class

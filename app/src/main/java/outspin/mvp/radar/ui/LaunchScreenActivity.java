@@ -18,7 +18,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent launchIntent = new Intent(this, LoginActivity.class);
+        Intent launchIntent = new Intent(this, RadarNavigationActivity.class);
         startActivity(launchIntent);
         finish();
     }

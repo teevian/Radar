@@ -74,7 +74,7 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
 
         @Override
         public void onClick(View view) {
-            //if(this.no != null) mClickListener.onItemClick(view, getAdapterPosition(), view.getContext());
+           // if(this.no != null) mClickListener.onItemClick(view, getAdapterPosition(), view.getContext());
         }
     } //profile_thumbnail_picture
 

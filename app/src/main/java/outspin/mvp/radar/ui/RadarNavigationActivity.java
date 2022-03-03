@@ -8,7 +8,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import outspin.mvp.radar.R;
@@ -26,7 +25,7 @@ public class RadarNavigationActivity extends AppCompatActivity
         setContentView(mainBinding.getRoot());
 
         mainBinding.floatingButton.getRoot().setOnClickListener(view -> {
-            BottomSheetDialogFragment myBottomSheetDialogFragment = new MyBottomSheetDialogFragment(this);
+            BottomSheetDialogFragment myBottomSheetDialogFragment = new NotificationsDialog(this);
             myBottomSheetDialogFragment.show(getSupportFragmentManager(), myBottomSheetDialogFragment.getTag());
         });
 
@@ -40,5 +39,7 @@ public class RadarNavigationActivity extends AppCompatActivity
     @Override
     public void onItemClick(View view, int position, Context parent) {
         Toast.makeText(this, "lala", Toast.LENGTH_SHORT).show();
+        BottomSheetDialogFragment myBottomSheetDialogFragment = new NotificationsDialog(this);
+        myBottomSheetDialogFragment.show(getSupportFragmentManager(), myBottomSheetDialogFragment.getTag());
     }
 }

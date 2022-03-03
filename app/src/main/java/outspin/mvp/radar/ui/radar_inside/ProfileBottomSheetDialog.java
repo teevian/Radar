@@ -33,10 +33,7 @@ public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
 
         dialog.setContentView(interactWithUserDialogbinding.getRoot());
 
-        android.view.ViewGroup.LayoutParams params = interactWithUserDialogbinding.dialogContainer.getLayoutParams();
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height = (int) getResources().getDimension(R.dimen.dialog_interact_with_user_height);
-        interactWithUserDialogbinding.dialogContainer.setLayoutParams(params);
+        interactWithUserDialogbinding.tvProfileName.setText("");
 
         Picasso.with(getContext())
                 .load(userThumbnail.getPhotoURL())

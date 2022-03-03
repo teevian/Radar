@@ -20,9 +20,9 @@ import outspin.mvp.radar.R;
 import outspin.mvp.radar.data.DummieData;
 import outspin.mvp.radar.models.Interaction;
 
-public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
+public class NotificationsDialog extends BottomSheetDialogFragment {
     private final Context context;
-    public MyBottomSheetDialogFragment(Context parent) {
+    public NotificationsDialog(Context parent) {
         this.context = parent;
     }
 
