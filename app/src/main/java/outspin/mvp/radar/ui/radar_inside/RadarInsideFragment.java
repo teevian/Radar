@@ -84,12 +84,13 @@ public class RadarInsideFragment extends Fragment implements InsideGridAdapter.I
     public void onItemClick(View view, int position, Context parent) {
         Toast.makeText(this.getContext(), "posi: " + position, Toast.LENGTH_SHORT).show();
 
-        BottomSheetDialogFragment myBottomSheetDialogFragment = new ProfileBottomSheetDialog(getContext());
+        ProfileBottomSheetDialog myBottomSheetDialogFragment = new ProfileBottomSheetDialog(getContext());
         myBottomSheetDialogFragment.show(getChildFragmentManager(), myBottomSheetDialogFragment.getTag());
 
-        ProfileBottomSheetDialogBinding profileBottomSheetDialogBinding = ((ProfileBottomSheetDialog) myBottomSheetDialogFragment).getProfileDialogBinding();
+        /*
+        ProfileBottomSheetDialogBinding profileBottomSheetDialogBinding =  myBottomSheetDialogFragment.getProfileDialogBinding();
         profileBottomSheetDialogBinding.ivTap.setVisibility(View.INVISIBLE);
-
+           */
         // TODO(3) image not changing
         /*
         String uriPath = users.get(position).getPhotoURL();

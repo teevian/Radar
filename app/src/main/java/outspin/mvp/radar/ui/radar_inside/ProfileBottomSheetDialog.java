@@ -28,15 +28,13 @@ public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-        this.binding = ProfileBottomSheetDialogBinding.inflate(LayoutInflater.from(this.context));
+        this.binding = ProfileBottomSheetDialogBinding.inflate(LayoutInflater.from(getContext()));
 
         //final View view = View.inflate(getContext(), R.layout.profile_bottom_sheet_dialog, null);
         dialog.setContentView(this.binding.getRoot());
 
-        return dialog;
-    }
+        this.binding.profileThumbnail.profileThumbnailPicture.setVisibility(View.INVISIBLE);
 
-    public ProfileBottomSheetDialogBinding getProfileDialogBinding() {
-        return this.binding;
+        return dialog;
     }
 }
