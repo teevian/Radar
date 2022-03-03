@@ -3,6 +3,7 @@ package outspin.mvp.radar.ui.radar_inside;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -12,10 +13,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import outspin.mvp.radar.R;
+import outspin.mvp.radar.databinding.ProfileBottomSheetDialogBinding;
+import outspin.mvp.radar.databinding.ProfileDialogPreviewBinding;
 
 public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
+    Context context;
+    ProfileBottomSheetDialogBinding binding;
 
-    private final Context context;
     public ProfileBottomSheetDialog(Context parent) {
         this.context = parent;
     }
@@ -24,9 +28,15 @@ public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-        final View view = View.inflate(getContext(), R.layout.profile_bottom_sheet_dialog, null);
-        dialog.setContentView(view);
+        this.binding = ProfileBottomSheetDialogBinding.inflate(LayoutInflater.from(this.context));
+
+        //final View view = View.inflate(getContext(), R.layout.profile_bottom_sheet_dialog, null);
+        dialog.setContentView(this.binding.getRoot());
 
         return dialog;
+    }
+
+    public ProfileBottomSheetDialogBinding getProfileDialogBinding() {
+        return this.binding;
     }
 }
