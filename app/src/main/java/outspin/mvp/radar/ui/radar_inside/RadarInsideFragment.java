@@ -16,16 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
-import outspin.mvp.radar.R;
 import outspin.mvp.radar.data.DummieData;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
-import outspin.mvp.radar.databinding.ProfileBottomSheetDialogBinding;
 import outspin.mvp.radar.models.User;
 
 
@@ -84,7 +78,7 @@ public class RadarInsideFragment extends Fragment implements InsideGridAdapter.I
     public void onItemClick(View view, int position, Context parent) {
         Toast.makeText(this.getContext(), "posi: " + position, Toast.LENGTH_SHORT).show();
 
-        ProfileBottomSheetDialog myBottomSheetDialogFragment = new ProfileBottomSheetDialog(getContext());
+        ProfileBottomSheetDialog myBottomSheetDialogFragment = new ProfileBottomSheetDialog(getContext(), users.get(position));
         myBottomSheetDialogFragment.show(getChildFragmentManager(), myBottomSheetDialogFragment.getTag());
 
         /*

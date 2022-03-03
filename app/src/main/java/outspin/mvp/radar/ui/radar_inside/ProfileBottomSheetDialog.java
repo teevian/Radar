@@ -4,36 +4,40 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.squareup.picasso.Picasso;
 
-import outspin.mvp.radar.R;
-import outspin.mvp.radar.databinding.ProfileBottomSheetDialogBinding;
-import outspin.mvp.radar.databinding.ProfileDialogPreviewBinding;
+import outspin.mvp.radar.databinding.DialogInteractWithUserBinding;
+import outspin.mvp.radar.models.User;
 
 public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
-    Context context;
-    ProfileBottomSheetDialogBinding binding;
+    private final Context context;
+    private User user;
 
-    public ProfileBottomSheetDialog(Context parent) {
+    public ProfileBottomSheetDialog(Context parent, User user) {
         this.context = parent;
+        this.user = user;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-        this.binding = ProfileBottomSheetDialogBinding.inflate(LayoutInflater.from(getContext()));
+        DialogInteractWithUserBinding interactWithUserDialogbinding =
+                DialogInteractWithUserBinding.inflate(LayoutInflater.from(getContext()));
 
-        //final View view = View.inflate(getContext(), R.layout.profile_bottom_sheet_dialog, null);
-        dialog.setContentView(this.binding.getRoot());
+        dialog.setContentView(interactWithUserDialogbinding.getRoot());
 
-        this.binding.profileThumbnail.profileThumbnailPicture.setVisibility(View.INVISIBLE);
+        Picasso.with(getContext())
+                .load(user.getPhotoURL())
+                .resize(150, 150)
+                .centerCrop()
+                .into(interactWithUserDialogbinding.profileThumbnail.profileThumbnailPicture);
 
         return dialog;
     }
