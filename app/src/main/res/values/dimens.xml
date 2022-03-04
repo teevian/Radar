@@ -29,6 +29,7 @@
     <dimen name="profile_thumbnail_side_small">48dp</dimen>
     <dimen name="thumbnail_interaction_icon_small">21dp</dimen>
     <dimen name="burn_icon_small">32dp</dimen>
+    <dimen name="icon_side">30dp</dimen>
 
     <!-- floatting button -->
     <dimen name="floating_button_size">65dp</dimen>

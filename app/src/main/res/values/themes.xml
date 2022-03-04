@@ -43,6 +43,12 @@
         <item name="strokeWidth">2dp</item>
     </style>
 
+    <style name="roundedClubThumbnail">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
     <style name="FontTheme" parent="Theme.Radar">
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>

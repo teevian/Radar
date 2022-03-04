@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.ActivityRadarNavigationBinding;
 import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
+import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 public class RadarNavigationActivity extends AppCompatActivity
     implements InteractionsAdapter.InteractionClickListener {
@@ -31,7 +32,7 @@ public class RadarNavigationActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, new RadarInsideFragment())
+                .replace(R.id.container, new RadarOutsideFragment())
                 .addToBackStack("inside")
                 .commit();
     }
