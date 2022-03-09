@@ -30,9 +30,8 @@ public class APIHandler {
 
     // TODO(2) joao birras faz isto
     public static UserThumbnail createUser() {
-        ConnectAPI connect = new ConnectAPI();
         //connect.onPostExecute("GET", UserThumbnail);
-
+        APIConnectionBundle bundle = new APIConnectionBundle("GET", "kde");
 
         //ConnectAPI(bundle);
 
@@ -112,20 +111,20 @@ public class APIHandler {
             //Log.d("SERVER OUT:::::", jsonResult);
         }
 
-        public static HttpURLConnection getURLConnection() throws MalformedURLException {
+        public HttpURLConnection getURLConnection() throws MalformedURLException {
             URL url = new URL("http://92.222.10.201:62126/users?id=4");
             return null;
         }
     }
 
     protected static class APIConnectionBundle {
-        public final String hostIP = "http://92.222.10.201";
-        public final String port = String.valueOf(Macros.CONST_INTERNET_TCP_PORT);
-        public final String httpMethod;
-        public final boolean setDoOutput = false;
-        public final boolean setDoInput = true;
-        public final String uri;
-        public final String URL;
+        protected final String hostIP = "http://92.222.10.201";
+        protected final String port = String.valueOf(Macros.CONST_INTERNET_TCP_PORT);
+        protected String httpMethod;
+        protected boolean setDoOutput = false;
+        protected boolean setDoInput = true;
+        protected String uri;
+        protected String URL;
 
         APIConnectionBundle(@NonNull String method, @NonNull String uri) {
             this.httpMethod = method;
