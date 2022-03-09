@@ -32,7 +32,7 @@ public class RadarNavigationActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, new RadarOutsideFragment())
+                .replace(R.id.container, new RadarInsideFragment())
                 .addToBackStack("inside")
                 .commit();
     }

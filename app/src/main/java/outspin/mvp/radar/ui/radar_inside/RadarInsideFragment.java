@@ -21,6 +21,7 @@ import outspin.mvp.radar.data.DummieData;
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
 import outspin.mvp.radar.models.UserThumbnail;
+import outspin.mvp.radar.network.NetworkManager;
 
 
 public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener {
@@ -31,6 +32,10 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentRadarInsideBinding = FragmentRadarInsideBinding.inflate(inflater, container, false);
+
+        NetworkManager.JSONTask task = new NetworkManager.JSONTask();
+        task.execute();
+
         return fragmentRadarInsideBinding.getRoot();
     }
 

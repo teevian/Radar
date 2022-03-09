@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,12 +21,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import outspin.mvp.radar.data.Macros;
+import outspin.mvp.radar.models.UserThumbnail;
+import outspin.mvp.radar.utils.JSONBuilder;
 
 public class NetworkManager {
 
@@ -38,64 +44,54 @@ public class NetworkManager {
 
             @Override
             protected String doInBackground(String... strings) {
-
-                HttpURLConnection connection = null;
-                BufferedReader reader = null;
-
+                HttpURLConnection urlConnection = null;
+                String jsonString = null;
                 try {
-                    // TODO(10.2) IMPORTANT: SHOULD BE HTTPS AND THIS SHOULD BE FALSE (CHECK 10.1)
-                    URL url = new URL("http://92.222.10.201:62126/dummy/users");
-                    connection = (HttpURLConnection) url.openConnection();
-                    connection.connect();
+                    URL url = new URL("http://92.222.10.201:62126/users?id=4");
 
-                    InputStream stream = connection.getInputStream();
-                    reader = new BufferedReader(new InputStreamReader(stream));
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setRequestMethod("GET");
+                    urlConnection.setRequestProperty("Content-Type", "application/json");
+                    urlConnection.setDoOutput(false);
 
-                    StringBuilder buffer = new StringBuilder();
+                    int statusCode = urlConnection.getResponseCode();
 
-                    String line = "";
-                    Log.d("OH OH", "NOT A TEST");
+                    if(statusCode == 200) {
+                        BufferedReader bufferedReader = new BufferedReader(
+                                new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+                        StringBuilder stringBuilder = new StringBuilder();
 
-                    while(null != (line = reader.readLine())) {
-                        buffer.append(line).append("\n");
-                        Log.d("JSON from server: ", line);
-                    }
-
-                    return buffer.toString();
-                } catch (IOException e) {
-                    Log.d("ERROR", "COULDNT CONNECT");
-                    e.printStackTrace();
-                } finally {
-                    if(connection != null) {
-                        connection.disconnect();
-                    }
-                    try {
-                        if(reader != null) {
-                            reader.close();
+                        String responseLineFromAPI;
+                        while ((responseLineFromAPI = bufferedReader.readLine()) != null) {
+                            stringBuilder.append(responseLineFromAPI + "\n");
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        bufferedReader.close();
+
+                        jsonString = stringBuilder.toString();
+                        Log.d("SERVER OUTPUT::::", jsonString);
+
+                        JSONObject jsonUser = JSONBuilder.JSONfromString(jsonString);
+                        UserThumbnail userThumbnail = JSONBuilder.UserFromJSON(jsonUser);
+
+                        Log.d("USER::::::::", userThumbnail.toString());
                     }
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                return null;
+                return jsonString;
             }
 
             @Override
             protected void onPostExecute(String jsonResult) {
                 super.onPostExecute(jsonResult);
 
-                try {
-                    JSONArray json = new JSONArray(jsonResult);
-                    int lenght = json.length();
-
-                    //for(int i = 0; i < lenght; i++) {
-                    //    JSONObject jsonArray = json.getJSONObject(i);
-                    Log.d("JSON: ", json.getJSONObject(0).toString());
-
-                    } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                //Log.d("SERVER OUT:::::", jsonResult);
             }
         }
 
