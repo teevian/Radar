@@ -35,8 +35,9 @@ import outspin.mvp.radar.utils.JSONBuilder;
 
 public class NetworkManager {
 
-        public static class JSONTask extends AsyncTask<String, String, String> {
 
+
+        public static class JSONTask extends AsyncTask<String, String, String> {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
