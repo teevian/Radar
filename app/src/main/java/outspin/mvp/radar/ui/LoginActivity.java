@@ -49,6 +49,9 @@ public class LoginActivity extends AppCompatActivity {
             String phoneNumber = loginBinding.etLoginPhone.getText().toString();
 
             if(isValidated(phoneNumber, password)){
+
+
+                /*
                 SharedPreferences sharedPref = getApplication().getSharedPreferences(
                         Macros.PREFERENCE_FILE_AUTHENTICATION, Context.MODE_PRIVATE);
 
@@ -59,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent =  new Intent(LoginActivity.this, RadarNavigationActivity.class);
                 startActivity(intent);
+                */
             }
         });
 

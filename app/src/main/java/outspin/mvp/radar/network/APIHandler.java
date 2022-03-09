@@ -31,7 +31,7 @@ public class APIHandler {
     // TODO(2) joao birras faz isto
     public static UserThumbnail createUser() {
         //connect.onPostExecute("GET", UserThumbnail);
-        APIConnectionBundle bundle = new APIConnectionBundle("GET", "kde");
+        APIConnectionBundle bundle = new APIConnectionBundle("GET", "users", "dasd");
 
         //ConnectAPI(bundle);
 
@@ -39,9 +39,14 @@ public class APIHandler {
     }
 
 
-    public static class ConnectAPI extends AsyncTask<String, String, String> {
+    public static class ConnectAPI extends AsyncTask<Void, String, String> {
         private String serverPort = String.valueOf(Macros.CONST_INTERNET_TCP_PORT);
         private String hostIP = Macros.CONST_INTERNET_SERVER_IPV4;
+        private APIConnectionBundle bundle;
+
+        ConnectAPI(APIConnectionBundle bundle) {
+            this.bundle = bundle;
+        }
 
 
         @Override
@@ -50,21 +55,20 @@ public class APIHandler {
         }
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(Void... object) {
             // TODO(3) build URL
             // connection
             // parse object
             // return object
-
             HttpURLConnection urlConnection = null;
             String jsonString = null;
             try {
-                URL url = new URL("http://92.222.10.201:62126/users?id=4");
-
+                URL url = bundle.getURL();
                 urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestMethod(bundle.httpMethod);
                 urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setDoOutput(false);
+                urlConnection.setDoOutput(bundle.setDoOutput);
+                urlConnection.setDoInput(bundle.setDoInput);
 
                 int statusCode = urlConnection.getResponseCode();
 
@@ -121,14 +125,16 @@ public class APIHandler {
         protected final String hostIP = "http://92.222.10.201";
         protected final String port = String.valueOf(Macros.CONST_INTERNET_TCP_PORT);
         protected String httpMethod;
+        protected String json;
         protected boolean setDoOutput = false;
         protected boolean setDoInput = true;
         protected String uri;
         protected String URL;
 
-        APIConnectionBundle(@NonNull String method, @NonNull String uri) {
+        APIConnectionBundle(@NonNull String method, @NonNull String uri, String json) {
             this.httpMethod = method;
             this.uri = uri;
+            this.json = json;
             this.URL = this.hostIP + ":" + this.port + "/";
         }
 
