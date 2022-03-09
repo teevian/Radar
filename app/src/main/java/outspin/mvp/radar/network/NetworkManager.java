@@ -56,7 +56,7 @@ public class NetworkManager {
 
                     int statusCode = urlConnection.getResponseCode();
 
-                    if(statusCode == 200) {
+                    if(statusCode == Macros.SERVER_STATUS_OK) {
                         BufferedReader bufferedReader = new BufferedReader(
                                 new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
                         StringBuilder stringBuilder = new StringBuilder();
@@ -85,6 +85,11 @@ public class NetworkManager {
                     e.printStackTrace();
                 }
                 return jsonString;
+            }
+
+            @Override
+            protected void onProgressUpdate(String... values) {
+                super.onProgressUpdate(values);
             }
 
             @Override
