@@ -1,6 +1,7 @@
 package outspin.mvp.radar.network;
 
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,20 @@ import outspin.mvp.radar.utils.JSONBuilder;
 public class APIHandler {
 
     // TODO(1) idk faz isto
-    public static boolean userExists() {
+    public static boolean userExists(int id) {
+        String uri = "?id=" + String.valueOf(id);
+        APIConnectionBundle bundle = new APIConnectionBundle("GET", uri);
+
+        ConnectAPI connectAPI = new ConnectAPI(bundle);
+        connectAPI.execute();
+        connectAPI.onPostExecute();
+
+        return false;
+    }
+
+    public static boolean userExists(String phoneNumber) {
+
+        APIConnectionBundle bundle = new APIConnectionBundle("GET", "");
 
         return false;
     }
@@ -47,7 +61,6 @@ public class APIHandler {
         ConnectAPI(APIConnectionBundle bundle) {
             this.bundle = bundle;
         }
-
 
         @Override
         protected void onPreExecute() {
