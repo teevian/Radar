@@ -5,12 +5,14 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import outspin.mvp.radar.utils.JSONBuilder;
+import outspin.mvp.radar.api.JSONBuilder;
 
 public class UserThumbnail {
+    private long id;
     private String username;
     private String phonenumber; // ID
     private String photoURL;
+    private String interaction;
 
     public UserThumbnail(String username, String phonenumber, String photoURL) {
         this.username = username;
@@ -20,23 +22,16 @@ public class UserThumbnail {
 
     public UserThumbnail(JSONObject jsonUser) {
         try {
-           UserThumbnail temp = JSONBuilder.UserFromJSON(jsonUser);
-           this.username = temp.username;
-           this.phonenumber = temp.phonenumber;
-           this.photoURL = temp.phonenumber;
-
-        } catch (JSONException e) {
-            Log.d("ERROR: ", e.toString());
-        }
+            this.photoURL = jsonUser.getString("thumbnail");
+            this.id = jsonUser.getLong("id");
+            this.interaction = jsonUser.getString("interaction");
+            Log.d("INTERACTION_IS: ", this.interaction);
+        } catch (Exception ignored) {}
     }
 
     @Override
     public String toString() {
-        return "UserThumbnail{" +
-                "username='" + username + '\'' +
-                ", phonenumber='" + phonenumber + '\'' +
-                ", photoURL='" + photoURL + '\'' +
-                '}';
+        return "UserThumbnail{" + this.id + ", " + this.interaction +"}";
     }
 
     /*  getters && setters   */
@@ -48,4 +43,12 @@ public class UserThumbnail {
 
     public String getPhotoURL() { return photoURL; }
     public void setPhotoURL(String photoURL) { this.photoURL = photoURL; }
+
+    public String getInteraction() {
+        return this.interaction;
+    }
+
+    public void setInteraction(String interaction) {
+        this.interaction = interaction;
+    }
 }

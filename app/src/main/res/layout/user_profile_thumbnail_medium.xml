@@ -15,6 +15,7 @@
 
     <ImageView
         android:id="@+id/profile_thumbnail_icon_interaction"
+        android:visibility="invisible"
         android:layout_width="@dimen/thumbnail_interaction_icon_medium"
         android:layout_height="@dimen/thumbnail_interaction_icon_medium"
         android:layout_alignParentEnd="true"

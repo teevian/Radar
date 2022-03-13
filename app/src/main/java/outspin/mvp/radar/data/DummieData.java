@@ -3,7 +3,7 @@ package outspin.mvp.radar.data;
 import java.util.Arrays;
 import java.util.List;
 
-import outspin.mvp.radar.models.Interaction;
+import outspin.mvp.radar.models.Notification;
 import outspin.mvp.radar.models.UserThumbnail;
 
 public class DummieData {
@@ -80,30 +80,30 @@ public class DummieData {
             new UserThumbnail("Rafa", "912088408", "https://turingnotes.com/wp-content/uploads/2022/02/photo23.jpeg")
     );
 
-    public static List<Interaction> DUMMY_INTERACTIONS_FULL = Arrays.asList(
-            new Interaction("Manuel waved @ you!", 0, "https://turingnotes.com/wp-content/uploads/2022/02/photo16.jpeg"),
-            new Interaction("Ricardo has entered the club", 1, "https://turingnotes.com/wp-content/uploads/2022/02/photo1.jpeg"),
-            new Interaction("Maria waved @ you!", 2, "https://turingnotes.com/wp-content/uploads/2022/02/photo2.jpeg"),
-            new Interaction("Johanna burned you!", 3, "https://turingnotes.com/wp-content/uploads/2022/02/photo3.jpeg"),
-            new Interaction("Matilde JUST BECAME A STAR", 4, "https://turingnotes.com/wp-content/uploads/2022/02/photo4.jpeg"),
-            new Interaction("Tânia joined the club", 5, "https://turingnotes.com/wp-content/uploads/2022/02/photo5.jpeg"),
-            new Interaction("Vaca joined the club", 6, "https://turingnotes.com/wp-content/uploads/2022/02/photo6.jpeg"),
-            new Interaction("your friend Manuela shared a moment!", 7, "https://turingnotes.com/wp-content/uploads/2022/02/photo7.jpeg"),
-            new Interaction("Francisca waved @ you!", 8, "https://turingnotes.com/wp-content/uploads/2022/02/photo8.jpeg"),
-            new Interaction("your friend Antónia shared a moment", 9, "https://turingnotes.com/wp-content/uploads/2022/02/photo9.jpeg"),
-            new Interaction("Ana is offering you a drink", 10, "https://turingnotes.com/wp-content/uploads/2022/02/photo10.jpeg"),
-            new Interaction("ISABEL JUST BECAME A STAR", 11, "https://turingnotes.com/wp-content/uploads/2022/02/photo11.jpeg"),
-            new Interaction("your friend Ricardo joined the club", 12, "https://turingnotes.com/wp-content/uploads/2022/02/photo12.jpeg"),
-            new Interaction("Mafalda invites you to dance", 13, "https://turingnotes.com/wp-content/uploads/2022/02/photo13.jpeg"),
-            new Interaction("Baltazar Saramago waved @ you!", 14, "https://turingnotes.com/wp-content/uploads/2022/02/photo14.jpeg"),
-            new Interaction("your friend Saramago shared a moment", 15, "https://turingnotes.com/wp-content/uploads/2022/02/photo15.jpeg"),
-            new Interaction("Patrícia wants to be your friend", 16, "https://turingnotes.com/wp-content/uploads/2022/02/photo16.jpeg"),
-            new Interaction("Vanessa burned you!", 17, "https://turingnotes.com/wp-content/uploads/2022/02/photo17.jpeg"),
-            new Interaction("Jéssica waved @ you!", 18, "https://turingnotes.com/wp-content/uploads/2022/02/photo18.jpeg"),
-            new Interaction("CRISTINA JUST BECAME A STAR", 19, "https://turingnotes.com/wp-content/uploads/2022/02/photo12.jpeg"),
-            new Interaction("Mauro has entered the club", 20, "https://turingnotes.com/wp-content/uploads/2022/02/photo20.jpeg"),
-            new Interaction("Telmo is handsome", 21, "https://turingnotes.com/wp-content/uploads/2022/02/photo21.jpeg"),
-            new Interaction("your friend Zita just shared a moment", 22, "https://turingnotes.com/wp-content/uploads/2022/02/photo2.jpeg"),
-            new Interaction("Rafa's crew shared a moment", 23, "https://turingnotes.com/wp-content/uploads/2022/02/photo23.jpeg")
+    public static List<Notification> dummyInteractionsFull = Arrays.asList(
+            new Notification(0, 0, Notification.WAVE),
+            new Notification(1, 1, Notification.WAVE),
+            new Notification(2, 2, Notification.WAVE),
+            new Notification(1, 3, Notification.WAVE),
+            new Notification(2, 4, Notification.WAVE),
+            new Notification(1, 5, Notification.WAVE),
+            new Notification(3, 6, Notification.WAVE),
+            new Notification(4, 7, Notification.WAVE),
+            new Notification(1, 8, Notification.WAVE),
+            new Notification(1, 9, Notification.WAVE),
+            new Notification(0, 10, Notification.WAVE),
+            new Notification(2, 11, Notification.WAVE),
+            new Notification(3, 12, Notification.WAVE),
+            new Notification(4, 13, Notification.WAVE),
+            new Notification(5, 14, Notification.WAVE),
+            new Notification(1, 15, Notification.WAVE),
+            new Notification(1, 16, Notification.WAVE),
+            new Notification(2, 17, Notification.WAVE),
+            new Notification(10, 18, Notification.WAVE),
+            new Notification(13, 19, Notification.WAVE),
+            new Notification(1, 20, Notification.WAVE),
+            new Notification(3, 21, Notification.WAVE),
+            new Notification(3, 22, Notification.WAVE),
+            new Notification(1, 23, Notification.WAVE)
     );
 }

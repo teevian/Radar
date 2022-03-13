@@ -3,21 +3,17 @@ package outspin.mvp.radar.network;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
@@ -26,12 +22,11 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.models.UserThumbnail;
-import outspin.mvp.radar.utils.JSONBuilder;
+import outspin.mvp.radar.api.JSONBuilder;
 
 public class NetworkManager {
 
@@ -72,7 +67,7 @@ public class NetworkManager {
                         Log.d("SERVER OUTPUT::::", jsonString);
 
                         JSONObject jsonUser = JSONBuilder.JSONfromString(jsonString);
-                        UserThumbnail userThumbnail = JSONBuilder.UserFromJSON(jsonUser);
+                        UserThumbnail userThumbnail = JSONBuilder.userFromJSON(jsonUser);
 
                         Log.d("USER::::::::", userThumbnail.toString());
                     }

@@ -44,6 +44,11 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideAdapter.ProfileThu
                 .resize(150, 150)
                 .centerCrop()
                 .into(profileIcon);
+
+        if(data.get(position).getInteraction().equals("wa")) {
+            ImageView icon = holder.itemView.findViewById(R.id.profile_thumbnail_icon_interaction);
+            icon.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

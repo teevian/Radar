@@ -16,14 +16,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.models.Interaction;
+import outspin.mvp.radar.models.Notification;
 
 public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapter.InteractionViewHolder>{
-    ArrayList<Interaction> interactions;
+    ArrayList<Notification> notifications;
     InteractionClickListener notificationClickListener;
 
-    InteractionsAdapter(ArrayList<Interaction> interactions) {
-        this.interactions = interactions;
+    InteractionsAdapter(ArrayList<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     @NonNull
@@ -40,11 +40,11 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull InteractionViewHolder holder, int position) {
-        final Interaction interaction = interactions.get(position);
-        holder.textViewMessage.setText(interaction.getMessage());
+        final Notification notification = notifications.get(position);
+        holder.textViewMessage.setText(notification.getMessage());
 
         Picasso.with(holder.imageView.getContext())
-                .load(interactions.get(position).getSenderPhotoURI())
+                .load(notifications.get(position).getSenderPhotoURI())
                 .resize(150, 150)
                 .centerCrop()
                 .into(holder.imageView);
@@ -56,7 +56,7 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
 
     @Override
     public int getItemCount() {
-        return interactions.size();
+        return notifications.size();
     }
 
     protected static class InteractionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
