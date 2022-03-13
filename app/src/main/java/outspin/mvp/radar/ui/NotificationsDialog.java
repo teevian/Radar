@@ -38,6 +38,7 @@ import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
 public class NotificationsDialog extends BottomSheetDialogFragment {
     private final Context context;
     private ArrayList<Notification> notifications;
+    private View view;
 
     public NotificationsDialog(Context parent) {
         this.context = parent;
@@ -47,7 +48,7 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState) ;
-        final View view = View.inflate(getContext(), R.layout.dialog_notifications, null);
+        view = View.inflate(getContext(), R.layout.dialog_notifications, null);
         dialog.setContentView(view);
 
         BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
@@ -55,7 +56,7 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
 
         PopulateNotifications populateNotifications = new PopulateNotifications(this);
         populateNotifications.execute();
-
+/*
         notifications = new ArrayList<>(DummieData.dummyInteractionsFull);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_interactions);
@@ -63,7 +64,7 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(interactionsAdapter);
-
+*/
         return dialog;
     }
 
@@ -121,6 +122,7 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
                 int numOfNotifications = notificationsArrayJson.length();
                 for(int i = 0; i < numOfNotifications; i++) {
                     notifications.add( new Notification(notificationsArrayJson.getJSONObject(i)) );
+                    notifications.get(i).setMessage(String.valueOf(i));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -128,6 +130,12 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
 
             Log.d("--------->", notifications.toString());
 
+
+            RecyclerView recyclerView = view.findViewById(R.id.rv_interactions);
+            InteractionsAdapter interactionsAdapter = new InteractionsAdapter(notifications);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(interactionsAdapter);
 
         }
     }
