@@ -30,9 +30,7 @@ import outspin.mvp.radar.api.JSONBuilder;
 
 public class NetworkManager {
 
-
-
-        public static class JSONTask extends AsyncTask<String, String, String> {
+        public static class APIConnection extends AsyncTask<String, String, String> {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -71,8 +69,6 @@ public class NetworkManager {
 
                         Log.d("USER::::::::", userThumbnail.toString());
                     }
-
-
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

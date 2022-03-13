@@ -62,7 +62,8 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
     @Override
     public void onItemClick(View view, int position, Context parent) {
-        ProfileBottomSheetDialog myBottomSheetDialogFragment = new ProfileBottomSheetDialog(getContext(), userThumbnails.get(position));
+        ProfileBottomSheetDialog myBottomSheetDialogFragment =
+                new ProfileBottomSheetDialog(getContext(), userThumbnails.get(position));
         myBottomSheetDialogFragment.show(getChildFragmentManager(), myBottomSheetDialogFragment.getTag());
     }
 

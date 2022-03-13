@@ -1,8 +1,6 @@
 package outspin.mvp.radar.data;
 
 public class Macros {
-    public static final int CONST_INTERNET_NUM_OF_DOWNLOADED_MOMENTS = 4;
-
     public static final short CONST_RADAR_INSIDE_NUM_OF_COLUMNS = 4;
 
     // internet
@@ -34,4 +32,6 @@ public class Macros {
     public static final int SERVER_STATUS_NOT_IMPLEMENTED   = 501;
     public static final int SERVER_STATUS_BAD_GATEWAY       = 502;
     public static final int SERVER_STATUS_UNAVAILABLE       = 503;
+
+    public static final String NOTIFICATION_WAVE = "waved at you!";
 }

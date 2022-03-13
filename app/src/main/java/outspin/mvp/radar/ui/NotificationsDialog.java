@@ -56,15 +56,7 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
 
         PopulateNotifications populateNotifications = new PopulateNotifications(this);
         populateNotifications.execute();
-/*
-        notifications = new ArrayList<>(DummieData.dummyInteractionsFull);
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv_interactions);
-        InteractionsAdapter interactionsAdapter = new InteractionsAdapter(notifications);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(interactionsAdapter);
-*/
         return dialog;
     }
 
@@ -128,15 +120,11 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
                 e.printStackTrace();
             }
 
-            Log.d("--------->", notifications.toString());
-
-
             RecyclerView recyclerView = view.findViewById(R.id.rv_interactions);
             InteractionsAdapter interactionsAdapter = new InteractionsAdapter(notifications);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setAdapter(interactionsAdapter);
-
         }
     }
 }

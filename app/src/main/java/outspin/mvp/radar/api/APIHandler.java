@@ -14,6 +14,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
@@ -52,7 +54,21 @@ public class APIHandler {
         }
 
     */
-    public boolean openConnection() {
+    APIRequest("GET", "users", "id=1", "club=3", "sts=2bjwhsbw");
+    public JSONObject APIrequest(String httpMethod, String path, String... query) throws IOException {
+        String port = "62126";
+        String url = "http://92:222.10.201" + ":" + port;
+
+        String query = String.format("param1=%s&param2=%s",
+                URLEncoder.encode(param1, charset), URLEncoder.encode((param2, charset)));
+
+
+        URLConnection connection = new URL(url + "?" + query).openConnection();
+        connection.setRequestProperty("Accept-Charset", java.nio.charset.StandardCharsets.UTF_8.name());
+
+
+
+
         return false;
     }
 
