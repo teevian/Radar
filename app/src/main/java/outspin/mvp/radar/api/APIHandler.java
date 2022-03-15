@@ -188,6 +188,8 @@ public class APIHandler {
         }
     }
 
+    //public static class QueryAPI extends AsyncTask<Void, String, JSONObject>
+
     public static class QueryAPI extends AsyncTask<Void, String, JSONObject> {
         private final APIConnectionBundle bundle;
 

@@ -40,7 +40,6 @@ import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener {
     private FragmentRadarInsideBinding fragmentRadarInsideBinding;
-    //private final ArrayList<UserThumbnail> userThumbnails = new ArrayList<>(DummieData.DUMMY_USERS_FULL);
     private ArrayList<UserThumb> userThumbs = null;
 
     private InsideAdapter gridAdapter;
@@ -70,10 +69,6 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
         super.onViewCreated(view, savedInstanceState);
 
         rvInsideGrid = fragmentRadarInsideBinding.rvInsideUsers;
-
-        APIHandler api = new APIHandler();
-        ArrayList<UserThumb> user = api.getUsersThumbById(13);
-        Log.d(";;;;;;;;;;;;", user.toString());
 
         PopulateAdapter populate = new PopulateAdapter(this);
         populate.execute();
