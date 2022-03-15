@@ -49,4 +49,7 @@ dependencies {
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
+    // Preferences
+    def preference_version = "1.2.0"
+    implementation "androidx.preference:preference:$preference_version"
 }

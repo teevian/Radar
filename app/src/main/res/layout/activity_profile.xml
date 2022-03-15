@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_preference"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ProfileActivity"
@@ -16,7 +17,7 @@
         android:orientation="horizontal">
 
         <include
-            android:id="@+id/include"
+            android:id="@+id/profile_photo"
             layout="@layout/user_profile_thumbnail_large" />
 
         <ImageView
@@ -32,8 +33,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="30dp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/include"
+            app:layout_constraintStart_toEndOf="@+id/profile_photo"
             app:layout_constraintTop_toTopOf="parent">
 
             <EditText
@@ -41,10 +43,11 @@
                 android:inputType="none"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:textAlignment="center"
                 android:text="Tatiana "
                 android:textColor="@color/white"
-                android:textSize="25sp"/>
+                android:textSize="25sp"
+                android:backgroundTint="@color/transparent"/>
 
             <ImageView
                 android:id="@+id/iv_edit"

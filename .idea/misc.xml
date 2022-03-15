@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26666666666666666" />
         <entry key="app/src/main/res/drawable/button_format.xml" value="0.14375" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.17962962962962964" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.26666666666666666" />
         <entry key="app/src/main/res/drawable/ic_outspin_burn.xml" value="0.2537037037037037" />
         <entry key="app/src/main/res/drawable/ic_outspin_wave.xml" value="0.15208333333333332" />
@@ -14,18 +15,24 @@
         <entry key="app/src/main/res/drawable/status_thumbnail_circle.xml" value="0.24444444444444444" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1684877523262612" />
-        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.28229166666666666" />
-        <entry key="app/src/main/res/layout/activity_radar_navigation.xml" value="0.20364583333333333" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_radar_navigation.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/activity_radar_outside.xml" value="0.25052083333333336" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.12760416666666666" />
         <entry key="app/src/main/res/layout/ads.xml" value="0.25052083333333336" />
         <entry key="app/src/main/res/layout/bottom_sheet_notifications.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/layout/burn_number.xml" value="0.335" />
         <entry key="app/src/main/res/layout/club_layout.xml" value="0.5797101449275363" />
         <entry key="app/src/main/res/layout/dialog_interact_with_user.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_notifications.xml" value="0.13177083333333334" />
         <entry key="app/src/main/res/layout/fragment_radar_inside.xml" value="0.21302083333333333" />
         <entry key="app/src/main/res/layout/fragment_radar_outside.xml" value="0.2546875" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.1109375" />
         <entry key="app/src/main/res/layout/group_layout.xml" value="0.1421875" />
+        <entry key="app/src/main/res/layout/interaction_item.xml" value="0.1109375" />
+        <entry key="app/src/main/res/layout/my_profile_dialog_preview.xml" value="0.13177083333333334" />
+        <entry key="app/src/main/res/layout/my_profile_floating_button.xml" value="0.13177083333333334" />
         <entry key="app/src/main/res/layout/not_my_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/notification_item.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/layout/profile_bottom_sheet_dialog.xml" value="0.27794871794871795" />
@@ -37,6 +44,7 @@
         <entry key="app/src/main/res/layout/user_profile_thumbnail_medium.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/layout/user_profile_thumbnail_small.xml" value="0.19444444444444445" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/profile_thumbnail_default_joidk_easter_egg_round.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/xml/prefs.xml" value="0.375" />
       </map>
     </option>
   </component>

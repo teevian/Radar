@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <PreferenceCategory
+            app:key="visibility_category"
+            app:title="Visibility">
+
+                <SwitchPreferenceCompat
+                        app:key="visibility"
+                        app:title="Visibility"/>
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            app:key="account_info_category"
+            app:title="Account">
+
+                <Preference
+                        app:key="name"
+                        app:title="Name"
+                        app:summary="José"/>
+
+                <Preference
+                        app:key="phone"
+                        app:title="Phone"
+                        app:summary="919000000"/>
+
+                <Preference
+                        app:key="country"
+                        app:title="Country"
+                        app:summary="Portugal"/>
+
+                <Preference
+                        app:key="password"
+                        app:title="Password"/>
+
+                <Preference
+                        app:key="deactivate_account"
+                        app:title="Deactivate account"/>
+        </PreferenceCategory>
+
+        <PreferenceCategory
+                app:key="about_category"
+                app:title="About">
+
+                <Preference
+                        app:key="about"
+                        app:title="About us"/>
+
+        </PreferenceCategory>
+        
+        <PreferenceCategory
+                app:key="help_category"
+                app:title="Help">
+
+                <Preference
+                        app:key="contact"
+                        app:title="Contact us"
+                        app:summary="\@"/>
+        </PreferenceCategory>
+</androidx.preference.PreferenceScreen>
