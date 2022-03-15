@@ -3,6 +3,7 @@ package outspin.mvp.radar.ui.radar_inside;
 import static java.lang.String.*;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,11 +29,13 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import outspin.mvp.radar.R;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.JSONBuilder;
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
 import outspin.mvp.radar.models.UserThumb;
+import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 
 public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener {
@@ -47,6 +51,17 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentRadarInsideBinding = FragmentRadarInsideBinding.inflate(inflater, container, false);
+        fragmentRadarInsideBinding.btLeave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getParentFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new RadarOutsideFragment())
+                        .addToBackStack("outside")
+                        .commit();
+            }
+        });
+
         return fragmentRadarInsideBinding.getRoot();
     }
 

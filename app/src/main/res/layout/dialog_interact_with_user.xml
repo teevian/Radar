@@ -44,14 +44,14 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
-                android:id="@+id/im_burn"
+                android:id="@+id/iv_burn"
                 android:src="@drawable/ic_outspin_burn"
                 android:layout_width="@dimen/burn_icon_small"
                 android:layout_height="@dimen/burn_icon_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_tap"
-                app:layout_constraintTop_toBottomOf="@+id/profile_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_name"
                 android:contentDescription="@string/accessibility_burn"/>
 
             <ImageView
@@ -61,8 +61,8 @@
                 android:layout_height="@dimen/burn_icon_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/im_burn"
-                app:layout_constraintTop_toBottomOf="@+id/profile_name"
+                app:layout_constraintStart_toEndOf="@+id/iv_burn"
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_name"
                 android:contentDescription="@string/accessibility_wave"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

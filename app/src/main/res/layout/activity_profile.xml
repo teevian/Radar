@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ProfileActivity"
+    android:orientation="vertical"
+    android:background="@color/outspin_black"
+    android:padding="30dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/user_profile_thumbnail_large" />
+
+        <ImageView
+            android:id="@+id/iv_settings"
+            android:src="@drawable/settings_icon"
+            android:layout_width="@dimen/icon_side"
+            android:layout_height="@dimen/icon_side"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/include"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/et_name"
+                android:inputType="none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Tatiana "
+                android:textColor="@color/white"
+                android:textSize="25sp"/>
+
+            <ImageView
+                android:id="@+id/iv_edit"
+                android:layout_width="@dimen/icon_side"
+                android:layout_height="@dimen/icon_side"
+                android:src="@drawable/edit_icon"/>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

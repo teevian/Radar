@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +39,20 @@ public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
                 .resize(150, 150)
                 .centerCrop()
                 .into(interactWithUserDialogbinding.profileThumbnail.profileThumbnailPicture);
+
+        interactWithUserDialogbinding.ivBurn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        interactWithUserDialogbinding.ivTap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         return dialog;
     }

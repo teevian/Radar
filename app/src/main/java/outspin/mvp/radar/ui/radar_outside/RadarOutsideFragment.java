@@ -42,6 +42,7 @@ import java.util.Objects;
 import outspin.mvp.radar.databinding.ClubLayoutBinding;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
 import outspin.mvp.radar.databinding.FragmentRadarOutsideBinding;
+import outspin.mvp.radar.ui.RadarNavigationActivity;
 
 public class RadarOutsideFragment extends Fragment {
     private FragmentRadarOutsideBinding binding;
@@ -66,11 +67,17 @@ public class RadarOutsideFragment extends Fragment {
         binding = FragmentRadarOutsideBinding.inflate(inflater, container, false);
         RelativeLayout rl = binding.container;
 
-        //fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.requireContext());
+        binding.btLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((RadarNavigationActivity)getActivity()).locationButton();
+            }
+        });
 
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         double pxHeight = displayMetrics.heightPixels;
         double pxWidth = displayMetrics.widthPixels;
+
 
         double dp1 = (double) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1,
                 getContext().getResources().getDisplayMetrics());
