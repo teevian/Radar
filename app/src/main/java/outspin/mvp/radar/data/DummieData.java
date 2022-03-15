@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import outspin.mvp.radar.models.Notification;
-import outspin.mvp.radar.models.UserThumbnail;
+import outspin.mvp.radar.models.UserThumb;
 
 public class DummieData {
 /*
@@ -45,39 +45,39 @@ public class DummieData {
             new Moment("yaaa", "River", "https://turingnotes.com/wp-content/uploads/2022/02/momentvideo4.mp4")
     );*/
 
-    public static List<UserThumbnail> DUMMY_USERS = Arrays.asList(
-            new UserThumbnail("Cristina", "912088008", "https://turingnotes.com/wp-content/uploads/2022/02/photo12.jpeg"),
-            new UserThumbnail("Mauro", "912088108", "https://turingnotes.com/wp-content/uploads/2022/02/photo20.jpeg"),
-            new UserThumbnail("Telmo", "912088208", "https://turingnotes.com/wp-content/uploads/2022/02/photo21.jpeg"),
-            new UserThumbnail("Zita", "912088308", "https://turingnotes.com/wp-content/uploads/2022/02/photo2.jpeg"),
-            new UserThumbnail("Rafa", "912088408", "https://turingnotes.com/wp-content/uploads/2022/02/photo23.jpeg")
+    public static List<UserThumb> DUMMY_USERS = Arrays.asList(
+            new UserThumb("Cristina", "912088008", "https://turingnotes.com/wp-content/uploads/2022/02/photo12.jpeg"),
+            new UserThumb("Mauro", "912088108", "https://turingnotes.com/wp-content/uploads/2022/02/photo20.jpeg"),
+            new UserThumb("Telmo", "912088208", "https://turingnotes.com/wp-content/uploads/2022/02/photo21.jpeg"),
+            new UserThumb("Zita", "912088308", "https://turingnotes.com/wp-content/uploads/2022/02/photo2.jpeg"),
+            new UserThumb("Rafa", "912088408", "https://turingnotes.com/wp-content/uploads/2022/02/photo23.jpeg")
     );
 
-    public static List<UserThumbnail> DUMMY_USERS_FULL = Arrays.asList(
-            new UserThumbnail("Manuel", "912088808", "https://turingnotes.com/wp-content/uploads/2022/02/photo16.jpeg"),
-            new UserThumbnail("João", "912088800", "https://turingnotes.com/wp-content/uploads/2022/02/photo1.jpeg"),
-            new UserThumbnail("Maria", "912088801", "https://turingnotes.com/wp-content/uploads/2022/02/photo2.jpeg"),
-            new UserThumbnail("Ricardo", "912088802", "https://turingnotes.com/wp-content/uploads/2022/02/photo3.jpeg"),
-            new UserThumbnail("Tiago", "912088803", "https://turingnotes.com/wp-content/uploads/2022/02/photo4.jpeg"),
-            new UserThumbnail("Tânia", "912088804", "https://turingnotes.com/wp-content/uploads/2022/02/photo5.jpeg"),
-            new UserThumbnail("Vaco", "912088805", "https://turingnotes.com/wp-content/uploads/2022/02/photo6.jpeg"),
-            new UserThumbnail("Manuela", "912088806", "https://turingnotes.com/wp-content/uploads/2022/02/photo7.jpeg"),
-            new UserThumbnail("Francisca", "912088807", "https://turingnotes.com/wp-content/uploads/2022/02/photo8.jpeg"),
-            new UserThumbnail("Antónia", "912088809", "https://turingnotes.com/wp-content/uploads/2022/02/photo9.jpeg"),
-            new UserThumbnail("Ana", "912088818", "https://turingnotes.com/wp-content/uploads/2022/02/photo10.jpeg"),
-            new UserThumbnail("Isabel", "912088828", "https://turingnotes.com/wp-content/uploads/2022/02/photo11.jpeg"),
-            new UserThumbnail("João", "912088838", "https://turingnotes.com/wp-content/uploads/2022/02/photo12.jpeg"),
-            new UserThumbnail("José", "912088848", "https://turingnotes.com/wp-content/uploads/2022/02/photo13.jpeg"),
-            new UserThumbnail("Baltazar", "912088858", "https://turingnotes.com/wp-content/uploads/2022/02/photo14.jpeg"),
-            new UserThumbnail("Saramago", "912088868", "https://turingnotes.com/wp-content/uploads/2022/02/photo15.jpeg"),
-            new UserThumbnail("António", "912088878", "https://turingnotes.com/wp-content/uploads/2022/02/photo16.jpeg"),
-            new UserThumbnail("Vanessa", "912088888", "https://turingnotes.com/wp-content/uploads/2022/02/photo17.jpeg"),
-            new UserThumbnail("Jéssica", "912088898", "https://turingnotes.com/wp-content/uploads/2022/02/photo18.jpeg"),
-            new UserThumbnail("Cristina", "912088008", "https://turingnotes.com/wp-content/uploads/2022/02/photo12.jpeg"),
-            new UserThumbnail("Mauro", "912088108", "https://turingnotes.com/wp-content/uploads/2022/02/photo20.jpeg"),
-            new UserThumbnail("Telmo", "912088208", "https://turingnotes.com/wp-content/uploads/2022/02/photo21.jpeg"),
-            new UserThumbnail("Zita", "912088308", "https://turingnotes.com/wp-content/uploads/2022/02/photo2.jpeg"),
-            new UserThumbnail("Rafa", "912088408", "https://turingnotes.com/wp-content/uploads/2022/02/photo23.jpeg")
+    public static List<UserThumb> DUMMY_USERS_FULL = Arrays.asList(
+            new UserThumb("Manuel", "912088808", "https://turingnotes.com/wp-content/uploads/2022/02/photo16.jpeg"),
+            new UserThumb("João", "912088800", "https://turingnotes.com/wp-content/uploads/2022/02/photo1.jpeg"),
+            new UserThumb("Maria", "912088801", "https://turingnotes.com/wp-content/uploads/2022/02/photo2.jpeg"),
+            new UserThumb("Ricardo", "912088802", "https://turingnotes.com/wp-content/uploads/2022/02/photo3.jpeg"),
+            new UserThumb("Tiago", "912088803", "https://turingnotes.com/wp-content/uploads/2022/02/photo4.jpeg"),
+            new UserThumb("Tânia", "912088804", "https://turingnotes.com/wp-content/uploads/2022/02/photo5.jpeg"),
+            new UserThumb("Vaco", "912088805", "https://turingnotes.com/wp-content/uploads/2022/02/photo6.jpeg"),
+            new UserThumb("Manuela", "912088806", "https://turingnotes.com/wp-content/uploads/2022/02/photo7.jpeg"),
+            new UserThumb("Francisca", "912088807", "https://turingnotes.com/wp-content/uploads/2022/02/photo8.jpeg"),
+            new UserThumb("Antónia", "912088809", "https://turingnotes.com/wp-content/uploads/2022/02/photo9.jpeg"),
+            new UserThumb("Ana", "912088818", "https://turingnotes.com/wp-content/uploads/2022/02/photo10.jpeg"),
+            new UserThumb("Isabel", "912088828", "https://turingnotes.com/wp-content/uploads/2022/02/photo11.jpeg"),
+            new UserThumb("João", "912088838", "https://turingnotes.com/wp-content/uploads/2022/02/photo12.jpeg"),
+            new UserThumb("José", "912088848", "https://turingnotes.com/wp-content/uploads/2022/02/photo13.jpeg"),
+            new UserThumb("Baltazar", "912088858", "https://turingnotes.com/wp-content/uploads/2022/02/photo14.jpeg"),
+            new UserThumb("Saramago", "912088868", "https://turingnotes.com/wp-content/uploads/2022/02/photo15.jpeg"),
+            new UserThumb("António", "912088878", "https://turingnotes.com/wp-content/uploads/2022/02/photo16.jpeg"),
+            new UserThumb("Vanessa", "912088888", "https://turingnotes.com/wp-content/uploads/2022/02/photo17.jpeg"),
+            new UserThumb("Jéssica", "912088898", "https://turingnotes.com/wp-content/uploads/2022/02/photo18.jpeg"),
+            new UserThumb("Cristina", "912088008", "https://turingnotes.com/wp-content/uploads/2022/02/photo12.jpeg"),
+            new UserThumb("Mauro", "912088108", "https://turingnotes.com/wp-content/uploads/2022/02/photo20.jpeg"),
+            new UserThumb("Telmo", "912088208", "https://turingnotes.com/wp-content/uploads/2022/02/photo21.jpeg"),
+            new UserThumb("Zita", "912088308", "https://turingnotes.com/wp-content/uploads/2022/02/photo2.jpeg"),
+            new UserThumb("Rafa", "912088408", "https://turingnotes.com/wp-content/uploads/2022/02/photo23.jpeg")
     );
 
     public static List<Notification> dummyInteractionsFull = Arrays.asList(

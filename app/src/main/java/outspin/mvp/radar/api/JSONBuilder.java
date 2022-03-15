@@ -1,7 +1,5 @@
 package outspin.mvp.radar.api;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,7 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import outspin.mvp.radar.models.Notification;
-import outspin.mvp.radar.models.UserThumbnail;
+import outspin.mvp.radar.models.UserThumb;
 
 public class JSONBuilder {
     
@@ -17,14 +15,15 @@ public class JSONBuilder {
         return new JSONObject(jsonString);
     }
 
-    public static UserThumbnail userFromJSON(JSONObject json) throws JSONException {
+    public static UserThumb userFromJSON(JSONObject json) throws JSONException {
         JSONObject data = json.getJSONObject("data");
 
         String userName = (String) data.get("name");
         String phoneNumber = (String) data.get("phoneNumber");
 
-        return new UserThumbnail(userName, phoneNumber, "sed");
+        return new UserThumb(userName, phoneNumber, "sed");
     }
+
 /*
     public static Notification notificationFromJSON(JSONObject notificationJSON) throws JSONException {
         JSONObject data = notificationJSON.getJSONObject("data");
@@ -37,14 +36,14 @@ public class JSONBuilder {
     }
 */
     // TODO should test
-    public static ArrayList<UserThumbnail> userThumbsInsideFromJSON(JSONObject jsonData) throws JSONException {
+    public static ArrayList<UserThumb> userThumbsInsideFromJSON(JSONObject jsonData) throws JSONException {
         JSONArray jsonListOfUsers = jsonData.getJSONArray("list");
         int numOfUsers = jsonListOfUsers.length();
 
-        ArrayList<UserThumbnail> usersInside = new ArrayList<>();
+        ArrayList<UserThumb> usersInside = new ArrayList<>();
         for(int i = 0; i < numOfUsers; i++) {
-            UserThumbnail userThumbnail = new UserThumbnail( jsonListOfUsers.getJSONObject(i) );
-            usersInside.add(userThumbnail);
+            UserThumb userThumb = new UserThumb( jsonListOfUsers.getJSONObject(i) );
+            usersInside.add(userThumb);
         }
 
         return usersInside;

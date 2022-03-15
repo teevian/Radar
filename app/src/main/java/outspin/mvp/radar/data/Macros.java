@@ -9,6 +9,7 @@ public class Macros {
     public static final String CONST_INTERNET_SERVER_IPV6   = "2001:41d0:401:3200::4092";
     public static final int CONST_INTERNET_TCP_PORT         = 62126;        // open port for ping
     public static final int CONST_INTERNET_SOCKET_TIMEOUT   = 1000;  // milliseconds
+    public static final int CONST_INTERNET_HTTP_TIMEOUT     = 30000;
 
     // shared preferences
     public static final String PREFERENCE_FILE_AUTHENTICATION = "outspin.mvp.radar.PREFERENCE_FILE_TOKEN";

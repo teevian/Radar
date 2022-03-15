@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:id="@+id/container" >
 
+    <Button
+        android:id="@+id/bt_location_2"
+        android:text="location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <include
         layout="@layout/my_profile_floating_button"
         android:id="@+id/floating_button"

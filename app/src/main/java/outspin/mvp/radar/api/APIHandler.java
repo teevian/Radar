@@ -1,5 +1,6 @@
 package outspin.mvp.radar.api;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,15 +15,57 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import outspin.mvp.radar.data.Macros;
-import outspin.mvp.radar.models.UserThumbnail;
+import outspin.mvp.radar.models.UserThumb;
 
 public class APIHandler {
+    private final String serverIPv4 = Macros.CONST_INTERNET_SERVER_IPV4;
+    private final String host = serverIPv4;
+    private final int port = 62126;
+    private static final Set<String> outputHttpMethods = Collections.unmodifiableSet(
+            new HashSet<>(Arrays.asList("POST", "PUT", "PATCH", "DELETE"))
+    );
+
+    public Uri buildUri(String path, Map<String, String> queries) {
+        Uri.Builder builder = Uri.parse(host + ":" + port).buildUpon();
+        builder.appendPath(path);
+
+        for(Map.Entry<String, String> entry : queries.entrySet())
+            builder.appendQueryParameter(entry.getKey(), entry.getValue());
+
+        return builder.build();
+    }
+
+    public HttpURLConnection openAPIConnection(String httpMethod, String urlString) throws IOException {
+        Log.d("oooooooooooo", urlString);
+
+        URL url = new URL(urlString);
+
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestProperty("Accept-Charset", java.nio.charset.StandardCharsets.UTF_8.name());
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestMethod(httpMethod);
+        connection.setDoInput(true);
+
+        connection.setConnectTimeout(30000);    // timeout for connection
+        connection.setReadTimeout(15000);       // timeout for not receiving bytes
+
+        connection.setInstanceFollowRedirects("GET".equals(httpMethod));
+        connection.setDoOutput(outputHttpMethods.contains(httpMethod));
+
+        return connection;
+    }
+
 
     /*
         // TODO(1) idk faz isto
@@ -54,22 +97,61 @@ public class APIHandler {
         }
 
     */
-    APIRequest("GET", "users", "id=1", "club=3", "sts=2bjwhsbw");
-    public JSONObject APIrequest(String httpMethod, String path, String... query) throws IOException {
-        String port = "62126";
-        String url = "http://92:222.10.201" + ":" + port;
 
-        String query = String.format("param1=%s&param2=%s",
-                URLEncoder.encode(param1, charset), URLEncoder.encode((param2, charset)));
+    public JSONObject getAPIResponseFromConnection(@NonNull HttpURLConnection urlAPIConnection)
+            throws IOException, JSONException {
 
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(urlAPIConnection.getInputStream(), StandardCharsets.UTF_8));
+        StringBuilder stringBuilder = new StringBuilder();
 
-        URLConnection connection = new URL(url + "?" + query).openConnection();
-        connection.setRequestProperty("Accept-Charset", java.nio.charset.StandardCharsets.UTF_8.name());
+        String responseLineFromAPI;
+        while ((responseLineFromAPI = bufferedReader.readLine()) != null)
+            stringBuilder.append(responseLineFromAPI).append("\n");
 
+        bufferedReader.close();
+        String responseString = stringBuilder.toString();
+        JSONObject responseJson = JSONBuilder.JSONfromString(responseString);
 
+        int statusCode = urlAPIConnection.getResponseCode();
+        String statusMessage = urlAPIConnection.getResponseMessage();
+        switch (statusCode) {
+            case Macros.SERVER_STATUS_OK:
+                Log.i("Everything is OK!", "" + statusCode);
+                break;
+            case Macros.SERVER_STATUS_NOT_FOUND:
+            case Macros.SERVER_STATUS_TIMED_OUT:
+            default:
+                Log.e("ERROR", statusMessage + " : " + statusCode);
+                break;
+        }
 
+        return responseJson;
+    }
 
-        return false;
+    public ArrayList<UserThumb> getUsersThumbById(@NonNull long... id) {
+        Map<String, String> queries = new HashMap<>();
+        queries.put("id", String.valueOf(id[0])); //only one user
+        Uri uri = buildUri("users", queries);
+
+        JSONObject responseJson = null;
+        HttpURLConnection urlAPIConnection = null;
+
+        try {
+            Log.d("oooooooooooo", "T");
+            urlAPIConnection = openAPIConnection("GET", uri.toString());
+            responseJson = getAPIResponseFromConnection(urlAPIConnection);
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        } finally {
+            if (urlAPIConnection != null) urlAPIConnection.disconnect();
+        }
+
+        // construct array
+        ArrayList<UserThumb> users = new ArrayList<>();
+        users.add(new UserThumb(responseJson));
+
+        return users;
     }
 
     public static class QueryAPI extends AsyncTask<Void, String, JSONObject> {
@@ -115,9 +197,9 @@ public class APIHandler {
                     Log.d("SERVER OUTPUT::::", jsonString);
 
                     JSONObject jsonUser = JSONBuilder.JSONfromString(jsonString);
-                    UserThumbnail userThumbnail = JSONBuilder.userFromJSON(jsonUser);
+                    UserThumb userThumb = JSONBuilder.userFromJSON(jsonUser);
 
-                    Log.d("USER::::::::", userThumbnail.toString());
+                    Log.d("USER::::::::", userThumb.toString());
                 } else {
                     Log.d("STATUS CODE", "NOT OK");
                 }
@@ -142,7 +224,7 @@ public class APIHandler {
 
     }
 
-    public ArrayList<UserThumbnail> getUsersFromClub(long clubID) {
+    public ArrayList<UserThumb> getUsersFromClub(long clubID) {
         String test = "{\"meta\":{\"apiVersion\":\"0.1\"},\"data\":{\"quantity\":4,\"list\":[{\"@kind\":\"user\",\"id\":1,\"thumbnail\":\"https://turingnotes.com/wp-content/uploads/2022/02/photo16.jpeg\",\"name\":\"\"},{\"@kind\":\"user\",\"id\":2,\"thumbnail\":\"https://turingnotes.com/wp-content/uploads/2022/02/photo16.jpeg\",\"name\":\"\"},{\"@kind\":\"user\",\"id\":3,\"thumbnail\":\"https://turingnotes.com/wp-content/uploads/2022/02/photo16.jpeg\",\"name\":\"\"},{\"@kind\":\"user\",\"id\":4,\"thumbnail\":\"https://turingnotes.com/wp-content/uploads/2022/02/photo16.jpeg\",\"name\":\"\"}]}}\n";
 
         APIConnectionBundle bundle = new APIConnectionBundle("GET", "?id=1&club=2");
@@ -151,7 +233,7 @@ public class APIHandler {
 
 
 
-        ArrayList<UserThumbnail> users = null;
+        ArrayList<UserThumb> users = null;
 
         try {
             users = JSONBuilder.userThumbsInsideFromJSON( JSONBuilder.JSONfromString(test) );

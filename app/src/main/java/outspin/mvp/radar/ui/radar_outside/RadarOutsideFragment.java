@@ -1,21 +1,43 @@
 package outspin.mvp.radar.ui.radar_outside;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 import outspin.mvp.radar.databinding.ClubLayoutBinding;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
@@ -33,12 +55,18 @@ public class RadarOutsideFragment extends Fragment {
             new double[]{0.5111, 0.5924},
             new double[]{0.1899,0.7845}
     );
-
+/*
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private ActivityResultLauncher<String[]> activityResultLauncher; // TODO dd
+    private String[] locationPermissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION};
+*/
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentRadarOutsideBinding.inflate(inflater, container, false);
         RelativeLayout rl = binding.container;
+
+        //fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.requireContext());
 
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         double pxHeight = displayMetrics.heightPixels;
@@ -60,6 +88,37 @@ public class RadarOutsideFragment extends Fragment {
             rl.addView(clubIcon, params);
         }
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+/*
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestMultiplePermissions(),
+                new ActivityResultCallback<Map<String, Boolean>>() {
+
+                    @Override
+                    public void onActivityResult(Map<String, Boolean> result) {
+                        Log.e("activityResultLauncher", "" + result.toString());
+
+                        boolean areAllGranted = true;
+                        for (Boolean b : result.values()) {
+                            areAllGranted = areAllGranted && b;
+                        }
+
+                        if (areAllGranted) {
+                            getLocation();
+                        }
+                    }
+        });
+
+        binding.btLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activityResultLauncher.launch(locationPermissions);
+            }
+        });*/
     }
 
 

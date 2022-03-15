@@ -7,20 +7,20 @@ import org.json.JSONObject;
 
 import outspin.mvp.radar.api.JSONBuilder;
 
-public class UserThumbnail {
+public class UserThumb {
     private long id;
     private String username;
     private String phonenumber; // ID
     private String photoURL;
     private String interaction;
 
-    public UserThumbnail(String username, String phonenumber, String photoURL) {
+    public UserThumb(String username, String phonenumber, String photoURL) {
         this.username = username;
         this.phonenumber = phonenumber;
         this.photoURL = photoURL;
     }
 
-    public UserThumbnail(JSONObject jsonUser) {
+    public UserThumb(JSONObject jsonUser) {
         try {
             this.photoURL = jsonUser.getString("thumbnail");
             this.id = jsonUser.getLong("id");
@@ -31,7 +31,7 @@ public class UserThumbnail {
 
     @Override
     public String toString() {
-        return "UserThumbnail{" + this.id + ", " + this.interaction +"}";
+        return "{ \"id\" :" + this.id + ", \"thumbnail\":" + this.photoURL + ", \"interaction\":" + this.interaction +"}";
     }
 
     /*  getters && setters   */

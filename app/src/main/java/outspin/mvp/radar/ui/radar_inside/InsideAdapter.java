@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,14 +14,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.models.UserThumbnail;
+import outspin.mvp.radar.models.UserThumb;
 
 public class InsideAdapter extends RecyclerView.Adapter<InsideAdapter.ProfileThumbViewHolder> {
-    private final ArrayList<UserThumbnail> data;
+    private final ArrayList<UserThumb> data;
     private final LayoutInflater inflater;
     private ItemClickListener mClickListener;
 
-    public InsideAdapter(Context context, ArrayList<UserThumbnail> data) {
+    public InsideAdapter(Context context, ArrayList<UserThumb> data) {
         this.inflater = LayoutInflater.from(context);
         this.data = data;
     }

@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,15 +12,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
-import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.DialogInteractWithUserBinding;
-import outspin.mvp.radar.models.UserThumbnail;
+import outspin.mvp.radar.models.UserThumb;
 
 public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
-    private final UserThumbnail userThumbnail;
+    private final UserThumb userThumb;
 
-    public ProfileBottomSheetDialog(Context parent, UserThumbnail userThumbnail) {
-        this.userThumbnail = userThumbnail;
+    public ProfileBottomSheetDialog(Context parent, UserThumb userThumb) {
+        this.userThumb = userThumb;
     }
 
     @NonNull
@@ -36,7 +34,7 @@ public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
         interactWithUserDialogbinding.tvProfileName.setText("");
 
         Picasso.with(getContext())
-                .load(userThumbnail.getPhotoURL())
+                .load(userThumb.getPhotoURL())
                 .resize(150, 150)
                 .centerCrop()
                 .into(interactWithUserDialogbinding.profileThumbnail.profileThumbnailPicture);

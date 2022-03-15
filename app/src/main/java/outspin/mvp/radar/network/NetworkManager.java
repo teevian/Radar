@@ -1,6 +1,8 @@
 package outspin.mvp.radar.network;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.os.AsyncTask;
@@ -8,6 +10,7 @@ import android.util.Log;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +28,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import outspin.mvp.radar.data.Macros;
-import outspin.mvp.radar.models.UserThumbnail;
+import outspin.mvp.radar.models.UserThumb;
 import outspin.mvp.radar.api.JSONBuilder;
 
 public class NetworkManager {
@@ -65,9 +68,9 @@ public class NetworkManager {
                         Log.d("SERVER OUTPUT::::", jsonString);
 
                         JSONObject jsonUser = JSONBuilder.JSONfromString(jsonString);
-                        UserThumbnail userThumbnail = JSONBuilder.userFromJSON(jsonUser);
+                        UserThumb userThumb = JSONBuilder.userFromJSON(jsonUser);
 
-                        Log.d("USER::::::::", userThumbnail.toString());
+                        Log.d("USER::::::::", userThumb.toString());
                     }
                 } catch (MalformedURLException e) {
                     e.printStackTrace();

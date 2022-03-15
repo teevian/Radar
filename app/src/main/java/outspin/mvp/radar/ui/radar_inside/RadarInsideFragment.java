@@ -27,17 +27,17 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.JSONBuilder;
-import outspin.mvp.radar.data.DummieData;
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
-import outspin.mvp.radar.models.UserThumbnail;
+import outspin.mvp.radar.models.UserThumb;
 
 
 public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener {
     private FragmentRadarInsideBinding fragmentRadarInsideBinding;
     //private final ArrayList<UserThumbnail> userThumbnails = new ArrayList<>(DummieData.DUMMY_USERS_FULL);
-    private ArrayList<UserThumbnail> userThumbnails = null;
+    private ArrayList<UserThumb> userThumbs = null;
 
     private InsideAdapter gridAdapter;
     RecyclerView rvInsideGrid;
@@ -56,6 +56,10 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
         rvInsideGrid = fragmentRadarInsideBinding.rvInsideUsers;
 
+        APIHandler api = new APIHandler();
+        ArrayList<UserThumb> user = api.getUsersThumbById(13);
+        Log.d(";;;;;;;;;;;;", user.toString());
+
         PopulateAdapter populate = new PopulateAdapter(this);
         populate.execute();
     }
@@ -63,7 +67,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
     @Override
     public void onItemClick(View view, int position, Context parent) {
         ProfileBottomSheetDialog myBottomSheetDialogFragment =
-                new ProfileBottomSheetDialog(getContext(), userThumbnails.get(position));
+                new ProfileBottomSheetDialog(getContext(), userThumbs.get(position));
         myBottomSheetDialogFragment.show(getChildFragmentManager(), myBottomSheetDialogFragment.getTag());
     }
 
@@ -120,17 +124,17 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
         protected void onPostExecute(JSONObject jsonData) {
             super.onPostExecute(jsonData);
             try {
-                userThumbnails = JSONBuilder.userThumbsInsideFromJSON(jsonData);
+                userThumbs = JSONBuilder.userThumbsInsideFromJSON(jsonData);
 
-                Log.d("THUMBS: ", userThumbnails.toString());
-                gridAdapter = new InsideAdapter(parent.getContext(), userThumbnails);
+                Log.d("THUMBS: ", userThumbs.toString());
+                gridAdapter = new InsideAdapter(parent.getContext(), userThumbs);
                 gridAdapter.setClickListener(parent);
 
                 rvInsideGrid.setLayoutManager(new GridLayoutManager(parent.getContext(),
                         Macros.CONST_RADAR_INSIDE_NUM_OF_COLUMNS));
                 rvInsideGrid.setAdapter(gridAdapter);
 
-                populateInsideClubInfo(userThumbnails.size(), 20);
+                populateInsideClubInfo(userThumbs.size(), 20);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
