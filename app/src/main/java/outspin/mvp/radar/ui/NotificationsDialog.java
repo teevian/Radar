@@ -68,6 +68,7 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
         PopulateNotifications(NotificationsDialog parent) {
             this.parent = parent;
         }
+
         @Override
         protected JSONObject doInBackground(Void... voids) {
             JSONObject jsonData = null;

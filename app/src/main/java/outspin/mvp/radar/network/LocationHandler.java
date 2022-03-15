@@ -66,7 +66,7 @@ public class LocationHandler extends Service implements LocationListener {
     }
 
     public static void getLocationPermissions(Context parent) {
-        int REQUEST_LOCATION = 99;
+        int REQUEST_LOCATION = 44;
         if (ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) parent, new String[]{ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         }

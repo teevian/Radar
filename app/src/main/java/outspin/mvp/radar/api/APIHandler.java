@@ -35,8 +35,8 @@ public class APIHandler {
             new HashSet<>(Arrays.asList("POST", "PUT", "PATCH", "DELETE"))
     );
 
-    public Uri buildUri(String path, Map<String, String> queries) {
-        Uri.Builder builder = Uri.parse(host + ":" + port).buildUpon();
+    public static Uri buildUri(String path, Map<String, String> queries) {
+        Uri.Builder builder = Uri.parse("http://92.222.10.201:62126").buildUpon();
         builder.appendPath(path);
 
         for(Map.Entry<String, String> entry : queries.entrySet())
@@ -45,9 +45,7 @@ public class APIHandler {
         return builder.build();
     }
 
-    public HttpURLConnection openAPIConnection(String httpMethod, String urlString) throws IOException {
-        Log.d("oooooooooooo", urlString);
-
+    public static HttpURLConnection openAPIConnection(String httpMethod, String urlString) throws IOException {
         URL url = new URL(urlString);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -98,7 +96,7 @@ public class APIHandler {
 
     */
 
-    public JSONObject getAPIResponseFromConnection(@NonNull HttpURLConnection urlAPIConnection)
+    public static JSONObject getAPIResponseFromConnection(@NonNull HttpURLConnection urlAPIConnection)
             throws IOException, JSONException {
 
         BufferedReader bufferedReader = new BufferedReader(
@@ -154,6 +152,42 @@ public class APIHandler {
         return users;
     }
 
+
+    public static class sendLocation extends AsyncTask<Void, String, JSONObject> {
+        double latitude, longitude; // coordenadas do técnico
+
+        public sendLocation(double latitude, double longitude) {
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            Map<String, String> locationQueries = new HashMap<>();
+            locationQueries.put("latitude", String.valueOf(latitude));
+            locationQueries.put("longitude", String.valueOf(longitude));
+
+            HttpURLConnection connection = null;
+            JSONObject json = null;
+            String url = buildUri("club", locationQueries).toString();
+            try {
+                connection = openAPIConnection("GET", url);
+                json = getAPIResponseFromConnection(connection);
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            }
+
+            return json;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+
+            Log.d("JJJJJJJJJ", jsonObject.toString());
+        }
+    }
+
     public static class QueryAPI extends AsyncTask<Void, String, JSONObject> {
         private final APIConnectionBundle bundle;
 
@@ -194,12 +228,9 @@ public class APIHandler {
                     bufferedReader.close();
 
                     jsonString = stringBuilder.toString();
-                    Log.d("SERVER OUTPUT::::", jsonString);
 
                     JSONObject jsonUser = JSONBuilder.JSONfromString(jsonString);
                     UserThumb userThumb = JSONBuilder.userFromJSON(jsonUser);
-
-                    Log.d("USER::::::::", userThumb.toString());
                 } else {
                     Log.d("STATUS CODE", "NOT OK");
                 }

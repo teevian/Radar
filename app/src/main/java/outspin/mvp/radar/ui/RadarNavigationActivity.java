@@ -1,10 +1,6 @@
 package outspin.mvp.radar.ui;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -13,7 +9,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,32 +26,37 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import outspin.mvp.radar.R;
+import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.databinding.ActivityRadarNavigationBinding;
 import outspin.mvp.radar.network.LocationHandler;
-import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
 import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 public class RadarNavigationActivity extends AppCompatActivity
         implements InteractionsAdapter.InteractionClickListener {
-    ActivityRadarNavigationBinding mainBinding;
 
+    ActivityRadarNavigationBinding radarNavigationBinding;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mainBinding = ActivityRadarNavigationBinding.inflate(getLayoutInflater());
-        setContentView(mainBinding.getRoot());
-
-        Button bt = (Button) findViewById(R.id.bt_location_2);
+        radarNavigationBinding = ActivityRadarNavigationBinding.inflate(getLayoutInflater());
+        setContentView(radarNavigationBinding.getRoot());
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        mainBinding.btLocation2.setOnClickListener(new View.OnClickListener() {
+        radarNavigationBinding.btLocation2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // check permissions
@@ -71,7 +71,7 @@ public class RadarNavigationActivity extends AppCompatActivity
             }
         });
 
-        mainBinding.floatingButton.getRoot().setOnClickListener(view -> {
+        radarNavigationBinding.floatingButton.getRoot().setOnClickListener(view -> {
             BottomSheetDialogFragment myBottomSheetDialogFragment = new NotificationsDialog(this);
             myBottomSheetDialogFragment.show(getSupportFragmentManager(), myBottomSheetDialogFragment.getTag());
         });
@@ -92,6 +92,7 @@ public class RadarNavigationActivity extends AppCompatActivity
 
     public Location getLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            LocationHandler.getLocationPermissions(this);
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -116,18 +117,21 @@ public class RadarNavigationActivity extends AppCompatActivity
                         List<Address> addressList = geocoder.getFromLocation(
                                 location.getLatitude(), location.getLongitude(), 1
                         );
-                        // print latitude & longitude
-                        String latitude = String.valueOf(addressList.get(0).getLatitude());
-                        String longitude = String.valueOf(addressList.get(0).getLongitude());
 
-                        Log.d("KKKKKK: ", latitude);
-                        Log.d("KKKKKK: ", longitude);
-                        Log.d("KKKKKK: ", addressList.get(0).getLocality());
-                        Log.d("KKKKKK: ", addressList.get(0).getAddressLine(0));
+                        // print latitude & longitude
+                        //String latitude = String.valueOf(addressList.get(0).getLatitude());
+                        //String longitude = String.valueOf(addressList.get(0).getLongitude());
+                        double latitude = addressList.get(0).getLatitude();
+                        double longitude = addressList.get(0).getLongitude();
+
+                        APIHandler.sendLocation sendLocation = new APIHandler.sendLocation(latitude, longitude);
+                        sendLocation.execute();
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
+                    Log.d("PPPPPPP", "TEST TEST");
                     LocationRequest mLocationRequest = LocationRequest.create();
                     mLocationRequest.setInterval(60000);
                     mLocationRequest.setFastestInterval(5000);
