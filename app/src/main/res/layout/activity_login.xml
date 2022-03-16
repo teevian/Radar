@@ -20,6 +20,25 @@
         tools:context=".ui.LoginActivity">
 
         <EditText
+            android:id="@+id/et_name"
+            android:layout_width="@dimen/login_input_width"
+            android:layout_height="@dimen/login_input_height"
+            android:layout_margin="@dimen/login_input_margin"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            android:hint="@string/login_name"
+            android:textColor="@color/white"
+            android:textColorHint="@drawable/selector_hint" />
+
+        <Spinner
+            android:id="@+id/spinner_country_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:spinnerMode="dropdown"
+            android:popupBackground="@color/gray"/>
+
+        <EditText
             android:id="@+id/et_login_phone"
             android:layout_width="@dimen/login_input_width"
             android:layout_height="@dimen/login_input_height"
@@ -42,6 +61,19 @@
             android:inputType="textPassword"
             android:textColor="@color/white"
             android:textColorHint="@drawable/selector_hint" />
+
+        <EditText
+            android:id="@+id/et_login_password_duplicate"
+            android:layout_width="@dimen/login_input_width"
+            android:layout_height="@dimen/login_input_height"
+            android:layout_margin="@dimen/login_input_margin"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            android:hint="@string/login_password_duplicate"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="@drawable/selector_hint"/>
+
     </LinearLayout>
 
     <Button

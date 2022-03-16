@@ -28,9 +28,6 @@ import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.models.UserThumb;
 
 public class APIHandler {
-    private final String serverIPv4 = Macros.CONST_INTERNET_SERVER_IPV4;
-    private final String host = serverIPv4;
-    private final int port = 62126;
     private static final Set<String> outputHttpMethods = Collections.unmodifiableSet(
             new HashSet<>(Arrays.asList("POST", "PUT", "PATCH", "DELETE"))
     );

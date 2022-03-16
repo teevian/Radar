@@ -7,12 +7,31 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import outspin.mvp.radar.models.Notification;
+import outspin.mvp.radar.models.User;
 import outspin.mvp.radar.models.UserThumb;
 
 public class JSONBuilder {
     
     public static JSONObject JSONfromString(String jsonString) throws JSONException {
         return new JSONObject(jsonString);
+    }
+
+    public static  JSONObject standardJSON() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("apiVersion", "0.1");
+        return json;
+    }
+
+    public static JSONObject JSONFromUser(User user) throws JSONException {
+        JSONObject userJson = new JSONObject();
+        String id = String.valueOf(user.getId());
+        userJson.put("id", id);
+        userJson.put("name", user.getName());
+        userJson.put("phoneNumber", user.getPhoneNumber());
+        userJson.put("countryCode", user.getCountryCode());
+        userJson.put("photoURl", user.getPhotoURL());
+
+        return userJson;
     }
 
     public static UserThumb userFromJSON(JSONObject json) throws JSONException {
@@ -76,9 +95,4 @@ public class JSONBuilder {
 
         return notificationsInside;
     }*/
-
-    public static JSONObject getClubInfo(long id) {
-
-        return null;
-    }
 }

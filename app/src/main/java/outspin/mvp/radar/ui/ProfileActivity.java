@@ -2,18 +2,16 @@ package outspin.mvp.radar.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.method.KeyListener;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
 import outspin.mvp.radar.R;
+import outspin.mvp.radar.api.API;
+import outspin.mvp.radar.api.GetClub;
 import outspin.mvp.radar.databinding.ActivityProfileBinding;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -48,5 +46,9 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        GetClub getClub = new GetClub();
+        API.QueryAPI queryAPI = new API.QueryAPI(getClub);
+        queryAPI.execute();
     }
 }
