@@ -133,8 +133,11 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
             queries.put("id", "21");
             queries.put("club", "2");
 
+            ArrayList<UserThumb> users = APIHandler.getUsersThumbById(17);
+            Log.d("jjjjjjjjjjjjj", users.get(0).toString());
+
             try {
-                Uri uri = APIHandler.buildUri(new String[] {"users"}, queries);
+                Uri uri = APIHandler.buildUri(queries, "users");
                 /*
                 URL url = new URL("https://92.222.10.201:62126/id=21?club=2");
                 HttpsURLConnection connection = APIHandler.openAPIConnection("GET", url, -1);

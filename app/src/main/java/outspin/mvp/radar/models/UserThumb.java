@@ -2,33 +2,40 @@ package outspin.mvp.radar.models;
 
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import androidx.annotation.NonNull;
 
-import outspin.mvp.radar.api.JSONBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class UserThumb {
     private long id;
+
     private String username;
-    private String phonenumber; // ID
+    private String phoneNumber;
     private String photoURL;
     private String interaction;
 
-    public UserThumb(String username, String phonenumber, String photoURL) {
+    public UserThumb(String username, String phoneNumber, String photoURL) {
         this.username = username;
-        this.phonenumber = phonenumber;
+        this.phoneNumber = phoneNumber;
         this.photoURL = photoURL;
     }
 
     public UserThumb(JSONObject jsonUser) {
         try {
-            this.photoURL = jsonUser.getString("thumbnail");
-            this.id = jsonUser.getLong("id");
-            this.interaction = jsonUser.getString("interaction");
-            Log.d("INTERACTION_IS: ", this.interaction);
-        } catch (Exception ignored) {}
+            JSONObject data = jsonUser.getJSONObject("data");
+
+            this.id = data.getLong("id");
+            this.username = data.getString("name");
+
+            JSONObject thumbs = data.getJSONObject("thumbnails");
+            this.photoURL = thumbs.getString("m");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "{ \"id\" :" + this.id + ", \"thumbnail\":" + this.photoURL + ", \"interaction\":" + this.interaction +"}";
@@ -38,8 +45,8 @@ public class UserThumb {
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
 
-    public String getPhonenumber() { return phonenumber; }
-    public void setPhonenumber(String phonenumber) { this.phonenumber = phonenumber; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
     public String getPhotoURL() { return photoURL; }
     public void setPhotoURL(String photoURL) { this.photoURL = photoURL; }
@@ -47,7 +54,6 @@ public class UserThumb {
     public String getInteraction() {
         return this.interaction;
     }
-
     public void setInteraction(String interaction) {
         this.interaction = interaction;
     }

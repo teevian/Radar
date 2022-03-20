@@ -23,6 +23,8 @@ public class APIErrorResponse extends APIResponse {
     void setData() throws JSONException {
         JSONObject errorData = this.dataJSONArray.getJSONObject(0);
 
+        this.type = "error";
+
         this.statusCode = errorData.getInt("code");
         this.title      = errorData.getString("title");
         this.message    = errorData.getString("message");

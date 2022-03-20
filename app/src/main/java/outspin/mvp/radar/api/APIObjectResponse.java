@@ -10,6 +10,8 @@ public class APIObjectResponse extends APIResponse {
 
     public APIObjectResponse(@NonNull JSONObject responseJSON) throws JSONException {
         super(responseJSON);
+
+        this.type = "object";
     }
 
     @Override

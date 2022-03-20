@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -48,25 +49,9 @@ public class APIHandler {
      * @return uri built, null if not processed
      * @throws UnsupportedEncodingException if encoding UTF-8 is not supported
      */
-    public static Uri buildUri(@NonNull String[] paths, Map<String, String> queries)
-            throws UnsupportedEncodingException {
-        // builder must have scheme https
-        Uri.Builder builder = Uri.parse("https://92.222.10.201:62126").buildUpon();
-
-        for(String path : paths) builder.appendPath(path);
-        for(Map.Entry<String, String> entry : queries.entrySet())
-            builder.appendQueryParameter(
-                    entry.getKey(),
-                    URLEncoder.encode(entry.getValue(), java.nio.charset.StandardCharsets.UTF_8.name())
-            );
-
-        return builder.build();
-    }
-    /*
     public static Uri buildUri(Map<String, String> queries, String... paths)
             throws UnsupportedEncodingException {
-        // builder must have scheme https
-        Uri.Builder builder = Uri.parse("https://92.222.10.201:62126").buildUpon();
+        Uri.Builder builder = Uri.parse("http://92.222.10.201:62126").buildUpon();
 
         for(String path : paths) builder.appendPath(path);
         for(Map.Entry<String, String> entry : queries.entrySet())
@@ -77,7 +62,7 @@ public class APIHandler {
 
         return builder.build();
     }
-*/
+
     /**
      * Opens a connection with the Server API.
      *
@@ -88,9 +73,9 @@ public class APIHandler {
      * @throws IOException
      */
     @NonNull
-    public static HttpsURLConnection openAPIConnection(String httpsMethod, @NonNull URL endpoint, long size)
+    public static HttpURLConnection openAPIConnection(String httpsMethod, @NonNull URL endpoint, long size)
             throws IOException {
-        HttpsURLConnection connection = (HttpsURLConnection) endpoint.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
 
         connection.setRequestProperty("Accept-Charset", java.nio.charset.StandardCharsets.UTF_8.name());
         connection.setRequestProperty("User-Agent", Macros.CONST_OUTSPIN_USER_AGENT);
@@ -100,8 +85,8 @@ public class APIHandler {
         connection.setDoInput(true);
 
         // improves performance by setting a fixed size to the buffer stream in order to transfer data
-        if(size <= 0) connection.setChunkedStreamingMode(0);    // if data size to send is unknown
-        else connection.setFixedLengthStreamingMode(size);      // if data size to send is known
+        //if(size <= 0) connection.setChunkedStreamingMode(0);    // if data size to send is unknown
+        //else connection.setFixedLengthStreamingMode(size);      // if data size to send is known
 
         connection.setConnectTimeout(CONNECTION_TIMEOUT_IN_MILISECONDS);    // timeout for connection
         connection.setReadTimeout(READ_TIMEOUT_IN_MILISECONDS);             // timeout for not receiving bytes
@@ -122,7 +107,7 @@ public class APIHandler {
      * @throws JSONException
      */
     @NonNull
-    public static JSONObject getResponseFromRequest(@NonNull HttpsURLConnection connection, JSONObject jsonRequest)
+    public static JSONObject getResponseFromRequest(@NonNull HttpURLConnection connection, JSONObject jsonRequest)
             throws IOException, JSONException {
 
         if(jsonRequest != null) {   // sends the request to the server
@@ -158,7 +143,7 @@ public class APIHandler {
      * @return API context object, APIErrorResponse if @statusCode is not 200
      * @throws JSONException json was not parsed right
      */
-    public APIResponse getAPIResponseObject(int statusCode, JSONObject jsonResponse) throws JSONException {
+    public APIResponse APIResponseFromJSON(int statusCode, JSONObject jsonResponse) throws JSONException {
         APIResponse response;
         switch (statusCode) {
             case HttpsURLConnection.HTTP_OK:
@@ -174,31 +159,22 @@ public class APIHandler {
     }
 
     /**
+     * Get users from ids.
      *
-     *
-     * @param id
-     * @return
+     * @param id String[] ids
+     * @return arraylist of user thumbs
      */
-    public ArrayList<UserThumb> getUsersThumbById(@NonNull long... id) {
+    @NonNull
+    public static ArrayList<UserThumb> getUsersThumbById(@NonNull long... id) {
         Map<String, String> queries = new HashMap<>();
-        queries.put("id", String.valueOf(id[0])); //only one user
+        queries.put("id", String.valueOf(id[0])); //only one user TODO should be an array if multiple users
 
-        Uri uri = null;
+        /* for loop */
         JSONObject responseJson = null;
-        HttpsURLConnection urlAPIConnection = null;
+        HttpURLConnection urlAPIConnection = null;
         try {
-            uri = buildUri(new String[] {"users"}, queries);
-            urlAPIConnection = openAPIConnection("GET", new URL(uri.toString()), -1);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            URL url = new URL(uri.toString());
-            urlAPIConnection = openAPIConnection("GET", url, -1);
+            URL endpoint = new URL(buildUri(queries, "users").toString());
+            urlAPIConnection = openAPIConnection("GET", endpoint, -1);
             responseJson = getResponseFromRequest(urlAPIConnection, null);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -206,10 +182,11 @@ public class APIHandler {
             if (urlAPIConnection != null) urlAPIConnection.disconnect();
         }
 
-        // construct array
         ArrayList<UserThumb> users = new ArrayList<>();
         users.add(new UserThumb(responseJson));
+        /* end of for loop */
 
+        Log.d("jjjjjjjjjjjj 333333", users.toString());
         return users;
     }
 
@@ -232,10 +209,10 @@ public class APIHandler {
 
         @Override
         protected JSONObject doInBackground(Void... object) {
-            HttpsURLConnection urlConnection = null;
+            HttpURLConnection urlConnection = null;
             JSONObject jsonFromServer = null;
             try {
-                URL url = new URL(buildUri(apiBundle.paths, apiBundle.queries).toString());
+                URL url = new URL(buildUri(apiBundle.queries, apiBundle.paths).toString());
                 urlConnection = openAPIConnection(apiBundle.httpMethod, url, -1);
                 jsonFromServer = getResponseFromRequest(urlConnection, apiBundle.json);
             } catch (IOException | JSONException e) {

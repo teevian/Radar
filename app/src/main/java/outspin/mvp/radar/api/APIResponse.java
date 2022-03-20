@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public abstract class APIResponse {
+    protected String type;
     protected JSONArray dataJSONArray;
 
     protected String apiVersion;
