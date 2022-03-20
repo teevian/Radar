@@ -5,7 +5,9 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.IntRange;
@@ -35,69 +37,12 @@ import outspin.mvp.radar.api.JSONBuilder;
 
 public class NetworkManager {
 
-        public static class APIConnection extends AsyncTask<String, String, String> {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected String doInBackground(String... strings) {
-                HttpURLConnection urlConnection;
-                String jsonString = null;
-                try {
-                    URL url = new URL("http://92.222.10.201:62126/users?id=4");
-
-                    urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setRequestMethod("GET");
-                    urlConnection.setRequestProperty("Content-Type", "application/json");
-                    urlConnection.setDoOutput(false);
-
-                    int statusCode = urlConnection.getResponseCode();
-
-                    if(statusCode == HttpsURLConnection.HTTP_OK) {
-                        BufferedReader bufferedReader = new BufferedReader(
-                                new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-                        StringBuilder stringBuilder = new StringBuilder();
-
-                        String responseLineFromAPI;
-                        while ((responseLineFromAPI = bufferedReader.readLine()) != null) {
-                            stringBuilder.append(responseLineFromAPI + "\n");
-                        }
-                        bufferedReader.close();
-
-                        jsonString = stringBuilder.toString();
-                        Log.d("SERVER OUTPUT::::", jsonString);
-
-                        JSONObject jsonUser = JSONBuilder.JSONfromString(jsonString);
-                        UserThumb userThumb = JSONBuilder.userFromJSON(jsonUser);
-
-                        Log.d("USER::::::::", userThumb.toString());
-                    }
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                return jsonString;
-            }
-
-            @Override
-            protected void onProgressUpdate(String... values) {
-                super.onProgressUpdate(values);
-            }
-
-            @Override
-            protected void onPostExecute(String jsonResult) {
-                super.onPostExecute(jsonResult);
-
-                //Log.d("SERVER OUT:::::", jsonResult);
-            }
-        }
-
-    // Returns connection type. 0: none; 1: mobile data; 2: wifi; 3: vpn;
+    /**
+     * Returns Internet connection type from System Connectivity Service.
+     *
+     * @param context context to get system service
+     * @return connection type: 0: none; 1: mobile data; 2: wifi; 3: vpn
+     */
     @IntRange(from = 0, to = 3)
     public static int getConnectionType(@NonNull Context context) {
         int result = 0;

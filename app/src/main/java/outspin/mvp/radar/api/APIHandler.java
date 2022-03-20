@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -30,6 +31,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.models.UserThumb;
+import outspin.mvp.radar.network.NetworkManager;
 
 public class APIHandler {
     private static final int CONNECTION_TIMEOUT_IN_MILISECONDS  = 30000;
@@ -60,7 +62,22 @@ public class APIHandler {
 
         return builder.build();
     }
+    /*
+    public static Uri buildUri(Map<String, String> queries, String... paths)
+            throws UnsupportedEncodingException {
+        // builder must have scheme https
+        Uri.Builder builder = Uri.parse("https://92.222.10.201:62126").buildUpon();
 
+        for(String path : paths) builder.appendPath(path);
+        for(Map.Entry<String, String> entry : queries.entrySet())
+            builder.appendQueryParameter(
+                    entry.getKey(),
+                    URLEncoder.encode(entry.getValue(), java.nio.charset.StandardCharsets.UTF_8.name())
+            );
+
+        return builder.build();
+    }
+*/
     /**
      * Opens a connection with the Server API.
      *
@@ -71,8 +88,8 @@ public class APIHandler {
      * @throws IOException
      */
     @NonNull
-    public static HttpsURLConnection openAPIConnection(String httpsMethod, @NonNull URL endpoint, long size) throws IOException {
-        //URL endpoint = new URL(url.toString());
+    public static HttpsURLConnection openAPIConnection(String httpsMethod, @NonNull URL endpoint, long size)
+            throws IOException {
         HttpsURLConnection connection = (HttpsURLConnection) endpoint.openConnection();
 
         connection.setRequestProperty("Accept-Charset", java.nio.charset.StandardCharsets.UTF_8.name());
@@ -104,6 +121,7 @@ public class APIHandler {
      * @throws IOException
      * @throws JSONException
      */
+    @NonNull
     public static JSONObject getResponseFromRequest(@NonNull HttpsURLConnection connection, JSONObject jsonRequest)
             throws IOException, JSONException {
 
@@ -164,15 +182,20 @@ public class APIHandler {
     public ArrayList<UserThumb> getUsersThumbById(@NonNull long... id) {
         Map<String, String> queries = new HashMap<>();
         queries.put("id", String.valueOf(id[0])); //only one user
+
         Uri uri = null;
+        JSONObject responseJson = null;
+        HttpsURLConnection urlAPIConnection = null;
         try {
             uri = buildUri(new String[] {"users"}, queries);
-        } catch (UnsupportedEncodingException e) {
+            urlAPIConnection = openAPIConnection("GET", new URL(uri.toString()), -1);
+
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        JSONObject responseJson = null;
-        HttpsURLConnection urlAPIConnection = null;
+
         try {
             URL url = new URL(uri.toString());
             urlAPIConnection = openAPIConnection("GET", url, -1);
@@ -211,10 +234,8 @@ public class APIHandler {
         protected JSONObject doInBackground(Void... object) {
             HttpsURLConnection urlConnection = null;
             JSONObject jsonFromServer = null;
-
             try {
-                Uri uri = buildUri(apiBundle.paths, apiBundle.queries);
-                URL url = new URL(uri.toString());
+                URL url = new URL(buildUri(apiBundle.paths, apiBundle.queries).toString());
                 urlConnection = openAPIConnection(apiBundle.httpMethod, url, -1);
                 jsonFromServer = getResponseFromRequest(urlConnection, apiBundle.json);
             } catch (IOException | JSONException e) {

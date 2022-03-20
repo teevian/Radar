@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import org.jetbrains.annotations.Contract;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +17,8 @@ import outspin.mvp.radar.models.UserThumb;
 
 public class JSONBuilder {
     
+    @NonNull
+    @Contract("_ -> new")
     public static JSONObject JSONfromString(String jsonString) throws JSONException {
         return new JSONObject(jsonString);
     }
@@ -37,15 +40,6 @@ public class JSONBuilder {
         userJson.put("photoURl", user.getPhotoURL());
 
         return userJson;
-    }
-
-    public static UserThumb userFromJSON(JSONObject json) throws JSONException {
-        JSONObject data = json.getJSONObject("data");
-
-        String userName = (String) data.get("name");
-        String phoneNumber = (String) data.get("phoneNumber");
-
-        return new UserThumb(userName, phoneNumber, "sed");
     }
 
 /*
