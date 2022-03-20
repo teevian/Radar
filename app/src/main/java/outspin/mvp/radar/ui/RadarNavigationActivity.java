@@ -1,10 +1,6 @@
 package outspin.mvp.radar.ui;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -13,8 +9,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,9 +31,7 @@ import java.util.Locale;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.ActivityRadarNavigationBinding;
-import outspin.mvp.radar.network.LocationHandler;
 import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
-import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 public class RadarNavigationActivity extends AppCompatActivity
         implements InteractionsAdapter.InteractionClickListener {
@@ -56,8 +48,8 @@ public class RadarNavigationActivity extends AppCompatActivity
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         mainBinding.floatingButton.getRoot().setOnClickListener(view -> {
-            BottomSheetDialogFragment myBottomSheetDialogFragment = new NotificationsDialog(this);
-            myBottomSheetDialogFragment.show(getSupportFragmentManager(), myBottomSheetDialogFragment.getTag());
+            BottomSheetDialogFragment interactionsDialog = new InteractionsDialog(this);
+            interactionsDialog.show(getSupportFragmentManager(), interactionsDialog.getTag());
         });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -69,8 +61,8 @@ public class RadarNavigationActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(View view, int position, Context parent) {
-        BottomSheetDialogFragment myBottomSheetDialogFragment = new NotificationsDialog(this);
-        myBottomSheetDialogFragment.show(getSupportFragmentManager(), myBottomSheetDialogFragment.getTag());
+        BottomSheetDialogFragment interactionsDialogFragment = new InteractionsDialog(this);
+        interactionsDialogFragment.show(getSupportFragmentManager(), interactionsDialogFragment.getTag());
     }
 
     public void locationButton() {

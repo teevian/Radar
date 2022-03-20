@@ -1,5 +1,9 @@
 package outspin.mvp.radar.api;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +20,7 @@ public class JSONBuilder {
         return new JSONObject(jsonString);
     }
 
+    @NonNull
     public static  JSONObject standardJSON() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("apiVersion", "0.1");

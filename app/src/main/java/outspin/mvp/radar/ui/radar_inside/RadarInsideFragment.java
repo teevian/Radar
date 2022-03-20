@@ -3,7 +3,7 @@ package outspin.mvp.radar.ui.radar_inside;
 import static java.lang.String.*;
 
 import android.content.Context;
-import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,8 +28,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import outspin.mvp.radar.R;
+import outspin.mvp.radar.api.APICallBack;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.JSONBuilder;
 import outspin.mvp.radar.data.Macros;
@@ -38,27 +42,21 @@ import outspin.mvp.radar.models.UserThumb;
 import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 
-public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener {
+public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener, APICallBack {
     private FragmentRadarInsideBinding fragmentRadarInsideBinding;
     private ArrayList<UserThumb> userThumbs = null;
-
-    private InsideAdapter gridAdapter;
-    RecyclerView rvInsideGrid;
-
+    private RecyclerView rvInsideGrid;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentRadarInsideBinding = FragmentRadarInsideBinding.inflate(inflater, container, false);
-        fragmentRadarInsideBinding.btLeave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fragmentRadarInsideBinding.btLeave.setOnClickListener(view -> {
                 FragmentManager fragmentManager = getParentFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, new RadarOutsideFragment())
                         .addToBackStack("outside")
                         .commit();
-            }
         });
 
         return fragmentRadarInsideBinding.getRoot();
@@ -72,6 +70,9 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
         PopulateAdapter populate = new PopulateAdapter(this);
         populate.execute();
+
+        // trying TODO implementation of query api
+        //APIHandler.QueryAPI.execute((Runnable) this);
     }
 
     @Override
@@ -86,6 +87,36 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
         fragmentRadarInsideBinding.burnNumbered.tvNumberOfBurns.setText(valueOf(burns));
     }
 
+
+    @Override
+    public void complete(JSONObject jsonData) {
+        try {
+            userThumbs = JSONBuilder.userThumbsInsideFromJSON(jsonData);
+
+            InsideAdapter gridAdapter = new InsideAdapter(getContext(), userThumbs);
+            gridAdapter.setClickListener(this);
+
+            rvInsideGrid.setLayoutManager(new GridLayoutManager(getContext(),
+                    Macros.CONST_RADAR_INSIDE_NUM_OF_COLUMNS));
+            rvInsideGrid.setAdapter(gridAdapter);
+
+            populateInsideClubInfo(userThumbs.size(), 20);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public APIHandler.APIConnectionBundle getAPIConnectionBundle() {
+        HashMap<String, String> queries = new HashMap<>();
+        queries.put("id", "21");
+        queries.put("club", "2");
+
+        return new APIHandler.APIConnectionBundle("GET", new String[]{"users"}, queries, null);
+    }
+
+
+
     protected class PopulateAdapter extends AsyncTask<Void, Void, JSONObject> {
         HttpURLConnection urlConnection = null;
         String jsonString = null;
@@ -98,7 +129,21 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
         @Override
         protected JSONObject doInBackground(Void... voids) {
             JSONObject jsonData = null;
+            HashMap<String, String> queries = new HashMap<>();
+            queries.put("id", "21");
+            queries.put("club", "2");
+
             try {
+                Uri uri = APIHandler.buildUri(new String[] {"users"}, queries);
+                /*
+                URL url = new URL("https://92.222.10.201:62126/id=21?club=2");
+                HttpsURLConnection connection = APIHandler.openAPIConnection("GET", url, -1);
+
+                JSONObject jsonResponse = APIHandler.getResponseFromRequest(connection, null);
+                jsonData = jsonResponse.getJSONObject("data");
+
+                Log.d(";;;;;;;;;", jsonResponse.toString()); */
+
                 URL url = new URL("http://92.222.10.201:62126/users?id=21&club=2");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -108,7 +153,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
                 int statusCode = urlConnection.getResponseCode();
 
-                if(statusCode == Macros.SERVER_STATUS_OK) {
+                if(statusCode == HttpsURLConnection.HTTP_OK) {
                     BufferedReader bufferedReader = new BufferedReader(
                             new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
                     StringBuilder stringBuilder = new StringBuilder();
@@ -124,6 +169,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
                 } else {
                     Log.d("STATUS CODE", "NOT OK");
                 }
+
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -136,8 +182,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
             try {
                 userThumbs = JSONBuilder.userThumbsInsideFromJSON(jsonData);
 
-                Log.d("THUMBS: ", userThumbs.toString());
-                gridAdapter = new InsideAdapter(parent.getContext(), userThumbs);
+                InsideAdapter gridAdapter = new InsideAdapter(parent.getContext(), userThumbs);
                 gridAdapter.setClickListener(parent);
 
                 rvInsideGrid.setLayoutManager(new GridLayoutManager(parent.getContext(),

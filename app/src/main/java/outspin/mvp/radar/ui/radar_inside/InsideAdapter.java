@@ -53,7 +53,7 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideAdapter.ProfileThu
     @Override
     public int getItemCount() { return data.size(); }
 
-    /*
+    /**
      * inner class
      */
     public class ProfileThumbViewHolder extends RecyclerView.ViewHolder

@@ -27,6 +27,8 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.models.UserThumb;
 import outspin.mvp.radar.api.JSONBuilder;
@@ -41,7 +43,7 @@ public class NetworkManager {
 
             @Override
             protected String doInBackground(String... strings) {
-                HttpURLConnection urlConnection = null;
+                HttpURLConnection urlConnection;
                 String jsonString = null;
                 try {
                     URL url = new URL("http://92.222.10.201:62126/users?id=4");
@@ -53,7 +55,7 @@ public class NetworkManager {
 
                     int statusCode = urlConnection.getResponseCode();
 
-                    if(statusCode == Macros.SERVER_STATUS_OK) {
+                    if(statusCode == HttpsURLConnection.HTTP_OK) {
                         BufferedReader bufferedReader = new BufferedReader(
                                 new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
                         StringBuilder stringBuilder = new StringBuilder();

@@ -1,7 +1,5 @@
 package outspin.mvp.radar.api;
 
-import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,10 +18,11 @@ public class SignUp implements APICallBack {
 
     @Override
     public void complete(JSONObject json) {
+       //Log.d(":::::::..:::::::::", json.toString());
     }
 
     @Override
-    public API.APIConnectionBundle getAPIConnectionBundle() {
+    public APIHandler.APIConnectionBundle getAPIConnectionBundle() {
        JSONObject json = null;
        try {
             json = JSONBuilder.standardJSON();
@@ -33,6 +32,6 @@ public class SignUp implements APICallBack {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return new API.APIConnectionBundle("POST", "users", new HashMap<String, String>(), json);
+        return new APIHandler.APIConnectionBundle("POST", new String[]{"users", "register"}, new HashMap<>(), json);
     }
 }

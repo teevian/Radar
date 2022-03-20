@@ -2,21 +2,15 @@ package outspin.mvp.radar.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.api.API;
-import outspin.mvp.radar.api.APICallBack;
+import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.SignUp;
-import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.databinding.ActivityLoginBinding;
 import outspin.mvp.radar.models.User;
 
@@ -95,8 +89,8 @@ public class LoginActivity extends AppCompatActivity {
                     String passwordDuplicate = loginBinding.etLoginPasswordDuplicate.getText().toString();
                     if(isValidated(phoneNumber, password, passwordDuplicate, name)) {
                         SignUp signUp = new SignUp(new User(-1, name, phoneNumber, countryCode, ""), password);
-                        API.APIConnectionBundle bundle = signUp.getAPIConnectionBundle();
-                        API.QueryAPI queryAPI = new API.QueryAPI(signUp);
+                        APIHandler.APIConnectionBundle bundle = signUp.getAPIConnectionBundle();
+                        APIHandler.QueryAPI queryAPI = new APIHandler.QueryAPI(signUp);
                         queryAPI.execute();
                     }
                     break;

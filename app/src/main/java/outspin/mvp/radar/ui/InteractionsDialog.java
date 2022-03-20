@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -28,19 +27,19 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.api.JSONBuilder;
-import outspin.mvp.radar.data.DummieData;
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.models.Notification;
-import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
 
-public class NotificationsDialog extends BottomSheetDialogFragment {
+public class InteractionsDialog extends BottomSheetDialogFragment {
     private final Context context;
     private ArrayList<Notification> notifications;
     private View view;
 
-    public NotificationsDialog(Context parent) {
+    public InteractionsDialog(Context parent) {
         this.context = parent;
     }
 
@@ -48,11 +47,11 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState) ;
-        view = View.inflate(getContext(), R.layout.dialog_notifications, null);
+        view = View.inflate(getContext(), R.layout.fragment_interactions_dialog, null);
         dialog.setContentView(view);
 
-        BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
-        bottomSheetBehavior.setPeekHeight(2500); // height of the first state
+        //BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
+        //bottomSheetBehavior.setPeekHeight(900); // height of the first state TODO HEIGHT
 
         PopulateNotifications populateNotifications = new PopulateNotifications(this);
         populateNotifications.execute();
@@ -63,9 +62,9 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
     public class PopulateNotifications extends AsyncTask<Void, Void, JSONObject> {
         HttpURLConnection urlConnection = null;
         String jsonString = null;
-        NotificationsDialog parent;
+        InteractionsDialog parent;
 
-        PopulateNotifications(NotificationsDialog parent) {
+        PopulateNotifications(InteractionsDialog parent) {
             this.parent = parent;
         }
 
@@ -82,7 +81,7 @@ public class NotificationsDialog extends BottomSheetDialogFragment {
 
                 int statusCode = urlConnection.getResponseCode();
 
-                if(statusCode == Macros.SERVER_STATUS_OK) {
+                if(statusCode == HttpsURLConnection.HTTP_OK) {
                     BufferedReader bufferedReader = new BufferedReader(
                             new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
                     StringBuilder stringBuilder = new StringBuilder();

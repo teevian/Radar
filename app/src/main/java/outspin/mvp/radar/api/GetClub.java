@@ -2,8 +2,6 @@ package outspin.mvp.radar.api;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -15,7 +13,7 @@ public class GetClub implements APICallBack{
 
     public GetClub() {
         this.httpMethod = "GET";
-        this.queries = new HashMap<String, String>();
+        this.queries = new HashMap<>();
         this.queries.put("id", "7");
     }
 
@@ -25,7 +23,7 @@ public class GetClub implements APICallBack{
     }
 
     @Override
-    public API.APIConnectionBundle getAPIConnectionBundle() {
-        return new API.APIConnectionBundle(this.httpMethod, "club", this.queries, null);
+    public APIHandler.APIConnectionBundle getAPIConnectionBundle() {
+        return new APIHandler.APIConnectionBundle(this.httpMethod, new String[]{"club"}, this.queries, null);
     }
 }

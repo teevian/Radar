@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.api.API;
+import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.GetClub;
 import outspin.mvp.radar.databinding.ActivityProfileBinding;
 
@@ -48,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         GetClub getClub = new GetClub();
-        API.QueryAPI queryAPI = new API.QueryAPI(getClub);
+        APIHandler.QueryAPI queryAPI = new APIHandler.QueryAPI(getClub);
         queryAPI.execute();
     }
 }

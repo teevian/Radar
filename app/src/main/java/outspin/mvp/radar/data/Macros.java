@@ -2,7 +2,8 @@ package outspin.mvp.radar.data;
 
 public class Macros {
     public static final short CONST_RADAR_INSIDE_NUM_OF_COLUMNS = 4;
-
+    public static final String CONST_OUTSPIN_VERSION        = "0.1";
+    public static final String CONST_OUTSPIN_USER_AGENT     = "Outspin/0.1 (Android v4.4; Mobile; rv:41.0)";
     // internet
     public static final String CONST_INTERNET_SERVER_NAME   = "outspin.vps.ovh.pt";
     public static final String CONST_INTERNET_SERVER_IPV4   = "92.222.10.201";
@@ -16,23 +17,8 @@ public class Macros {
     public static final String PREFERENCE_PASSWORD_KEY      = "password";
     public static final String PREFERENCE_PHONE_NUMBER_KEY  = "phoneNumber";
 
-    // SERVER STATUS
-    public static final int SERVER_STATUS_OK                = 200;
-    public static final int SERVER_STATUS_CREATED           = 201;
-    public static final int SERVER_STATUS_ACCEPTED          = 202;
-
-    public static final int SERVER_STATUS_INVALID_REQUEST   = 400;
-    public static final int SERVER_STATUS_NOT_AUTHORIZED    = 401;
-    public static final int SERVER_STATUS_NOT_FOUND         = 404;
-    public static final int SERVER_STATUS_TIMED_OUT         = 408;
-    public static final int SERVER_STATUS_CONFLICT          = 409;
-    public static final int SERVER_STATUS_GONE              = 410;
-    public static final int SERVER_STATUS_CUP_OF_TEA        = 418;
-
-    public static final int SERVER_STATUS_INTERNAL_ERROR    = 500;
-    public static final int SERVER_STATUS_NOT_IMPLEMENTED   = 501;
-    public static final int SERVER_STATUS_BAD_GATEWAY       = 502;
-    public static final int SERVER_STATUS_UNAVAILABLE       = 503;
+    // API
+    public static final String PREFERENCES_AUTH_TOKEN       = "AuthToken";
 
     public static final String NOTIFICATION_WAVE = "waved at you!";
 }
