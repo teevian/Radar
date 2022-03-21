@@ -26,17 +26,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.api.JSONBuilder;
-import outspin.mvp.radar.data.Macros;
-import outspin.mvp.radar.models.Notification;
+import outspin.mvp.radar.api.APICallBack;
+import outspin.mvp.radar.api.APIHandler;
+import outspin.mvp.radar.api.JSONParser;
+import outspin.mvp.radar.models.Interaction;
 
-public class InteractionsDialog extends BottomSheetDialogFragment {
+public class InteractionsDialog extends BottomSheetDialogFragment implements APICallBack {
     private final Context context;
-    private ArrayList<Notification> notifications;
+    private ArrayList<Interaction> notifications;
     private View view;
 
     public InteractionsDialog(Context parent) {
@@ -53,78 +55,46 @@ public class InteractionsDialog extends BottomSheetDialogFragment {
         //BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         //bottomSheetBehavior.setPeekHeight(900); // height of the first state TODO HEIGHT
 
-        PopulateNotifications populateNotifications = new PopulateNotifications(this);
-        populateNotifications.execute();
+        //PopulateNotifications populateNotifications = new PopulateNotifications(this);
+        //populateNotifications.execute();
+
+
+        APIHandler.QueryAPI getNotifications = new APIHandler.QueryAPI(this);
+        getNotifications.execute();
 
         return dialog;
     }
 
-    public class PopulateNotifications extends AsyncTask<Void, Void, JSONObject> {
-        HttpURLConnection urlConnection = null;
-        String jsonString = null;
-        InteractionsDialog parent;
+    @Override
+    public void complete(JSONObject json) {
+        notifications = new ArrayList<>();
 
-        PopulateNotifications(InteractionsDialog parent) {
-            this.parent = parent;
-        }
-
-        @Override
-        protected JSONObject doInBackground(Void... voids) {
-            JSONObject jsonData = null;
-            try {
-                URL url = new URL("http://92.222.10.201:62126/notifications?id=21");
-
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setDoInput(false);
-
-                int statusCode = urlConnection.getResponseCode();
-
-                if(statusCode == HttpsURLConnection.HTTP_OK) {
-                    BufferedReader bufferedReader = new BufferedReader(
-                            new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-                    StringBuilder stringBuilder = new StringBuilder();
-
-                    String responseLineFromAPI;
-                    while ((responseLineFromAPI = bufferedReader.readLine()) != null)
-                        stringBuilder.append(responseLineFromAPI).append("\n");
-
-                    bufferedReader.close();
-
-                    jsonString = stringBuilder.toString();
-                    jsonData = JSONBuilder.JSONfromString(jsonString).getJSONObject("data");
-                } else {
-                    Log.d("STATUS CODE", "NOT OK");
-                }
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }
-            return jsonData;
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject jsonNotificationData) {
-            super.onPostExecute(jsonNotificationData);
-
-            notifications = new ArrayList<>();
-
-            try {
-                JSONArray notificationsArrayJson = jsonNotificationData.getJSONArray("list");
-                int numOfNotifications = notificationsArrayJson.length();
-                for(int i = 0; i < numOfNotifications; i++) {
-                    notifications.add( new Notification(notificationsArrayJson.getJSONObject(i)) );
-                    notifications.get(i).setMessage(String.valueOf(i));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
+        try {
+            // TODO organize to generalize
+            JSONArray notificationsArrayJson = json.getJSONObject("data").getJSONArray("interactions");
+            int numOfNotifications = notificationsArrayJson.length();
+            for(int i = 0; i < numOfNotifications; i++) {
+                notifications.add( new Interaction(notificationsArrayJson.getJSONObject(i)) );
+                notifications.get(i).setMessage(String.valueOf(i));
             }
 
-            RecyclerView recyclerView = view.findViewById(R.id.rv_interactions);
-            InteractionsAdapter interactionsAdapter = new InteractionsAdapter(notifications);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter(interactionsAdapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        RecyclerView recyclerView = view.findViewById(R.id.rv_interactions);
+        InteractionsAdapter interactionsAdapter = new InteractionsAdapter(notifications);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(interactionsAdapter);
     }
+
+    @Override
+    public APIHandler.APIConnectionBundle getAPIConnectionBundle() {
+        HashMap<String, String> queries = new HashMap<>();
+        queries.put("id", "20");
+
+        return new APIHandler.APIConnectionBundle("GET", new String[]{"notifications"}, queries, null);
+    }
+
 }

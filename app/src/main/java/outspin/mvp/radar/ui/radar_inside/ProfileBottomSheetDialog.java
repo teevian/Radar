@@ -14,12 +14,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
 import outspin.mvp.radar.databinding.DialogInteractWithUserBinding;
-import outspin.mvp.radar.models.UserThumb;
+import outspin.mvp.radar.models.User;
 
 public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
-    private final UserThumb userThumb;
+    private final User userThumb;
 
-    public ProfileBottomSheetDialog(Context parent, UserThumb userThumb) {
+    public ProfileBottomSheetDialog(Context parent, User userThumb) {
         this.userThumb = userThumb;
     }
 
@@ -40,18 +40,12 @@ public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
                 .centerCrop()
                 .into(interactWithUserDialogbinding.profileThumbnail.profileThumbnailPicture);
 
-        interactWithUserDialogbinding.ivBurn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
+        interactWithUserDialogbinding.ivBurn.setOnClickListener(view -> {
+            // TODO
         });
 
-        interactWithUserDialogbinding.ivTap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
+        interactWithUserDialogbinding.ivTap.setOnClickListener(view -> {
+            // TODO
         });
 
         return dialog;

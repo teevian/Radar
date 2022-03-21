@@ -14,14 +14,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.models.UserThumb;
+import outspin.mvp.radar.models.User;
 
 public class InsideAdapter extends RecyclerView.Adapter<InsideAdapter.ProfileThumbViewHolder> {
-    private final ArrayList<UserThumb> data;
+    private final ArrayList<User> data;
     private final LayoutInflater inflater;
     private ItemClickListener mClickListener;
 
-    public InsideAdapter(Context context, ArrayList<UserThumb> data) {
+    public InsideAdapter(Context context, ArrayList<User> data) {
         this.inflater = LayoutInflater.from(context);
         this.data = data;
     }
@@ -43,11 +43,11 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideAdapter.ProfileThu
                 .resize(150, 150)
                 .centerCrop()
                 .into(profileIcon);
-/*
-        if(data.get(position).getInteraction().equals("wa")) {
+
+        if(data.get(position).getInteraction().equals("wave")) {
             ImageView icon = holder.itemView.findViewById(R.id.profile_thumbnail_icon_interaction);
             icon.setVisibility(View.VISIBLE);
-        }*/
+        }
     }
 
     @Override

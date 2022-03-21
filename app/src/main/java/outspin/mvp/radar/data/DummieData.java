@@ -1,11 +1,5 @@
 package outspin.mvp.radar.data;
 
-import java.util.Arrays;
-import java.util.List;
-
-import outspin.mvp.radar.models.Notification;
-import outspin.mvp.radar.models.UserThumb;
-
 public class DummieData {
 /*
     //  Video data
@@ -43,13 +37,13 @@ public class DummieData {
             new Moment("tá a bater", "Posh", "https://turingnotes.com/wp-content/uploads/2022/02/momentvideo2.mp4"),
             new Moment("Lust in Rio", "Lust", "https://turingnotes.com/wp-content/uploads/2022/02/momentvideo3.mp4"),
             new Moment("yaaa", "River", "https://turingnotes.com/wp-content/uploads/2022/02/momentvideo4.mp4")
-    );*/
+    );
 
     public static List<UserThumb> DUMMY_USERS = Arrays.asList(
-            new UserThumb("Cristina", "912088008", "https://turingnotes.com/wp-content/uploads/2022/02/photo12.jpeg"),
-            new UserThumb("Mauro", "912088108", "https://turingnotes.com/wp-content/uploads/2022/02/photo20.jpeg"),
-            new UserThumb("Telmo", "912088208", "https://turingnotes.com/wp-content/uploads/2022/02/photo21.jpeg"),
-            new UserThumb("Zita", "912088308", "https://turingnotes.com/wp-content/uploads/2022/02/photo2.jpeg"),
+            new UserThumb(1, "Cristina", "912088008", "https://turingnotes.com/wp-content/uploads/2022/02/photo12.jpeg"),
+            new UserThumb(2, "Mauro", "912088108", "https://turingnotes.com/wp-content/uploads/2022/02/photo20.jpeg"),
+            new UserThumb(3, "Telmo", "912088208", "https://turingnotes.com/wp-content/uploads/2022/02/photo21.jpeg"),
+            new UserThumb(4, "Zita", "912088308", "https://turingnotes.com/wp-content/uploads/2022/02/photo2.jpeg"),
             new UserThumb("Rafa", "912088408", "https://turingnotes.com/wp-content/uploads/2022/02/photo23.jpeg")
     );
 
@@ -106,4 +100,5 @@ public class DummieData {
             new Notification(3, 22, Notification.WAVE),
             new Notification(1, 23, Notification.WAVE)
     );
+    */
 }

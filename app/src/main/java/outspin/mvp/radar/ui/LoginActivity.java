@@ -12,7 +12,7 @@ import outspin.mvp.radar.R;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.SignUp;
 import outspin.mvp.radar.databinding.ActivityLoginBinding;
-import outspin.mvp.radar.models.User;
+import outspin.mvp.radar.models.UserNotInUse;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding loginBinding;
@@ -35,10 +35,7 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
 
-        if(name.length() == 0)
-            return false;
-
-        return true;
+        return name.length() != 0;
     }
 
     boolean isValidated(String phoneNumber, String password){
@@ -81,14 +78,14 @@ public class LoginActivity extends AppCompatActivity {
             switch (signStatus) {
                 case LOGIN:
                     if(isValidated(phoneNumber, password)) {
-
+                        // TODO
                     }
                     break;
                 case SIGNUP:
                     String name = loginBinding.etName.getText().toString();
                     String passwordDuplicate = loginBinding.etLoginPasswordDuplicate.getText().toString();
                     if(isValidated(phoneNumber, password, passwordDuplicate, name)) {
-                        SignUp signUp = new SignUp(new User(-1, name, phoneNumber, countryCode, ""), password);
+                        SignUp signUp = new SignUp(new UserNotInUse(-1, name, phoneNumber, countryCode, ""), password);
                         APIHandler.APIConnectionBundle bundle = signUp.getAPIConnectionBundle();
                         APIHandler.QueryAPI queryAPI = new APIHandler.QueryAPI(signUp);
                         queryAPI.execute();

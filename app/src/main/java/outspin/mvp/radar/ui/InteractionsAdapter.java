@@ -16,13 +16,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.models.Notification;
+import outspin.mvp.radar.models.Interaction;
 
 public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapter.InteractionViewHolder>{
-    ArrayList<Notification> notifications;
+    ArrayList<Interaction> notifications;
     InteractionClickListener notificationClickListener;
 
-    InteractionsAdapter(ArrayList<Notification> notifications) {
+    InteractionsAdapter(ArrayList<Interaction> notifications) {
         this.notifications = notifications;
     }
 
@@ -40,7 +40,7 @@ public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull InteractionViewHolder holder, int position) {
-        final Notification notification = notifications.get(position);
+        final Interaction notification = notifications.get(position);
         holder.textViewMessage.setText(notification.getMessage());
 
         Picasso.with(holder.imageView.getContext())

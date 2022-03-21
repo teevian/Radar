@@ -35,16 +35,16 @@ import javax.net.ssl.HttpsURLConnection;
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.api.APICallBack;
 import outspin.mvp.radar.api.APIHandler;
-import outspin.mvp.radar.api.JSONBuilder;
+import outspin.mvp.radar.api.JSONParser;
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
-import outspin.mvp.radar.models.UserThumb;
+import outspin.mvp.radar.models.User;
 import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 
 public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener, APICallBack{
     private FragmentRadarInsideBinding fragmentRadarInsideBinding;
-    private ArrayList<UserThumb> userThumbs = null;
+    private ArrayList<User> userThumbs = null;
     private RecyclerView rvInsideGrid;
 
     @Nullable
@@ -87,7 +87,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
     @Override
     public void complete(JSONObject jsonData) {
         try {
-            userThumbs = JSONBuilder.userThumbsInsideFromJSON(jsonData);
+            userThumbs = JSONParser.userThumbsInsideFromJSON(jsonData);
 
             InsideAdapter gridAdapter = new InsideAdapter(getContext(), userThumbs);
             gridAdapter.setClickListener(this);
@@ -105,83 +105,10 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
     @Override
     public APIHandler.APIConnectionBundle getAPIConnectionBundle() {
         HashMap<String, String> queries = new HashMap<>();
-        queries.put("id", "21");
+        queries.put("id", "20");
         queries.put("club", "2");
 
         return new APIHandler.APIConnectionBundle("GET", new String[]{"users"}, queries, null);
-    }
-
-    protected class PopulateAdapter extends AsyncTask<Void, Void, JSONObject> {
-        HttpURLConnection urlConnection = null;
-        String jsonString = null;
-        RadarInsideFragment parent;
-
-        PopulateAdapter(RadarInsideFragment parent) {
-            this.parent = parent;
-        }
-
-        @Override
-        protected JSONObject doInBackground(Void... voids) {
-            JSONObject jsonResponse = null;
-            HashMap<String, String> queries = new HashMap<>();
-            queries.put("id", "21");
-            queries.put("club", "2");
-
-            ArrayList<UserThumb> users = APIHandler.getUsersThumbById(17, 20, 21);
-
-            try {
-                Uri uri = APIHandler.buildUri(queries, "users");
-                URL url = new URL("http://92.222.10.201:62126/users?id=21&club=2");
-
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setDoInput(false);
-
-                int statusCode = urlConnection.getResponseCode();
-
-                if(statusCode == HttpsURLConnection.HTTP_OK) {
-                    BufferedReader bufferedReader = new BufferedReader(
-                            new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-                    StringBuilder stringBuilder = new StringBuilder();
-
-                    String responseLineFromAPI;
-                    while ((responseLineFromAPI = bufferedReader.readLine()) != null)
-                        stringBuilder.append(responseLineFromAPI).append("\n");
-
-                    bufferedReader.close();
-
-                    jsonString = stringBuilder.toString();
-                    jsonResponse = JSONBuilder.JSONfromString(jsonString);
-                } else {
-                    Log.d("STATUS CODE", "NOT OK");
-                }
-
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }
-            return jsonResponse;
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject jsonData) {
-            super.onPostExecute(jsonData);
-
-            try {
-                userThumbs = JSONBuilder.userThumbsInsideFromJSON(jsonData);
-
-                InsideAdapter gridAdapter = new InsideAdapter(parent.getContext(), userThumbs);
-                gridAdapter.setClickListener(parent);
-
-                rvInsideGrid.setLayoutManager(new GridLayoutManager(parent.getContext(),
-                        Macros.CONST_RADAR_INSIDE_NUM_OF_COLUMNS));
-                rvInsideGrid.setAdapter(gridAdapter);
-
-                populateInsideClubInfo(userThumbs.size(), 20);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
 

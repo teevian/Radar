@@ -1,58 +1,68 @@
 package outspin.mvp.radar.models;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import outspin.mvp.radar.api.JSONParser;
+
 public class User {
     private long id;
-    private String name;
+
+    private String firstName;
+    private String lastName;
     private String phoneNumber;
-    private long clubID;
     private String photoURL;
-    private String countryCode;
+    private String interaction;
 
-    public User(long id, String name, String phoneNumber, String countryCode, String photoURL) {
+    public User(long id, String firstName, String phoneNumber, String photoURL) {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
         this.phoneNumber = phoneNumber;
         this.photoURL = photoURL;
-        this.countryCode = countryCode;
     }
 
-    /*  Getters && Setters  */
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-    public long getClubID() {
-        return clubID;
-    }
-    public void setClubID(long clubID) {
-        this.clubID = clubID;
-    }
-    public String getPhotoURL() {
-        return photoURL;
-    }
-    public void setPhotoURL(String photoURL) {
-        this.photoURL = photoURL;
+    /**
+     * Constructs a user thumbnail from JSON. Sets name to "" if name is empty.
+     *
+     * @param userJSON json of a user thumbnail
+     */
+    public User(@NonNull JSONObject userJSON) throws JSONException {
+        this.id         = userJSON.getLong("id");
+        this.photoURL   = userJSON.getString("photo_url");
+        this.interaction = userJSON.getString("interaction");
+
+        // TODO improve this
+        this.firstName = userJSON.has("first_name") ? userJSON.getString("first_name") : "";
+        this.lastName = userJSON.has("last_name") ? userJSON.getString("last_name") : "";
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    @NonNull
+    @Override
+    public String toString() {
+        return "{ \"id\" :" + this.id + ", \"thumbnail\":" + this.photoURL + ", \"interaction\":" + this.interaction +"}";
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    /*  getters && setters   */
+    public String getFirstName() { return this.firstName; }
+    public void setFirstName(String username) { this.firstName = username; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getPhotoURL() { return photoURL; }
+    public void setPhotoURL(String photoURL) { this.photoURL = photoURL; }
+
+    public String getInteraction() {
+        return this.interaction;
+    }
+    public void setInteraction(String interaction) {
+        this.interaction = interaction;
     }
 }

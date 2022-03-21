@@ -1,6 +1,5 @@
 package outspin.mvp.radar.api;
 
-import android.icu.text.Edits;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -18,7 +17,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -26,7 +24,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -34,7 +31,7 @@ import java.util.Set;
 import javax.net.ssl.HttpsURLConnection;
 
 import outspin.mvp.radar.data.Macros;
-import outspin.mvp.radar.models.UserThumb;
+import outspin.mvp.radar.models.User;
 
 public class APIHandler {
     private static final int CONNECTION_TIMEOUT_IN_MILISECONDS  = 30000;
@@ -110,8 +107,8 @@ public class APIHandler {
         connection.setDoInput(true);
 
         // improves performance by setting a fixed size to the buffer stream in order to transfer data
-        //if(size <= 0) connection.setChunkedStreamingMode(0);    // if data size to send is unknown
-        //else connection.setFixedLengthStreamingMode(size);      // if data size to send is known
+        if(size <= 0) connection.setChunkedStreamingMode(0);    // if data size to send is unknown
+        else connection.setFixedLengthStreamingMode(size);      // if data size to send is known
 
         connection.setConnectTimeout(CONNECTION_TIMEOUT_IN_MILISECONDS);    // timeout for connection
         connection.setReadTimeout(READ_TIMEOUT_IN_MILISECONDS);             // timeout for not receiving bytes
@@ -157,7 +154,7 @@ public class APIHandler {
         bufferedReader.close();
         String responseString = stringBuilder.toString();
 
-        return JSONBuilder.JSONfromString(responseString);
+        return JSONParser.JSONfromString(responseString);
     }
 
     /**
@@ -190,23 +187,23 @@ public class APIHandler {
      * @return arraylist of user thumbs
      */
     @NonNull
-    public static ArrayList<UserThumb> getUsersThumbById(@NonNull long... ids) {
+    public static ArrayList<User> getUsersThumbById(@NonNull long... ids) {
         Set<Pair<String, String>> queries = new HashSet<>();
         for(long id : ids) queries.add(new Pair<>("id", String.valueOf(id)));
 
-        JSONObject responseJson = null;
+        JSONObject responseJson;
         HttpURLConnection urlAPIConnection = null;
-        ArrayList<UserThumb> users = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<>();
         try {
             URL endpoint = new URL(buildUri(queries, "users").toString());
-            
+
             Log.d("LLLLLLLLLL", endpoint.toString());
             urlAPIConnection = openAPIConnection("GET", endpoint, -1);
             responseJson = getResponseFromRequest(urlAPIConnection, null);
 
             JSONArray data = responseJson.getJSONArray("data");
             for(int i = 0; i < data.length(); i++)
-                users.add(new UserThumb(data.getJSONObject(i)));
+                users.add(new User(data.getJSONObject(i)));
 
             Log.d("LLLLLLLLLL--AAAA-->", users.toString());
         } catch (IOException | JSONException e) {

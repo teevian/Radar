@@ -1,8 +1,7 @@
 package outspin.mvp.radar.api;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.jetbrains.annotations.Contract;
 import org.json.JSONArray;
@@ -11,11 +10,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import outspin.mvp.radar.models.Notification;
+import outspin.mvp.radar.models.Interaction;
+import outspin.mvp.radar.models.UserNotInUse;
 import outspin.mvp.radar.models.User;
-import outspin.mvp.radar.models.UserThumb;
 
-public class JSONBuilder {
+public class JSONParser {
     
     @NonNull
     @Contract("_ -> new")
@@ -30,7 +29,7 @@ public class JSONBuilder {
         return json;
     }
 
-    public static JSONObject JSONFromUser(User user) throws JSONException {
+    public static JSONObject JSONFromUser(UserNotInUse user) throws JSONException {
         JSONObject userJson = new JSONObject();
         String id = String.valueOf(user.getId());
         userJson.put("id", id);
@@ -43,32 +42,43 @@ public class JSONBuilder {
     }
 
     // TODO should test
-    public static ArrayList<UserThumb> userThumbsInsideFromJSON(JSONObject jsonData) throws JSONException {
+    public static ArrayList<User> userThumbsInsideFromJSON(JSONObject jsonData) throws JSONException {
         JSONObject json = jsonData.getJSONObject("data");
         JSONArray jsonListOfUsers = json.getJSONArray("users");
 
         int numOfUsers = jsonListOfUsers.length();
 
-        ArrayList<UserThumb> usersInside = new ArrayList<>();
+        ArrayList<User> usersInside = new ArrayList<>();
         for(int i = 0; i < numOfUsers; i++) {
-            UserThumb userThumb = new UserThumb( jsonListOfUsers.getJSONObject(i) );
+            User userThumb = new User( jsonListOfUsers.getJSONObject(i) );
             usersInside.add(userThumb);
         }
 
         return usersInside;
     }
 
-    public static ArrayList<Notification> notificationFromJSON(JSONObject jsonData) throws JSONException {
+    public static ArrayList<Interaction> notificationFromJSON(JSONObject jsonData) throws JSONException {
         JSONArray notificationsArrayJson = jsonData.getJSONArray("list");
         int numOfNotifications = notificationsArrayJson.length();
 
-        ArrayList<Notification> notifications = new ArrayList<>();
+        ArrayList<Interaction> notifications = new ArrayList<>();
         for(int i = 0; i < numOfNotifications; i++) {
-            Notification notification = new Notification( notificationsArrayJson.getJSONObject(i) );
+            Interaction notification = new Interaction( notificationsArrayJson.getJSONObject(i) );
             notifications.add(notification);
         }
 
         return notifications;
+    }
+
+    @Nullable
+    public static String getValueFromJSON(@NonNull JSONObject data, String key, String defaultValue) {
+        String value = null;
+        try {
+            value = data.has(key) ? data.getString(key) : defaultValue;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 /*
     public static ArrayList<Notification> interactionsFromJSON(JSONObject notificationsInsideJSON) throws JSONException {
