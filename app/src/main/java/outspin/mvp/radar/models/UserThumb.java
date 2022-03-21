@@ -5,31 +5,34 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class UserThumb {
     private long id;
 
-    private String username;
+    private String firstName;
+    private String lastName;
     private String phoneNumber;
     private String photoURL;
     private String interaction;
 
-    public UserThumb(String username, String phoneNumber, String photoURL) {
-        this.username = username;
+    public UserThumb(String firstName, String phoneNumber, String photoURL) {
+        this.firstName = firstName;
         this.phoneNumber = phoneNumber;
         this.photoURL = photoURL;
     }
 
     public UserThumb(JSONObject jsonUser) {
         try {
-            JSONObject data = jsonUser.getJSONObject("data");
+            JSONObject data = jsonUser.has("data") ? jsonUser.getJSONObject("data") : jsonUser;
 
             this.id = data.getLong("id");
-            this.username = data.getString("name");
-
-            JSONObject thumbs = data.getJSONObject("thumbnails");
-            this.photoURL = thumbs.getString("m");
+            this.firstName = data.getString("first_name");
+            this.lastName = data.getString("last_name");
+            this.photoURL = data.getString("photo_url");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,8 +45,8 @@ public class UserThumb {
     }
 
     /*  getters && setters   */
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    public String getFirstName() { return this.firstName; }
+    public void setFirstName(String username) { this.firstName = username; }
 
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }

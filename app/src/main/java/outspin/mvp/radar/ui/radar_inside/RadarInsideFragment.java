@@ -128,25 +128,15 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
         @Override
         protected JSONObject doInBackground(Void... voids) {
-            JSONObject jsonData = null;
+            JSONObject jsonResponse = null;
             HashMap<String, String> queries = new HashMap<>();
             queries.put("id", "21");
             queries.put("club", "2");
 
-            ArrayList<UserThumb> users = APIHandler.getUsersThumbById(17);
-            Log.d("jjjjjjjjjjjjj", users.get(0).toString());
-
+            ArrayList<UserThumb> users = APIHandler.getUsersThumbById(17, 20, 21);
+            Log.d("LLLLLLLLLLLLLL", users.toString());
             try {
                 Uri uri = APIHandler.buildUri(queries, "users");
-                /*
-                URL url = new URL("https://92.222.10.201:62126/id=21?club=2");
-                HttpsURLConnection connection = APIHandler.openAPIConnection("GET", url, -1);
-
-                JSONObject jsonResponse = APIHandler.getResponseFromRequest(connection, null);
-                jsonData = jsonResponse.getJSONObject("data");
-
-                Log.d(";;;;;;;;;", jsonResponse.toString()); */
-
                 URL url = new URL("http://92.222.10.201:62126/users?id=21&club=2");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -168,7 +158,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
                     bufferedReader.close();
 
                     jsonString = stringBuilder.toString();
-                    jsonData = JSONBuilder.JSONfromString(jsonString).getJSONObject("data");
+                    jsonResponse = JSONBuilder.JSONfromString(jsonString);
                 } else {
                     Log.d("STATUS CODE", "NOT OK");
                 }
@@ -176,12 +166,13 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
-            return jsonData;
+            return jsonResponse;
         }
 
         @Override
         protected void onPostExecute(JSONObject jsonData) {
             super.onPostExecute(jsonData);
+
             try {
                 userThumbs = JSONBuilder.userThumbsInsideFromJSON(jsonData);
 

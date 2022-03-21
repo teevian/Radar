@@ -42,20 +42,9 @@ public class JSONBuilder {
         return userJson;
     }
 
-/*
-    public static Notification notificationFromJSON(JSONObject notificationJSON) throws JSONException {
-        JSONObject data = notificationJSON.getJSONObject("data");
-
-        if(data.get("@kind").equals("interaction")) {
-            String message = "someone waved at you!";
-        }
-
-        return new Notification(0, 2, "imagem");
-    }
-*/
     // TODO should test
     public static ArrayList<UserThumb> userThumbsInsideFromJSON(JSONObject jsonData) throws JSONException {
-        JSONArray jsonListOfUsers = jsonData.getJSONArray("list");
+        JSONArray jsonListOfUsers = jsonData.getJSONArray("data");
         int numOfUsers = jsonListOfUsers.length();
 
         ArrayList<UserThumb> usersInside = new ArrayList<>();

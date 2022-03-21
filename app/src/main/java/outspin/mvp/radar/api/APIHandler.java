@@ -1,11 +1,14 @@
 package outspin.mvp.radar.api;
 
+import android.icu.text.Edits;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.annotation.NonNull;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,8 +18,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -32,7 +35,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.models.UserThumb;
-import outspin.mvp.radar.network.NetworkManager;
 
 public class APIHandler {
     private static final int CONNECTION_TIMEOUT_IN_MILISECONDS  = 30000;
@@ -60,6 +62,29 @@ public class APIHandler {
                     URLEncoder.encode(entry.getValue(), java.nio.charset.StandardCharsets.UTF_8.name())
             );
 
+        return builder.build();
+    }
+
+    /**
+     * Builds the URI in order to connect with the API.
+     *
+     * @param paths array with paths
+     * @param queries queries to send
+     * @return uri built, null if not processed
+     * @throws UnsupportedEncodingException if encoding UTF-8 is not supported
+     */
+    public static Uri buildUri(Set<Pair<String, String>> queries, String... paths)
+            throws UnsupportedEncodingException {
+        Uri.Builder builder = Uri.parse("http://92.222.10.201:62126").buildUpon();
+
+        for(String path : paths) builder.appendPath(path);
+        for(Pair<String, String> query : queries) {
+
+            builder.appendQueryParameter(
+                    query.first,
+                    URLEncoder.encode(query.second, java.nio.charset.StandardCharsets.UTF_8.name())
+            );
+        }
         return builder.build();
     }
 
@@ -161,32 +186,36 @@ public class APIHandler {
     /**
      * Get users from ids.
      *
-     * @param id String[] ids
+     * @param ids String[] ids
      * @return arraylist of user thumbs
      */
     @NonNull
-    public static ArrayList<UserThumb> getUsersThumbById(@NonNull long... id) {
-        Map<String, String> queries = new HashMap<>();
-        queries.put("id", String.valueOf(id[0])); //only one user TODO should be an array if multiple users
+    public static ArrayList<UserThumb> getUsersThumbById(@NonNull long... ids) {
+        Set<Pair<String, String>> queries = new HashSet<>();
+        for(long id : ids) queries.add(new Pair<>("id", String.valueOf(id)));
 
-        /* for loop */
         JSONObject responseJson = null;
         HttpURLConnection urlAPIConnection = null;
+        ArrayList<UserThumb> users = new ArrayList<>();
         try {
             URL endpoint = new URL(buildUri(queries, "users").toString());
+            Log.d("LLLLLLLLLL", endpoint.toString());
             urlAPIConnection = openAPIConnection("GET", endpoint, -1);
             responseJson = getResponseFromRequest(urlAPIConnection, null);
+
+            JSONArray data = responseJson.getJSONArray("data");
+            for(int i = 0; i < data.length(); i++)
+                users.add(new UserThumb(data.getJSONObject(i)));
+
+            Log.d("LLLLLLLLLL--AAAA-->", users.toString());
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         } finally {
             if (urlAPIConnection != null) urlAPIConnection.disconnect();
         }
 
-        ArrayList<UserThumb> users = new ArrayList<>();
-        users.add(new UserThumb(responseJson));
-        /* end of for loop */
 
-        Log.d("jjjjjjjjjjjj 333333", users.toString());
+
         return users;
     }
 
