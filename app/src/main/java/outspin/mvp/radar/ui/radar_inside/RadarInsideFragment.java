@@ -68,13 +68,8 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
         rvInsideGrid = fragmentRadarInsideBinding.rvInsideUsers;
 
-        //PopulateAdapter populate = new PopulateAdapter(this);
-        //populate.execute();
-
-        // trying TODO implementation of query api
         APIHandler.QueryAPI getUsers = new APIHandler.QueryAPI(this);
         getUsers.execute();
-
     }
 
     @Override
@@ -133,7 +128,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
             queries.put("club", "2");
 
             ArrayList<UserThumb> users = APIHandler.getUsersThumbById(17, 20, 21);
-            Log.d("LLLLLLLLLLLLLL", users.toString());
+
             try {
                 Uri uri = APIHandler.buildUri(queries, "users");
                 URL url = new URL("http://92.222.10.201:62126/users?id=21&club=2");

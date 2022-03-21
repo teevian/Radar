@@ -199,6 +199,7 @@ public class APIHandler {
         ArrayList<UserThumb> users = new ArrayList<>();
         try {
             URL endpoint = new URL(buildUri(queries, "users").toString());
+            
             Log.d("LLLLLLLLLL", endpoint.toString());
             urlAPIConnection = openAPIConnection("GET", endpoint, -1);
             responseJson = getResponseFromRequest(urlAPIConnection, null);

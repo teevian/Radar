@@ -44,7 +44,9 @@ public class JSONBuilder {
 
     // TODO should test
     public static ArrayList<UserThumb> userThumbsInsideFromJSON(JSONObject jsonData) throws JSONException {
-        JSONArray jsonListOfUsers = jsonData.getJSONArray("data");
+        JSONObject json = jsonData.getJSONObject("data");
+        JSONArray jsonListOfUsers = json.getJSONArray("users");
+
         int numOfUsers = jsonListOfUsers.length();
 
         ArrayList<UserThumb> usersInside = new ArrayList<>();
