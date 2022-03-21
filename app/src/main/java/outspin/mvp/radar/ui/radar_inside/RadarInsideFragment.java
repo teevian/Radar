@@ -42,7 +42,7 @@ import outspin.mvp.radar.models.UserThumb;
 import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 
-public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener, APICallBack {
+public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener, APICallBack{
     private FragmentRadarInsideBinding fragmentRadarInsideBinding;
     private ArrayList<UserThumb> userThumbs = null;
     private RecyclerView rvInsideGrid;
@@ -68,11 +68,13 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
         rvInsideGrid = fragmentRadarInsideBinding.rvInsideUsers;
 
-        PopulateAdapter populate = new PopulateAdapter(this);
-        populate.execute();
+        //PopulateAdapter populate = new PopulateAdapter(this);
+        //populate.execute();
 
         // trying TODO implementation of query api
-        //APIHandler.QueryAPI.execute((Runnable) this);
+        APIHandler.QueryAPI getUsers = new APIHandler.QueryAPI(this);
+        getUsers.execute();
+
     }
 
     @Override
@@ -86,7 +88,6 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
         fragmentRadarInsideBinding.tvInsideHeaderPopulation.setText(valueOf(population));
         fragmentRadarInsideBinding.burnNumbered.tvNumberOfBurns.setText(valueOf(burns));
     }
-
 
     @Override
     public void complete(JSONObject jsonData) {
@@ -114,8 +115,6 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
         return new APIHandler.APIConnectionBundle("GET", new String[]{"users"}, queries, null);
     }
-
-
 
     protected class PopulateAdapter extends AsyncTask<Void, Void, JSONObject> {
         HttpURLConnection urlConnection = null;
