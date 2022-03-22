@@ -1,4 +1,4 @@
-package outspin.mvp.radar.ui;
+package outspin.mvp.radar.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,7 @@ import outspin.mvp.radar.R;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.SignUp;
 import outspin.mvp.radar.databinding.ActivityLoginBinding;
-import outspin.mvp.radar.models.UserNotInUse;
+import outspin.mvp.radar.models.User;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding loginBinding;
@@ -85,26 +85,13 @@ public class LoginActivity extends AppCompatActivity {
                     String name = loginBinding.etName.getText().toString();
                     String passwordDuplicate = loginBinding.etLoginPasswordDuplicate.getText().toString();
                     if(isValidated(phoneNumber, password, passwordDuplicate, name)) {
-                        SignUp signUp = new SignUp(new UserNotInUse(-1, name, phoneNumber, countryCode, ""), password);
+                        SignUp signUp = new SignUp(new User(-1, name, phoneNumber, countryCode, ""), password);
                         APIHandler.APIConnectionBundle bundle = signUp.getAPIConnectionBundle();
                         APIHandler.QueryAPI queryAPI = new APIHandler.QueryAPI(signUp);
                         queryAPI.execute();
                     }
                     break;
             }
-
-               /*
-                SharedPreferences sharedPref = getApplication().getSharedPreferences(
-                        Macros.PREFERENCE_FILE_AUTHENTICATION, Context.MODE_PRIVATE);
-
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString(Macros.PREFERENCE_PASSWORD_KEY, password);
-                editor.putString(Macros.PREFERENCE_PHONE_NUMBER_KEY, phoneNumber);
-                editor.apply();
-
-                Intent intent =  new Intent(LoginActivity.this, RadarNavigationActivity.class);
-                startActivity(intent);
-                */
         });
 
         loginBinding.tvSign.setOnClickListener(view -> {

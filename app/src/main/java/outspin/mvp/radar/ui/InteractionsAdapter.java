@@ -14,15 +14,16 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.models.Interaction;
 
 public class InteractionsAdapter extends RecyclerView.Adapter<InteractionsAdapter.InteractionViewHolder>{
-    ArrayList<Interaction> notifications;
+    List<Interaction> notifications;
     InteractionClickListener notificationClickListener;
 
-    InteractionsAdapter(ArrayList<Interaction> notifications) {
+    public InteractionsAdapter(List<Interaction> notifications) {
         this.notifications = notifications;
     }
 

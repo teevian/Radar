@@ -1,4 +1,4 @@
-package outspin.mvp.radar.ui;
+package outspin.mvp.radar.ui.activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -31,6 +32,8 @@ import java.util.Locale;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.ActivityRadarNavigationBinding;
+import outspin.mvp.radar.ui.InteractionsAdapter;
+import outspin.mvp.radar.ui.dialogs.InteractionsDialog;
 import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
 
 public class RadarNavigationActivity extends AppCompatActivity
@@ -40,6 +43,8 @@ public class RadarNavigationActivity extends AppCompatActivity
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
         super.onCreate(savedInstanceState);
 
         mainBinding = ActivityRadarNavigationBinding.inflate(getLayoutInflater());

@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.models.User;
+import outspin.mvp.radar.models.Thumbnail;
 
 public class InsideAdapter extends RecyclerView.Adapter<InsideAdapter.ProfileThumbViewHolder> {
-    private final ArrayList<User> data;
+    private final List<Thumbnail> data;
     private final LayoutInflater inflater;
     private ItemClickListener mClickListener;
 
-    public InsideAdapter(Context context, ArrayList<User> data) {
+    public InsideAdapter(Context context, List<Thumbnail> data) {
         this.inflater = LayoutInflater.from(context);
         this.data = data;
     }

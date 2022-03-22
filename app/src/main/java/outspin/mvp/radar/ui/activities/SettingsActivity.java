@@ -1,4 +1,4 @@
-package outspin.mvp.radar.ui;
+package outspin.mvp.radar.ui.activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.databinding.ActivityProfileBinding;
 import outspin.mvp.radar.databinding.ActivitySettingsBinding;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -26,12 +25,9 @@ public class SettingsActivity extends AppCompatActivity {
                 .replace(R.id.settings_container, new SettingsFragment())
                 .commit();
 
-        binding.ivArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SettingsActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            }
+        binding.ivArrowBack.setOnClickListener(view -> {
+            Intent intent = new Intent(SettingsActivity.this, ProfileActivity.class);
+            startActivity(intent);
         });
     }
 

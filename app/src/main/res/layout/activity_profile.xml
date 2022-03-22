@@ -5,7 +5,7 @@
     android:id="@+id/container_preference"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ProfileActivity"
+    tools:context=".ui.activities.ProfileActivity"
     android:orientation="vertical"
     android:background="@color/outspin_black"
     android:padding="30dp">

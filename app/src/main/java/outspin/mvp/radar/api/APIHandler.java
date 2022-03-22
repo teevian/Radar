@@ -31,7 +31,7 @@ import java.util.Set;
 import javax.net.ssl.HttpsURLConnection;
 
 import outspin.mvp.radar.data.Macros;
-import outspin.mvp.radar.models.User;
+import outspin.mvp.radar.models.Thumbnail;
 
 public class APIHandler {
     private static final int CONNECTION_TIMEOUT_IN_MILISECONDS  = 30000;
@@ -187,25 +187,22 @@ public class APIHandler {
      * @return arraylist of user thumbs
      */
     @NonNull
-    public static ArrayList<User> getUsersThumbById(@NonNull long... ids) {
+    public static ArrayList<Thumbnail> getUsersThumbById(@NonNull long... ids) {
         Set<Pair<String, String>> queries = new HashSet<>();
         for(long id : ids) queries.add(new Pair<>("id", String.valueOf(id)));
 
         JSONObject responseJson;
         HttpURLConnection urlAPIConnection = null;
-        ArrayList<User> users = new ArrayList<>();
+        ArrayList<Thumbnail> users = new ArrayList<>();
         try {
             URL endpoint = new URL(buildUri(queries, "users").toString());
 
-            Log.d("LLLLLLLLLL", endpoint.toString());
             urlAPIConnection = openAPIConnection("GET", endpoint, -1);
             responseJson = getResponseFromRequest(urlAPIConnection, null);
 
             JSONArray data = responseJson.getJSONArray("data");
             for(int i = 0; i < data.length(); i++)
-                users.add(new User(data.getJSONObject(i)));
-
-            Log.d("LLLLLLLLLL--AAAA-->", users.toString());
+                users.add(new Thumbnail(data.getJSONObject(i)));
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         } finally {

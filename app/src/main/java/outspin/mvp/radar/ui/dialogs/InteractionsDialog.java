@@ -1,8 +1,7 @@
-package outspin.mvp.radar.ui;
+package outspin.mvp.radar.ui.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,31 +14,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.net.ssl.HttpsURLConnection;
+import java.util.List;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.api.APICallBack;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.JSONParser;
 import outspin.mvp.radar.models.Interaction;
+import outspin.mvp.radar.ui.InteractionsAdapter;
 
 public class InteractionsDialog extends BottomSheetDialogFragment implements APICallBack {
     private final Context context;
-    private ArrayList<Interaction> notifications;
     private View view;
+    APIHandler.QueryAPI getInteractions;
 
     public InteractionsDialog(Context parent) {
         this.context = parent;
@@ -55,35 +46,26 @@ public class InteractionsDialog extends BottomSheetDialogFragment implements API
         //BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         //bottomSheetBehavior.setPeekHeight(900); // height of the first state TODO HEIGHT
 
-        //PopulateNotifications populateNotifications = new PopulateNotifications(this);
-        //populateNotifications.execute();
-
-
-        APIHandler.QueryAPI getNotifications = new APIHandler.QueryAPI(this);
-        getNotifications.execute();
+        getInteractions = new APIHandler.QueryAPI(this);
+        getInteractions.execute();
 
         return dialog;
     }
 
     @Override
     public void complete(JSONObject json) {
-        notifications = new ArrayList<>();
+        // TODO i've got a feeling.... that tonight's gonna be a good night
+        List<Interaction> interactions = null;
 
         try {
-            // TODO organize to generalize
-            JSONArray notificationsArrayJson = json.getJSONObject("data").getJSONArray("interactions");
-            int numOfNotifications = notificationsArrayJson.length();
-            for(int i = 0; i < numOfNotifications; i++) {
-                notifications.add( new Interaction(notificationsArrayJson.getJSONObject(i)) );
-                notifications.get(i).setMessage(String.valueOf(i));
-            }
-
+            Log.d("RRRRRRRRRRRRR", json.toString());
+            interactions = JSONParser.interactionsFromJSON(json);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_interactions);
-        InteractionsAdapter interactionsAdapter = new InteractionsAdapter(notifications);
+        InteractionsAdapter interactionsAdapter = new InteractionsAdapter(interactions);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(interactionsAdapter);
@@ -95,6 +77,12 @@ public class InteractionsDialog extends BottomSheetDialogFragment implements API
         queries.put("id", "20");
 
         return new APIHandler.APIConnectionBundle("GET", new String[]{"notifications"}, queries, null);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getInteractions.cancel(true);  // to prevent memory leaks
     }
 
 }

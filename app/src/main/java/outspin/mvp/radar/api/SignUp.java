@@ -5,13 +5,13 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import outspin.mvp.radar.models.UserNotInUse;
+import outspin.mvp.radar.models.User;
 
 public class SignUp implements APICallBack {
-   private UserNotInUse user;
+   private User user;
    private String password;
 
-   public SignUp(UserNotInUse user, String password) {
+   public SignUp(User user, String password) {
         this.user = user;
         this.password = password;
    }
@@ -25,7 +25,7 @@ public class SignUp implements APICallBack {
     public APIHandler.APIConnectionBundle getAPIConnectionBundle() {
        JSONObject json = null;
        try {
-            json = JSONParser.standardJSON();
+            json = JSONParser.getAPIJSONTemplate();
             JSONObject userJson = JSONParser.JSONFromUser(user);
             userJson.put("password", password);
             json.put("data", userJson);

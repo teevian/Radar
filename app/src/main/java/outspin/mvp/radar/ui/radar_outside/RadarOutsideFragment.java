@@ -17,12 +17,11 @@ import androidx.fragment.app.FragmentManager;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.ClubLayoutBinding;
 import outspin.mvp.radar.databinding.FragmentRadarOutsideBinding;
-import outspin.mvp.radar.ui.RadarNavigationActivity;
+import outspin.mvp.radar.ui.activities.RadarNavigationActivity;
 import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
 
 public class RadarOutsideFragment extends Fragment implements View.OnClickListener {

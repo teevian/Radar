@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:background="@color/outspin_black">
 
-    <outspin.mvp.radar.ui.MaxHeightNestedScrollView
+    <outspin.mvp.radar.ui.dialogs.MaxHeightNestedScrollView
         android:id="@+id/nested"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,6 +38,6 @@
         </LinearLayout>
 
 
-    </outspin.mvp.radar.ui.MaxHeightNestedScrollView>
+    </outspin.mvp.radar.ui.dialogs.MaxHeightNestedScrollView>
 
 </LinearLayout>

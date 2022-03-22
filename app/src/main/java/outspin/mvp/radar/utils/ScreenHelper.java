@@ -8,8 +8,17 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
+/**
+ *  Screen helper functions
+ */
 public class ScreenHelper {
 
+    /**
+     * Calls for the screen resolution.
+     *
+     * @param context activity context
+     * @return int array where [width, height] in pixels
+     */
     @NonNull
     public static int[] getScreenResolution(@NonNull Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -21,7 +30,12 @@ public class ScreenHelper {
         return new int[]{ metrics.widthPixels, metrics.heightPixels };
     }
 
-    /* returns Screen Size: 0 - SMALL; 1 - NORMAL; 2 - LARGE; 3 - ELSE */
+    /**
+     * Calls for the size of the screen.
+     *
+     * @param context activity context
+     * @return screen size: 0 - SMALL; 1 - NORMAL; 2 - LARGE; 3 - ELSE
+     */
     public static int getScreenSize(@NonNull Context context) {
         int screenSize = context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         switch(screenSize) {
@@ -32,7 +46,12 @@ public class ScreenHelper {
         }
     }
 
-    /* returns Screen density: 0 - LDPI; 1 - MDPI; 2 - HDPI; 3 - XHDPI; 4 - ELSE */
+    /**
+     * Calls display metrics for the density DPI.
+     *
+     * @param context activity context
+     * @return screen density: 0 - LPDI; 1 - MDPI; 2 - HDPI; 3 - XHDPI; 4 - ELSE
+     */
     public static int getScreenDensity(@NonNull Context context) {
         int density = context.getResources().getDisplayMetrics().densityDpi;
         switch(density)

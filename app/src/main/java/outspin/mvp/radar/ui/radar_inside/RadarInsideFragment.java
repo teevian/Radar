@@ -3,10 +3,7 @@ package outspin.mvp.radar.ui.radar_inside;
 import static java.lang.String.*;
 
 import android.content.Context;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.net.ssl.HttpsURLConnection;
+import java.util.List;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.api.APICallBack;
@@ -38,14 +27,16 @@ import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.JSONParser;
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
-import outspin.mvp.radar.models.User;
+import outspin.mvp.radar.models.Thumbnail;
+import outspin.mvp.radar.ui.dialogs.ProfileBottomSheetDialog;
 import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 
 public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener, APICallBack{
     private FragmentRadarInsideBinding fragmentRadarInsideBinding;
-    private ArrayList<User> userThumbs = null;
+    private List<Thumbnail> userThumbs = null;
     private RecyclerView rvInsideGrid;
+    APIHandler.QueryAPI getUsers;
 
     @Nullable
     @Override
@@ -68,7 +59,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
         rvInsideGrid = fragmentRadarInsideBinding.rvInsideUsers;
 
-        APIHandler.QueryAPI getUsers = new APIHandler.QueryAPI(this);
+        getUsers = new APIHandler.QueryAPI(this);
         getUsers.execute();
     }
 
@@ -87,7 +78,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
     @Override
     public void complete(JSONObject jsonData) {
         try {
-            userThumbs = JSONParser.userThumbsInsideFromJSON(jsonData);
+            userThumbs = JSONParser.usersFromJSON(jsonData);
 
             InsideAdapter gridAdapter = new InsideAdapter(getContext(), userThumbs);
             gridAdapter.setClickListener(this);
@@ -109,6 +100,12 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
         queries.put("club", "2");
 
         return new APIHandler.APIConnectionBundle("GET", new String[]{"users"}, queries, null);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getUsers.cancel(true);  // to prevent memory leaks
     }
 }
 

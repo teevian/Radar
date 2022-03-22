@@ -1,10 +1,9 @@
-package outspin.mvp.radar.ui.radar_inside;
+package outspin.mvp.radar.ui.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,12 +13,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
 import outspin.mvp.radar.databinding.DialogInteractWithUserBinding;
-import outspin.mvp.radar.models.User;
+import outspin.mvp.radar.models.Thumbnail;
 
 public class ProfileBottomSheetDialog extends BottomSheetDialogFragment  {
-    private final User userThumb;
+    private final Thumbnail userThumb;
 
-    public ProfileBottomSheetDialog(Context parent, User userThumb) {
+    public ProfileBottomSheetDialog(Context parent, Thumbnail userThumb) {
         this.userThumb = userThumb;
     }
 

@@ -1,4 +1,4 @@
-package outspin.mvp.radar.ui;
+package outspin.mvp.radar.ui.dialogs;
 
 import android.content.Context;
 import android.content.res.TypedArray;
