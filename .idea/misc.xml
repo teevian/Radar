@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/splash_background_gradient.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/status_thumbnail_circle.xml" value="0.24444444444444444" />
+        <entry key="app/src/main/res/drawable/underline.xml" value="0.2777777777777778" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1684877523262612" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.28229166666666666" />

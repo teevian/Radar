@@ -30,49 +30,108 @@
             android:textColor="@color/white"
             android:textColorHint="@drawable/selector_hint" />
 
-        <Spinner
-            android:id="@+id/spinner_country_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:spinnerMode="dropdown"
-            android:popupBackground="@color/gray"/>
-
-        <EditText
-            android:id="@+id/et_login_phone"
-            android:layout_width="@dimen/login_input_width"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="@dimen/login_input_height"
-            android:layout_margin="@dimen/login_input_margin"
-            android:backgroundTint="@color/white"
-            android:gravity="center"
-            android:hint="@string/login_phone"
-            android:inputType="phone"
-            android:textColor="@color/white"
-            android:textColorHint="@drawable/selector_hint" />
+            android:orientation="horizontal"
+            android:background="@drawable/underline">
 
-        <EditText
-            android:id="@+id/et_login_password"
-            android:layout_width="@dimen/login_input_width"
-            android:layout_height="@dimen/login_input_height"
-            android:layout_margin="@dimen/login_input_margin"
-            android:backgroundTint="@color/white"
-            android:gravity="center"
-            android:hint="@string/login_password"
-            android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@drawable/selector_hint" />
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:ccp_contentColor="@color/white"
+                app:ccp_defaultNameCode="PT"
+                app:ccp_autoDetectCountry="true"
+                app:ccpDialog_backgroundColor="@color/outspin_black"
+                app:ccpDialog_textColor="@color/white"
+                app:ccp_showFullName="false"
+                app:ccp_showPhoneCode="true"
+                app:ccp_showNameCode="false"/>
 
-        <EditText
-            android:id="@+id/et_login_password_duplicate"
-            android:layout_width="@dimen/login_input_width"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleTint="@color/white"
+                android:textColorHint="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textColorHighlight="@color/white"
+                    android:textColorHint="@color/white"
+                    android:background="@color/transparent"
+                    android:gravity="center"
+                    android:textColorLink="@color/white"
+                    android:hint="@string/login_phone"
+                    android:inputType="phone" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:id="@+id/et_login_phone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_input_height"
+                android:layout_margin="@dimen/login_input_margin"
+                android:backgroundTint="@color/white"
+                android:background="@color/transparent"
+                android:gravity="start"
+                android:hint="@string/login_phone"
+                android:inputType="phone"
+                android:textColor="@color/white"
+                android:textColorHint="@drawable/selector_hint" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="@dimen/login_input_height"
-            android:layout_margin="@dimen/login_input_margin"
-            android:backgroundTint="@color/white"
-            android:gravity="center"
-            android:hint="@string/login_password_duplicate"
-            android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@drawable/selector_hint"/>
+            android:orientation="horizontal"
+            android:background="@drawable/underline">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleTint="@color/white"
+                android:textColorHint="@color/white"
+                app:passwordToggleEnabled="true" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textColorHighlight="@color/white"
+                    android:textColorHint="@color/white"
+                    android:background="@color/transparent"
+                    android:gravity="center"
+                    android:textColorLink="@color/white"
+                    android:hint="@string/login_password"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:id="@+id/et_login_password"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/login_input_height"
+                android:layout_margin="@dimen/login_input_margin"
+                android:layout_weight="2"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:hint="@string/login_password"
+                android:background="@color/transparent"
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                android:textColorHint="@drawable/selector_hint" />
+
+            <ImageButton
+                android:src="@drawable/ic_show"
+                android:background="@color/transparent"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

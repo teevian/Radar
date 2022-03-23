@@ -15,11 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.api.APICallBack;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.databinding.ActivityProfileBinding;
 
-public class ProfileActivity extends AppCompatActivity implements APICallBack {
+public class ProfileActivity extends AppCompatActivity implements APIHandler.APICallBack {
     private ActivityProfileBinding activityProfileBinding;
     private EditText etName;
 

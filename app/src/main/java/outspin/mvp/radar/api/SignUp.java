@@ -7,11 +7,11 @@ import java.util.HashMap;
 
 import outspin.mvp.radar.models.User;
 
-public class SignUp implements APICallBack {
+public class SignUp implements APIHandler.APICallBack {
    private User user;
    private String password;
 
-   public SignUp(User user, String password) {
+   public SignUp(User user) {
         this.user = user;
         this.password = password;
    }

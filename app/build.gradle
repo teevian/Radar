@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:19.0.1'
 
     implementation 'androidx.core:core-splashscreen:1.0.0-beta01'
+    implementation 'com.hbb20:ccp:2.5.0'
 
     testImplementation 'junit:junit:5.7'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

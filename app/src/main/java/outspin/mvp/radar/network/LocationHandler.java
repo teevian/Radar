@@ -15,6 +15,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -48,6 +49,15 @@ public class LocationHandler extends Service implements LocationListener {
         location = getLastKnownLocation();
         getLocation();
     }
+
+    public String countryCode() {
+        String locale = context.getResources().getConfiguration().locale.getCountry();
+        //TelephonyManager tm = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+        //String countryCodeValue = tm.getNetworkCountryIso();
+
+        return locale;
+    }
+
 
     private Location getLastKnownLocation() {
         List<String> providers = locationManager.getProviders(true);

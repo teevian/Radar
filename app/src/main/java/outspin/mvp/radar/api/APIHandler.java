@@ -208,9 +208,6 @@ public class APIHandler {
         } finally {
             if (urlAPIConnection != null) urlAPIConnection.disconnect();
         }
-
-
-
         return users;
     }
 
@@ -278,4 +275,10 @@ public class APIHandler {
             return json;
         }
     }
+
+    public interface APICallBack {
+        void complete(JSONObject json);
+        APIConnectionBundle getAPIConnectionBundle();
+    }
+
 }

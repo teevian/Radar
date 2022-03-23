@@ -21,13 +21,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.api.APICallBack;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.JSONParser;
 import outspin.mvp.radar.models.Interaction;
 import outspin.mvp.radar.ui.InteractionsAdapter;
 
-public class InteractionsDialog extends BottomSheetDialogFragment implements APICallBack {
+public class InteractionsDialog extends BottomSheetDialogFragment implements APIHandler.APICallBack {
     private final Context context;
     private View view;
     APIHandler.QueryAPI getInteractions;

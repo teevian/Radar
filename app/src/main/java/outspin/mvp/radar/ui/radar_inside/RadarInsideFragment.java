@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import outspin.mvp.radar.R;
-import outspin.mvp.radar.api.APICallBack;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.JSONParser;
 import outspin.mvp.radar.data.Macros;
@@ -32,7 +31,7 @@ import outspin.mvp.radar.ui.dialogs.ProfileBottomSheetDialog;
 import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 
-public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener, APICallBack{
+public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener, APIHandler.APICallBack{
     private FragmentRadarInsideBinding fragmentRadarInsideBinding;
     private List<Thumbnail> userThumbs = null;
     private RecyclerView rvInsideGrid;
