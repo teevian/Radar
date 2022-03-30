@@ -248,30 +248,29 @@ public class APIHandler {
 
             try {
                 //URL url = new URL(buildUri(apiBundle.queries, apiBundle.paths).toString());
-                URL url = new URL("http://92.222.10.201:62126/users/login");
+                //URL url = new URL("http://92.222.10.201:62126/users/login");
                 //urlConnection = openAPIConnection(apiBundle.httpMethod, url, -1);
                 //Log.d("TTTTTTTT", urlConnection.getResponseMessage());
-                url = new URL("http://92.222.10.201:62126/users/login");
+                URL url = new URL("http://92.222.10.201:62126/users/login");
 
                 // TODO
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Accept", "application/json");
-                connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
 
                 String json = "{\"meta\":{\"apiVersion\":\"0.1\"},\"data\":{\"kind\":\"login\",\"items\":[{\"phone\":\"912088808\",\"password\":\"wdwdwdwddwd\"}]}}";
-
-                Log.d("TTTTTTTT--->>", connection.getResponseMessage());
                 DataOutputStream os = new DataOutputStream(connection.getOutputStream());
-                //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
                 os.writeBytes(json.toString());
 
                 os.flush();
                 os.close();
                 System.out.println("JSON: " + json);
+
+                Log.d("TTTTTTTT--->>", connection.getResponseMessage());
+                //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
                 /*
                 try(OutputStream os = connection.getOutputStream()) {
                     byte[] input = json.getBytes(StandardCharsets.UTF_8);
