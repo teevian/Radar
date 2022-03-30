@@ -29,4 +29,8 @@
     <string name="accessibility_wave">someone waved you</string>
     <string name="accessibility_burn">burn image</string>
     <string name="accessibility_waving">person is waving @ you</string>
+
+    <!-- validation -->
+    <string name="validation_digits_name">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-</string>
+    <string name="validation_digits_phone">0123456789</string>
 </resources>

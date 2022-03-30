@@ -1,4 +1,4 @@
-package outspin.mvp.radar.ui;
+package outspin.mvp.radar.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import outspin.mvp.radar.R;

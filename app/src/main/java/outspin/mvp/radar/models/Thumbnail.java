@@ -36,7 +36,7 @@ public class Thumbnail {
      */
     public Thumbnail(@NonNull JSONObject userJSON) throws JSONException {
         this.id         = userJSON.getLong("id");
-        this.photoURL   = userJSON.getString("photo_url");
+        this.photoURL   = userJSON.getString("photoUrl");
         this.interaction = userJSON.getString("interaction");
 
         // TODO improve this

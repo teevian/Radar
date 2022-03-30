@@ -2,6 +2,7 @@ package outspin.mvp.radar.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.splashscreen.SplashScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,15 +16,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import outspin.mvp.radar.R;
+import outspin.mvp.radar.api.APIErrorResponse;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.databinding.ActivityProfileBinding;
 
-public class ProfileActivity extends AppCompatActivity implements APIHandler.APICallBack {
+public class ProfileActivity extends AppCompatActivity implements APIHandler.APIConnectionCallback {
     private ActivityProfileBinding activityProfileBinding;
     private EditText etName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        androidx.core.splashscreen.SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
         super.onCreate(savedInstanceState);
 
         activityProfileBinding = ActivityProfileBinding.inflate(getLayoutInflater());
@@ -49,8 +53,13 @@ public class ProfileActivity extends AppCompatActivity implements APIHandler.API
     }
 
     @Override
-    public void complete(JSONObject json) {
+    public void onSuccess(JSONObject json) {
         Log.d("API:::::::::::::", "Success");
+    }
+
+    @Override
+    public void onFailure(APIErrorResponse jsonError) {
+
     }
 
     @Override

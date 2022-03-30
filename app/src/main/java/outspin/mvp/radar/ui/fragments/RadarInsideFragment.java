@@ -1,4 +1,4 @@
-package outspin.mvp.radar.ui.radar_inside;
+package outspin.mvp.radar.ui.fragments;
 
 import static java.lang.String.*;
 
@@ -22,32 +22,47 @@ import java.util.HashMap;
 import java.util.List;
 
 import outspin.mvp.radar.R;
+import outspin.mvp.radar.api.APIErrorResponse;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.JSONParser;
 import outspin.mvp.radar.data.Macros;
 import outspin.mvp.radar.databinding.FragmentRadarInsideBinding;
 import outspin.mvp.radar.models.Thumbnail;
+import outspin.mvp.radar.ui.adapters.InsideAdapter;
 import outspin.mvp.radar.ui.dialogs.ProfileBottomSheetDialog;
-import outspin.mvp.radar.ui.radar_outside.RadarOutsideFragment;
 
 
-public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener, APIHandler.APICallBack{
+public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemClickListener, APIHandler.APIConnectionCallback {
     private FragmentRadarInsideBinding fragmentRadarInsideBinding;
     private List<Thumbnail> userThumbs = null;
     private RecyclerView rvInsideGrid;
-    APIHandler.QueryAPI getUsers;
+    APIHandler.QueryAPI getUsersInClubTask;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentRadarInsideBinding = FragmentRadarInsideBinding.inflate(inflater, container, false);
         fragmentRadarInsideBinding.btLeave.setOnClickListener(view -> {
-                FragmentManager fragmentManager = getParentFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, new RadarOutsideFragment())
-                        .addToBackStack("outside")
-                        .commit();
+
+            //  TODO ??? isto dá problemas de stack overflow - AVISAR JOAO (com jeitinho)
+            FragmentManager fragmentManager = getParentFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new RadarOutsideFragment())
+                    .addToBackStack("outside")
+                    .commit();
+            // TODO pensar se faz mais sentido ser replace em vez de add to backstack
+            /*
+            if (savedInstanceState == null) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                RuntimePermissionsFragment fragment = new RuntimePermissionsFragment();
+                transaction.replace(R.id.sample_content_fragment, fragment);
+                transaction.commit();
+            }
+             */
+            // TODO código como deve ser:
+            // getParentFragmentManager().popBackStack();
         });
+
 
         return fragmentRadarInsideBinding.getRoot();
     }
@@ -58,8 +73,8 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
         rvInsideGrid = fragmentRadarInsideBinding.rvInsideUsers;
 
-        getUsers = new APIHandler.QueryAPI(this);
-        getUsers.execute();
+        getUsersInClubTask = new APIHandler.QueryAPI(this);
+        getUsersInClubTask.execute();
     }
 
     @Override
@@ -75,7 +90,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
     }
 
     @Override
-    public void complete(JSONObject jsonData) {
+    public void onSuccess(JSONObject jsonData) {
         try {
             userThumbs = JSONParser.usersFromJSON(jsonData);
 
@@ -93,6 +108,11 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
     }
 
     @Override
+    public void onFailure(APIErrorResponse jsonError) {
+
+    }
+
+    @Override
     public APIHandler.APIConnectionBundle getAPIConnectionBundle() {
         HashMap<String, String> queries = new HashMap<>();
         queries.put("id", "20");
@@ -104,7 +124,7 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
     @Override
     public void onStop() {
         super.onStop();
-        getUsers.cancel(true);  // to prevent memory leaks
+        getUsersInClubTask.cancel(true);  // to prevent memory leaks
     }
 }
 

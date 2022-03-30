@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -53,6 +54,8 @@ public class APIHandler {
         Uri.Builder builder = Uri.parse("http://92.222.10.201:62126").buildUpon();
 
         for(String path : paths) builder.appendPath(path);
+
+        if(!queries.isEmpty())
         for(Map.Entry<String, String> entry : queries.entrySet())
             builder.appendQueryParameter(
                     entry.getKey(),
@@ -75,6 +78,8 @@ public class APIHandler {
         Uri.Builder builder = Uri.parse("http://92.222.10.201:62126").buildUpon();
 
         for(String path : paths) builder.appendPath(path);
+
+        if(!queries.isEmpty())
         for(Pair<String, String> query : queries) {
 
             builder.appendQueryParameter(
@@ -99,9 +104,10 @@ public class APIHandler {
             throws IOException {
         HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
 
-        connection.setRequestProperty("Accept-Charset", java.nio.charset.StandardCharsets.UTF_8.name());
-        connection.setRequestProperty("User-Agent", Macros.CONST_OUTSPIN_USER_AGENT);
-        connection.setRequestProperty("Content-Type", "application/outspin.api+json");
+        //connection.setRequestProperty("Accept-Charset", java.nio.charset.StandardCharsets.UTF_8.name());
+        //connection.setRequestProperty("User-Agent", Macros.CONST_OUTSPIN_USER_AGENT);
+        //connection.setRequestProperty("Content-Type", "application/outspin.api+json");
+        connection.setRequestProperty("Content-Type", "application/json");
 
         connection.setRequestMethod(httpsMethod);
         connection.setDoInput(true);
@@ -129,23 +135,30 @@ public class APIHandler {
      * @throws JSONException
      */
     @NonNull
-    public static JSONObject getResponseFromRequest(@NonNull HttpURLConnection connection, JSONObject jsonRequest)
+    public static JSONObject getResponseFromRequest(@NonNull HttpURLConnection connection, @NonNull JSONObject jsonRequest)
             throws IOException, JSONException {
 
-        if(jsonRequest != null) {   // sends the request to the server
-            OutputStream outStream = connection.getOutputStream();
-            OutputStreamWriter outStreamWriter = new OutputStreamWriter(outStream, StandardCharsets.UTF_8);
+        Log.d("JJJJJJJJJJ->", jsonRequest.toString());
+        Log.d("JJJJJJJJJJ->", connection.getRequestMethod() + " " + connection.getResponseCode());
 
-            outStreamWriter.write(jsonRequest.toString());
+        // sends the request to the server
+        OutputStream outStream = connection.getOutputStream();
+        OutputStreamWriter outStreamWriter = new OutputStreamWriter(outStream, StandardCharsets.UTF_8);
+        Log.d("JJJJJJJJJJ-> TEST", jsonRequest.toString());
 
-            outStreamWriter.close();
-            outStream.close();
-        }
+        outStreamWriter.write(jsonRequest.toString());
+
+        outStreamWriter.close();
+        outStream.close();
+
+        Log.d("YYYYYYYY//", jsonRequest.toString());
 
         // receives the response from the server
         BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
         StringBuilder stringBuilder = new StringBuilder();
+
+        Log.d("YYYYYYYY", stringBuilder.toString());
 
         String responseLineFromAPI;
         while ((responseLineFromAPI = bufferedReader.readLine()) != null)
@@ -153,6 +166,8 @@ public class APIHandler {
 
         bufferedReader.close();
         String responseString = stringBuilder.toString();
+
+        Log.d("YYYYYYYY", responseString);
 
         return JSONParser.JSONfromString(responseString);
     }
@@ -214,40 +229,81 @@ public class APIHandler {
     /**
      *
      */
-    public static class QueryAPI extends AsyncTask<Void, String, JSONObject> {
+    public static class QueryAPI extends AsyncTask<String, String, JSONObject> {
         private final APIConnectionBundle apiBundle;
-        private final APICallBack apiCallBack;
+        private final APIConnectionCallback apiConnectionCallback;
 
-        public QueryAPI(@NonNull APICallBack apiCallBack) {
-            this.apiBundle = apiCallBack.getAPIConnectionBundle();
-            this.apiCallBack = apiCallBack;
+        private int responseCode;
+        private String responseMessage;
+
+        public QueryAPI(@NonNull APIConnectionCallback callback) {
+            this.apiBundle = callback.getAPIConnectionBundle();
+            this.apiConnectionCallback = callback;
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected JSONObject doInBackground(Void... object) {
+        protected JSONObject doInBackground(String... object) {
             HttpURLConnection urlConnection = null;
             JSONObject jsonFromServer = null;
+
             try {
-                URL url = new URL(buildUri(apiBundle.queries, apiBundle.paths).toString());
-                urlConnection = openAPIConnection(apiBundle.httpMethod, url, -1);
-                jsonFromServer = getResponseFromRequest(urlConnection, apiBundle.json);
-            } catch (IOException | JSONException e) {
+                //URL url = new URL(buildUri(apiBundle.queries, apiBundle.paths).toString());
+                URL url = new URL("http://92.222.10.201:62126/users/login");
+                //urlConnection = openAPIConnection(apiBundle.httpMethod, url, -1);
+                //Log.d("TTTTTTTT", urlConnection.getResponseMessage());
+                url = new URL("http://92.222.10.201:62126/users/login");
+
+                // TODO
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setDoOutput(true);
+                connection.setDoInput(true);
+
+                String json = "{\"meta\":{\"apiVersion\":\"0.1\"},\"data\":{\"kind\":\"login\",\"items\":[{\"phone\":\"912088808\",\"password\":\"wdwdwdwddwd\"}]}}";
+
+                Log.d("TTTTTTTT--->>", connection.getResponseMessage());
+                DataOutputStream os = new DataOutputStream(connection.getOutputStream());
+                //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
+                os.writeBytes(json.toString());
+
+                os.flush();
+                os.close();
+                System.out.println("JSON: " + json);
+                /*
+                try(OutputStream os = connection.getOutputStream()) {
+                    byte[] input = json.getBytes(StandardCharsets.UTF_8);
+                    os.write(input, 0, input.length);
+                }
+*/
+                String responseMessage = connection.getResponseMessage();
+                int responseCode = connection.getResponseCode();
+
+                connection.disconnect();
+
+                //responseMessage = connection.getResponseMessage();
+                //responseCode = connection.getResponseCode();
+
+                //jsonFromServer = getResponseFromRequest(urlConnection, apiBundle.json);
+                Log.d("TTTTTTTT--->", jsonFromServer.toString() + " THIS " + responseCode);
+
+            } catch(IOException e /* | JSONException e*/) {
+                APIErrorResponse apiError = new APIErrorResponse(e);
                 e.printStackTrace();
             } finally {
                 assert urlConnection != null;
                 urlConnection.disconnect();
             }
+
             return jsonFromServer;
         }
 
         @Override
-        protected void onPostExecute(JSONObject jsonFromServer) {
-            apiCallBack.complete(jsonFromServer);
+        protected void onPostExecute(JSONObject apiResponse) {
+            if(responseCode < 400) apiConnectionCallback.onSuccess(apiResponse);
+            else apiConnectionCallback.onFailure(new APIErrorResponse(apiResponse));
         }
     }
 
@@ -264,7 +320,6 @@ public class APIHandler {
                                    @NonNull String[] paths,
                                    Map<String, String> queries,
                                    JSONObject json) {
-
             this.httpMethod = method;
             this.json = json;
             this.paths = paths;
@@ -276,9 +331,22 @@ public class APIHandler {
         }
     }
 
-    public interface APICallBack {
-        void complete(JSONObject json);
+    public interface APIConnectionCallback {
+        void onSuccess(JSONObject jsonResponse);
+        void onFailure(APIErrorResponse error);
         APIConnectionBundle getAPIConnectionBundle();
     }
-
 }
+
+
+/*
+{
+    "meta" : { "apiVersion" : "0.1"},
+    "data" : {
+        "kind" : "login",
+        "items" : [
+            { "phone" : "912088808", "password" : "ssS2iujsji" }
+        ]
+    }
+}
+ */

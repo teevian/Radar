@@ -16,7 +16,7 @@ public class APIObjectResponse extends APIResponse {
 
     @Override
     void setData() throws JSONException {
-        this.data = this.dataJSONArray.getJSONObject(0);
+        this.data = this.dataJSON.getJSONObject(0);
     }
 
 }

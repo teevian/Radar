@@ -19,10 +19,13 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.activities.SettingsActivity"
-            android:exported="false" />
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".ui.activities.ProfileActivity"
             android:exported="true">
+
         </activity>
         <activity
             android:name=".ui.activities.LoginActivity"
@@ -35,6 +38,7 @@
         <activity
             android:name=".ui.activities.RadarNavigationActivity"
             android:exported="true" >
+
         </activity>
     </application>
 

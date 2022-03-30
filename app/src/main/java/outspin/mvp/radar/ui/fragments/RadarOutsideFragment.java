@@ -1,4 +1,4 @@
-package outspin.mvp.radar.ui.radar_outside;
+package outspin.mvp.radar.ui.fragments;
 
 
 import android.content.Context;
@@ -22,7 +22,7 @@ import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.ClubLayoutBinding;
 import outspin.mvp.radar.databinding.FragmentRadarOutsideBinding;
 import outspin.mvp.radar.ui.activities.RadarNavigationActivity;
-import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
+import outspin.mvp.radar.ui.fragments.RadarInsideFragment;
 
 public class RadarOutsideFragment extends Fragment implements View.OnClickListener {
     private FragmentRadarOutsideBinding binding;

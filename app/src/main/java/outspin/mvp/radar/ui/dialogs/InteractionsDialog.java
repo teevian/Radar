@@ -21,12 +21,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import outspin.mvp.radar.R;
+import outspin.mvp.radar.api.APIErrorResponse;
 import outspin.mvp.radar.api.APIHandler;
 import outspin.mvp.radar.api.JSONParser;
 import outspin.mvp.radar.models.Interaction;
-import outspin.mvp.radar.ui.InteractionsAdapter;
+import outspin.mvp.radar.ui.adapters.InteractionsAdapter;
 
-public class InteractionsDialog extends BottomSheetDialogFragment implements APIHandler.APICallBack {
+public class InteractionsDialog extends BottomSheetDialogFragment implements APIHandler.APIConnectionCallback {
     private final Context context;
     private View view;
     APIHandler.QueryAPI getInteractions;
@@ -52,7 +53,7 @@ public class InteractionsDialog extends BottomSheetDialogFragment implements API
     }
 
     @Override
-    public void complete(JSONObject json) {
+    public void onSuccess(JSONObject json) {
         // TODO i've got a feeling.... that tonight's gonna be a good night
         List<Interaction> interactions = null;
 
@@ -68,6 +69,11 @@ public class InteractionsDialog extends BottomSheetDialogFragment implements API
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(interactionsAdapter);
+    }
+
+    @Override
+    public void onFailure(APIErrorResponse jsonError) {
+
     }
 
     @Override

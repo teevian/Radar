@@ -74,18 +74,61 @@ public class JSONParser {
     public static List<Interaction> interactionsFromJSON(@NonNull JSONObject jsonResponse) throws JSONException {
         JSONArray listOfInteractionsJson = jsonResponse.getJSONObject("data").getJSONArray("interactions");
 
-        Log.d("RRRRRRRRRRR", listOfInteractionsJson.toString());
         ArrayList<Interaction> interactions = new ArrayList<>();
         int numOfInteractions = listOfInteractionsJson.length();
         for(int i = 0; i < numOfInteractions; i++) {
             JSONObject interactionJSON = listOfInteractionsJson.getJSONObject(i);
-            Log.d("RRRRRRRRRRRR", interactionJSON.toString());
             Interaction interaction = new Interaction(interactionJSON);
-            Log.d("RRRRRRRRRRRRrrrrrrrrr", interaction.toString());
             interactions.add(interaction);
-            Log.d("RRRRRRRR--------->", interactions.get(i).toString());
         }
 
         return interactions;
+    }
+
+
+    @NonNull
+    public static JSONObject loginJSONFromCredentials(String phone, String password) throws JSONException {
+        JSONObject jsonLogin = getJSONTemplate();
+
+        JSONObject login = new JSONObject();
+        login.put("phone", phone);
+        login.put("password", password);
+
+        JSONArray items = new JSONArray();
+        items.put(0, login);
+
+        JSONObject data = new JSONObject();
+        data.put("kind", "login");
+        data.put("items", items);
+
+        jsonLogin.put("data", data);
+
+        Log.d("UUUUUUUUUUUU->", jsonLogin.toString());
+
+        return jsonLogin;
+    }
+
+    /**
+     * Retrieves API json default template.
+     *
+     * @return json template
+     */
+    @NonNull
+    protected static JSONObject getJSONTemplate() {
+        JSONObject meta = new JSONObject();
+        JSONObject jsonTemplate = null;
+
+        try {
+            meta.put("apiVersion", "0.1");
+
+            jsonTemplate = new JSONObject();
+            jsonTemplate.put("meta", meta);
+            jsonTemplate.put("data", new JSONObject());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        assert jsonTemplate != null;
+        return jsonTemplate;
     }
 }

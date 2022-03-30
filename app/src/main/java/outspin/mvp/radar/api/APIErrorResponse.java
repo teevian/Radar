@@ -1,5 +1,7 @@
 package outspin.mvp.radar.api;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import org.json.JSONException;
@@ -15,13 +17,27 @@ public class APIErrorResponse extends APIResponse {
     private String message;
     private String stackTrace;
 
-    public APIErrorResponse(@NonNull JSONObject errorJSON) throws JSONException {
+    public APIErrorResponse(@NonNull JSONObject errorJSON) {
         super(errorJSON);
+    }
+
+    public APIErrorResponse(Exception exception) {
+        super();
+        Log.d("YYYYYYYYYYYY-> status code: ", "YEAH");
+        this.type = "error";
+
+        this.statusCode = 404;
+        this.title      = "USER NOT FOUND";
+        this.message    = exception.getMessage();
+        this.detail     = "exception caused";
+        this.stackTrace = exception.toString();
+
+        Log.d("YYYYYYYYYYYY-> status code: ", "THIS");
     }
 
     @Override
     void setData() throws JSONException {
-        JSONObject errorData = this.dataJSONArray.getJSONObject(0);
+        JSONObject errorData = this.dataJSON.getJSONObject(0);
 
         this.type = "error";
 
@@ -30,6 +46,17 @@ public class APIErrorResponse extends APIResponse {
         this.message    = errorData.getString("message");
         this.detail     = errorData.getString("detail");
         this.stackTrace = errorData.getString("stackTrace");
+    }
+
+    @Override
+    public String toString() {
+        return "APIErrorResponse{" +
+                "statusCode=" + statusCode +
+                ", title='" + title + '\'' +
+                ", detail='" + detail + '\'' +
+                ", message='" + message + '\'' +
+                ", stackTrace='" + stackTrace + '\'' +
+                '}';
     }
 
     public boolean reportError() {

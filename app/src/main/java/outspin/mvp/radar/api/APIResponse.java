@@ -8,24 +8,32 @@ import org.json.JSONObject;
 
 public abstract class APIResponse {
     protected String type;
-    protected JSONArray dataJSONArray;
+    protected JSONArray dataJSON;
 
     protected String apiVersion;
 
-    public APIResponse(@NonNull JSONObject jsonResponse) throws JSONException {
-        this.dataJSONArray = jsonResponse.getJSONArray("data");
+    public APIResponse(@NonNull JSONObject jsonResponse) {
+        try {
+            JSONObject meta = jsonResponse.getJSONObject("meta");
+            this.apiVersion = meta.getString("apiVersion");
 
-        JSONObject meta = jsonResponse.getJSONObject("meta");
-        this.apiVersion = meta.getString("apiVersion");
+            this.dataJSON = jsonResponse.getJSONArray("data");
 
-        setData();
+            setData();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public APIResponse() {
+        
     }
 
     abstract void setData() throws JSONException;
 
     /*  getters & setters   */
-    public JSONArray getDataJSONArray() { return dataJSONArray; }
-    public void setDataJSONArray(JSONArray dataJSONArray) { this.dataJSONArray = dataJSONArray; }
+    public JSONArray getDataJSON() { return dataJSON; }
+    public void setDataJSON(JSONArray dataJSON) { this.dataJSON = dataJSON; }
 
     public String getApiVersion() { return apiVersion; }
     public void setApiVersion(String apiVersion) { this.apiVersion = apiVersion; }

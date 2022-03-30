@@ -1,11 +1,16 @@
 package outspin.mvp.radar.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
 /**
@@ -13,6 +18,28 @@ import androidx.annotation.NonNull;
  */
 public class ScreenHelper {
 
+    public static void hideKeyboard(Activity activity) {
+        /*if (activity.getCurrentFocus() == null || !(activity.getCurrentFocus() instanceof EditText)) {
+            editText.requestFocus();
+        }
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);*/
+
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null && activity.getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
+    public static int dpToPx(int dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    /*
+    public static float convertDpToPixel(float dp, Context context) {
+        return dp * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }*/
     /**
      * Calls for the screen resolution.
      *
@@ -63,5 +90,16 @@ public class ScreenHelper {
             default:    return 4;
         }
     }
+
+
+    // TO TEST
+    @ColorInt
+    public static int getAppropriateTextColor(@ColorInt int color) {
+        // Counting the perceptive luminance - human eye favors green color...
+        double luminance = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
+        return luminance < 0.5 ? Color.BLACK : Color.WHITE;
+    }
+
+
 
 }

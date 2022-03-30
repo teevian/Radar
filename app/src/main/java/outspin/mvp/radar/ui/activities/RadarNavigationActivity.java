@@ -32,9 +32,9 @@ import java.util.Locale;
 
 import outspin.mvp.radar.R;
 import outspin.mvp.radar.databinding.ActivityRadarNavigationBinding;
-import outspin.mvp.radar.ui.InteractionsAdapter;
+import outspin.mvp.radar.ui.adapters.InteractionsAdapter;
 import outspin.mvp.radar.ui.dialogs.InteractionsDialog;
-import outspin.mvp.radar.ui.radar_inside.RadarInsideFragment;
+import outspin.mvp.radar.ui.fragments.RadarInsideFragment;
 
 public class RadarNavigationActivity extends AppCompatActivity
         implements InteractionsAdapter.InteractionClickListener {

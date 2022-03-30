@@ -1,4 +1,4 @@
-package outspin.mvp.radar.ui.radar_inside;
+package outspin.mvp.radar.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -70,7 +70,7 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideAdapter.ProfileThu
         }
     }
 
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 

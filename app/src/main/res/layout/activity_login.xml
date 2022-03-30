@@ -27,6 +27,8 @@
             android:backgroundTint="@color/white"
             android:gravity="center"
             android:hint="@string/login_name"
+            android:digits="@string/validation_digits_name"
+            android:maxLines="1"
             android:textColor="@color/white"
             android:textColorHint="@drawable/selector_hint" />
 
@@ -37,7 +39,7 @@
             android:background="@drawable/underline">
 
             <com.hbb20.CountryCodePicker
-                android:id="@+id/ccp"
+                android:id="@+id/ccp_country_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:ccp_contentColor="@color/white"
@@ -52,35 +54,34 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:counterOverflowTextColor="@color/white"
+                app:boxStrokeColor="@color/white"
+                app:hintTextColor="@color/white"
+
                 app:passwordToggleTint="@color/white"
-                android:textColorHint="@color/white">
+                android:textColorHint="@color/white" >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_login_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
+                    android:digits="@string/validation_digits_phone"
+                    android:maxLines="1"
+
                     android:textColor="@color/white"
-                    android:textColorHighlight="@color/white"
+                    android:textColorHighlight="@color/gray"
                     android:textColorHint="@color/white"
+                    android:textColorLink="@color/gray"
+                    android:maxLength="9"
+
                     android:background="@color/transparent"
                     android:gravity="center"
-                    android:textColorLink="@color/white"
                     android:hint="@string/login_phone"
-                    android:inputType="phone" />
+                    android:inputType="numberSigned" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <EditText
-                android:id="@+id/et_login_phone"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/login_input_height"
-                android:layout_margin="@dimen/login_input_margin"
-                android:backgroundTint="@color/white"
-                android:background="@color/transparent"
-                android:gravity="start"
-                android:hint="@string/login_phone"
-                android:inputType="phone"
-                android:textColor="@color/white"
-                android:textColorHint="@drawable/selector_hint" />
 
         </LinearLayout>
 
@@ -93,11 +94,20 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/gray"
+                android:textColorLink="@color/gray"
+                app:counterOverflowTextColor="@color/white"
+                app:boxStrokeColor="@color/white"
+                app:hintTextColor="@color/white"
+
                 app:passwordToggleTint="@color/white"
                 android:textColorHint="@color/white"
                 app:passwordToggleEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_login_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
@@ -107,37 +117,17 @@
                     android:gravity="center"
                     android:textColorLink="@color/white"
                     android:hint="@string/login_password"
-                    android:inputType="textPassword" />
+                    android:maxLength="15"
+                    android:inputType="textPassword"
+                    android:lines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <EditText
-                android:id="@+id/et_login_password"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/login_input_height"
-                android:layout_margin="@dimen/login_input_margin"
-                android:layout_weight="2"
-                android:backgroundTint="@color/white"
-                android:gravity="center"
-                android:hint="@string/login_password"
-                android:background="@color/transparent"
-                android:inputType="textPassword"
-                android:textColor="@color/white"
-                android:textColorHint="@drawable/selector_hint" />
-
-            <ImageButton
-                android:src="@drawable/ic_show"
-                android:background="@color/transparent"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
-
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
         android:id="@+id/bt_submit"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/dark_blue"
