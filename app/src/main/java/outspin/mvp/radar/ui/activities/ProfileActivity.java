@@ -12,6 +12,8 @@ import android.widget.EditText;
 
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,9 +66,13 @@ public class ProfileActivity extends AppCompatActivity implements APIHandler.API
 
     @Override
     public APIHandler.APIConnectionBundle getAPIConnectionBundle() {
-        Map<String, String> queries;
-        queries = new HashMap<>();
-        queries.put("id", "7");
-        return new APIHandler.APIConnectionBundle("GET", new String[]{"club"}, queries, null);
+        URL url = null;
+        try {
+            url = new URL(APIHandler.API_HOSTNAME + "/club?id=7");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return new APIHandler.APIConnectionBundle("GET", url, null);
     }
 }

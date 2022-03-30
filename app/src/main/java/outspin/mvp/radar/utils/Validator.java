@@ -18,7 +18,8 @@ public class Validator {
 
     public static final HashMap<VALIDATION_KEY, String> VALIDATION_SCHEMES =
             new HashMap<VALIDATION_KEY, String>() {{
-                put(VALIDATION_KEY.PASSWORD, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$");
+                put(VALIDATION_KEY.PASSWORD, "^(?=.*[a-z])(?=.*\\d).{8,15}$");
+                //put(VALIDATION_KEY.PASSWORD, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$");
                 put(VALIDATION_KEY.NAME, "[^0-9_!¡?÷?¿+=@#$%ˆ&*()|~<>{};:[\\]]]{2,20}$");
                 put(VALIDATION_KEY.PHONE, "^[0-9]{9}$");
                 put(VALIDATION_KEY.ALPHABETIC, "\\w+");

@@ -17,6 +17,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,10 +80,14 @@ public class InteractionsDialog extends BottomSheetDialogFragment implements API
 
     @Override
     public APIHandler.APIConnectionBundle getAPIConnectionBundle() {
-        HashMap<String, String> queries = new HashMap<>();
-        queries.put("id", "20");
+        URL url = null;
+        try {
+            url = new URL(APIHandler.API_HOSTNAME + "/notifications?id=20");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
-        return new APIHandler.APIConnectionBundle("GET", new String[]{"notifications"}, queries, null);
+        return new APIHandler.APIConnectionBundle("GET", url, null);
     }
 
     @Override

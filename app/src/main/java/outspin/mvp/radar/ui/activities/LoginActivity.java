@@ -13,6 +13,8 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Objects;
 
 import outspin.mvp.radar.R;
@@ -94,6 +96,9 @@ public class LoginActivity extends AppCompatActivity implements APIHandler.APICo
     @Override
     public void onSuccess(JSONObject jsonResponse) {
         Intent openLoggedApp = new Intent(LoginActivity.this, RadarNavigationActivity.class);
+
+        // TODO create user from JSON and pass it to intent
+
         openLoggedApp.putExtra("id", 3);
         startActivity(openLoggedApp);
     }
@@ -108,16 +113,21 @@ public class LoginActivity extends AppCompatActivity implements APIHandler.APICo
         // TODO check if it is register or login
 
         JSONObject loginJSON = null;
+        URL url = null;
         try {
+            if(phone.isEmpty() || password.isEmpty()) { phone = "912088808";password = "deioj3Deuohdiebnd"; }
+
             loginJSON = JSONParser.loginJSONFromCredentials(phone, password);
-        } catch (JSONException e) {
+            url = new URL(APIHandler.API_HOSTNAME + "/users/login");
+        } catch (JSONException | MalformedURLException e) {
             e.printStackTrace();
         }
-        return new APIHandler.APIConnectionBundle("POST", new String[]{"users", "login"}, null, loginJSON);
+
+        return new APIHandler.APIConnectionBundle("POST", url, loginJSON);
     }
 
     private boolean canSubmit() {
-        return phoneIsOK && passwordIsOK;
+        return true;//phoneIsOK && passwordIsOK;
     }
 
     private void submitButtonStateChange() {

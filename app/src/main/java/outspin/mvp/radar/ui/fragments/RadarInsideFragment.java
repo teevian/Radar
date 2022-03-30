@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -114,11 +116,13 @@ public class RadarInsideFragment extends Fragment implements InsideAdapter.ItemC
 
     @Override
     public APIHandler.APIConnectionBundle getAPIConnectionBundle() {
-        HashMap<String, String> queries = new HashMap<>();
-        queries.put("id", "20");
-        queries.put("club", "2");
-
-        return new APIHandler.APIConnectionBundle("GET", new String[]{"users"}, queries, null);
+        URL url = null;
+        try {
+            url = new URL(APIHandler.API_HOSTNAME + "/users?id=20&club=2");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return new APIHandler.APIConnectionBundle("GET", url, null);
     }
 
     @Override
