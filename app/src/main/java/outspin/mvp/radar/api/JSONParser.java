@@ -91,6 +91,7 @@ public class JSONParser {
         JSONObject jsonLogin = getJSONTemplate();
 
         JSONObject login = new JSONObject();
+        login.put("countryCode", "+351");
         login.put("phone", phone);
         login.put("password", password);
 

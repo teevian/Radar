@@ -23,7 +23,6 @@ public class APIErrorResponse extends APIResponse {
 
     public APIErrorResponse(Exception exception) {
         super();
-        Log.d("YYYYYYYYYYYY-> status code: ", "YEAH");
         this.type = "error";
 
         this.statusCode = 404;

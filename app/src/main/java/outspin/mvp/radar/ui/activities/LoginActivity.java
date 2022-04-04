@@ -115,7 +115,8 @@ public class LoginActivity extends AppCompatActivity implements APIHandler.APICo
         JSONObject loginJSON = null;
         URL url = null;
         try {
-            if(phone.isEmpty() || password.isEmpty()) { phone = "912088808";password = "deioj3Deuohdiebnd"; }
+            if(phone.isEmpty() || password.isEmpty()) { phone = "912033800";password = "operdade2"; }
+            //if(phone.isEmpty() || password.isEmpty()) { phone = "912088808";password = "operdade2"; }
 
             loginJSON = JSONParser.loginJSONFromCredentials(phone, password);
             url = new URL(APIHandler.API_HOSTNAME + "/users/login");
@@ -152,6 +153,28 @@ data :
          {
             "phone" : "",
             "password" : "" }
+        ]
+    }
+ */
+
+/*
+users/register
+
+meta :
+    {
+        apiVersion : "0.1"
+    }
+data :
+    {
+        kind : "register"
+        list:
+        [
+         {
+            "phone" : "",
+            "countryCode" : "",
+            "password" : "",
+            "firstName" :
+            "lastName" : }
         ]
     }
  */

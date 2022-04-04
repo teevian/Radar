@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -27,6 +28,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -106,11 +108,12 @@ public class APIHandler {
         HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
 
         connection.setRequestProperty("Accept-Charset", java.nio.charset.StandardCharsets.UTF_8.name());
-        //connection.setRequestProperty("User-Agent", Macros.CONST_OUTSPIN_USER_AGENT);
-        //connection.setRequestProperty("Content-Type", "application/outspin.api+json");
+        connection.setRequestProperty("User-Agent", Macros.CONST_OUTSPIN_USER_AGENT);
         connection.setRequestProperty("Content-Type", "application/json");
 
         connection.setRequestMethod(httpsMethod);
+        connection.setInstanceFollowRedirects("GET".equals(httpsMethod));
+        connection.setDoOutput(outputHttpMethods.contains(httpsMethod));
         connection.setDoInput(true);
 
         // improves performance by setting a fixed size to the buffer stream in order to transfer data
@@ -119,10 +122,14 @@ public class APIHandler {
 
         connection.setConnectTimeout(CONNECTION_TIMEOUT_IN_MILISECONDS);    // timeout for connection
         connection.setReadTimeout(READ_TIMEOUT_IN_MILISECONDS);             // timeout for not receiving bytes
-
-        connection.setInstanceFollowRedirects("GET".equals(httpsMethod));
-        connection.setDoOutput(outputHttpMethods.contains(httpsMethod));
-
+/*
+        Log.d("TTTTTTTT1->>", "METHOD: " + connection.getRequestMethod());
+        Log.d("TTTTTTTT1->>", "DO OUTPUT: " + connection.getDoOutput());
+        Log.d("TTTTTTTT1->>", "URL: " + connection.getURL().toString());
+        Log.d("TTTTTTTT1->>", "CODE: " + connection.getResponseCode());
+        Log.d("TTTTTTTT1->>", "MESSAGE: " + connection.getResponseMessage());
+        //connection.connect();
+*/
         return connection;
     }
 
@@ -160,10 +167,100 @@ public class APIHandler {
                 stringBuilder.append(responseLineFromAPI).append("\n");
 
             responseString = stringBuilder.toString();
-            Log.d("TTTTTTTTJSONRESPONSE--->OOLIY", responseString);
+            Log.d("TTTTTTTTRESPONSE", responseString);
+        } catch (IOException e) {
+            try(BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8))) {
+
+                StringBuilder stringBuilder = new StringBuilder();
+                String responseLineFromAPI;
+
+                while ((responseLineFromAPI = bufferedReader.readLine()) != null)
+                    stringBuilder.append(responseLineFromAPI).append("\n");
+
+                responseString = stringBuilder.toString();
+                Log.d("TTTTTTTTRESPONSE", responseString);
+            }
         }
 
         return new JSONObject(responseString);
+    }
+
+    /**
+     *
+     */
+    public static class QueryAPI extends AsyncTask<String, String, JSONObject> {
+        private final APIConnectionBundle apiBundle;
+        private final APIConnectionCallback apiConnectionCallback;
+
+        private int responseCode;
+        private String responseMessage;
+
+        public QueryAPI(@NonNull APIConnectionCallback callback) {
+            this.apiBundle = callback.getAPIConnectionBundle();
+            this.apiConnectionCallback = callback;
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... object) {
+            JSONObject apiResponse = null;
+            HttpURLConnection connection = null;
+
+            try {
+                String json = apiBundle.json.toString();
+                connection = openAPIConnection(apiBundle.httpMethod, apiBundle.url, -1);
+                apiResponse = getResponseFromRequest(connection, apiBundle.json);
+
+                // must be BELOW getResponseFromRequest !!
+                responseCode = connection.getResponseCode();
+                responseMessage = connection.getResponseMessage();
+
+
+                Log.d("TTTTTTTJSONN.->", "JSON: " + json);
+                Log.d("TTTTTTTJSONN.->", "CODE: " + responseCode);
+                Log.d("TTTTTTTJSONN.->", "RESPONSE: " + apiResponse.toString());
+            } catch(IOException | JSONException e) {
+                e.printStackTrace();
+            } finally {
+                assert connection != null;
+                connection.disconnect();
+            }
+
+            return apiResponse;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject apiResponse) {
+            if(responseCode < 400) apiConnectionCallback.onSuccess(apiResponse);
+            else apiConnectionCallback.onFailure(new APIErrorResponse(apiResponse));
+        }
+    }
+
+    /**
+     * Inner helper class that holds values to sent the AsyncTask.
+     */
+    public static class APIConnectionBundle {
+        protected String httpMethod;
+        protected JSONObject json;
+        protected URL url;
+
+        public APIConnectionBundle(@NonNull String method,
+                                   URL url,
+                                   JSONObject json) {
+            this.httpMethod = method;
+            this.json = json;
+            this.url = url;
+        }
+
+        public JSONObject getJson() {
+            return json;
+        }
+    }
+
+    public interface APIConnectionCallback {
+        void onSuccess(JSONObject jsonResponse);
+        void onFailure(APIErrorResponse error);
+        APIConnectionBundle getAPIConnectionBundle();
     }
 
     /**
@@ -218,83 +315,6 @@ public class APIHandler {
             if (urlAPIConnection != null) urlAPIConnection.disconnect();
         }
         return users;
-    }
-
-    /**
-     *
-     */
-    public static class QueryAPI extends AsyncTask<String, String, JSONObject> {
-        private final APIConnectionBundle apiBundle;
-        private final APIConnectionCallback apiConnectionCallback;
-
-        private int responseCode;
-        private String responseMessage;
-
-        public QueryAPI(@NonNull APIConnectionCallback callback) {
-            this.apiBundle = callback.getAPIConnectionBundle();
-            this.apiConnectionCallback = callback;
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... object) {
-            JSONObject responseJSON = null;
-            HttpURLConnection connection = null;
-
-            try {
-                Log.d("TTTTTTTTTTESSSST", "METHOD: " + apiBundle.httpMethod + " URL: " + this.apiBundle.url.toString());
-                connection = openAPIConnection(this.apiBundle.httpMethod, this.apiBundle.url, -1);
-                Log.d("TTTTTTTTJSONSEND--->OOLIY", apiBundle.json.toString());
-
-                responseJSON = getResponseFromRequest(connection, this.apiBundle.json);
-                Log.d("TTTTTTTTJSONRESPONSE--->OOLIY", responseJSON.toString());
-
-                Log.d("TTTTTTTTJSONRESPONSE--->OOLIY", connection.getResponseMessage());
-                responseMessage = connection.getResponseMessage();
-                responseCode = connection.getResponseCode();
-
-            } catch(IOException | JSONException e) {
-                APIErrorResponse apiError = new APIErrorResponse(e);
-                e.printStackTrace();
-            } finally {
-                assert connection != null;
-                connection.disconnect();
-            }
-
-            return responseJSON;
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject apiResponse) {
-            if(responseCode < 400) apiConnectionCallback.onSuccess(apiResponse);
-            else apiConnectionCallback.onFailure(new APIErrorResponse(apiResponse));
-        }
-    }
-
-    /**
-     * Inner helper class that holds values to sent the AsyncTask.
-     */
-    public static class APIConnectionBundle {
-        protected String httpMethod;
-        protected JSONObject json;
-        protected URL url;
-
-        public APIConnectionBundle(@NonNull String method,
-                                   URL url,
-                                   JSONObject json) {
-            this.httpMethod = method;
-            this.json = json;
-            this.url = url;
-        }
-
-        public JSONObject getJson() {
-            return json;
-        }
-    }
-
-    public interface APIConnectionCallback {
-        void onSuccess(JSONObject jsonResponse);
-        void onFailure(APIErrorResponse error);
-        APIConnectionBundle getAPIConnectionBundle();
     }
 }
 
