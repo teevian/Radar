@@ -53,7 +53,7 @@ public class JSONParser {
      */
     @NonNull
     public static List<Thumbnail> usersFromJSON(@NonNull JSONObject jsonResponse) throws JSONException {
-        JSONArray listOfUsersJSON = jsonResponse.getJSONObject("data").getJSONArray("users");
+        JSONArray listOfUsersJSON = jsonResponse.getJSONObject("data").getJSONArray("items");
 
         List<Thumbnail> users = new ArrayList<>();
         int numOfUsers = listOfUsersJSON.length();
@@ -87,12 +87,12 @@ public class JSONParser {
 
 
     @NonNull
-    public static JSONObject loginJSONFromCredentials(String phone, String password) throws JSONException {
+    public static JSONObject loginJSONFromCredentials(String countryCode, String phone, String password) throws JSONException {
         JSONObject jsonLogin = getJSONTemplate();
 
         JSONObject login = new JSONObject();
-        login.put("countryCode", "+351");
-        login.put("phone", phone);
+        login.put("countryCode", countryCode);
+        login.put("phoneNumber", phone);
         login.put("password", password);
 
         JSONArray items = new JSONArray();
@@ -104,9 +104,23 @@ public class JSONParser {
 
         jsonLogin.put("data", data);
 
-        Log.d("UUUUUUUUUUUU->", jsonLogin.toString());
-
         return jsonLogin;
+    }
+
+    @NonNull
+    public static JSONObject registerJSONFromCredentials(String countryCode,
+                                                         String phone,
+                                                         String password,
+                                                         String firstName,
+                                                         String lastName,
+                                                         String encodedPhoto) throws JSONException {
+        JSONObject register = loginJSONFromCredentials(countryCode, phone, password);
+
+        register.getJSONObject("data").getJSONArray("items").getJSONObject(0).put("firstName", firstName);
+        register.getJSONObject("data").getJSONArray("items").getJSONObject(0).put("lastName", lastName);
+        register.getJSONObject("data").getJSONArray("items").getJSONObject(0).put("encodedPhoto", encodedPhoto);
+
+        return register;
     }
 
     /**

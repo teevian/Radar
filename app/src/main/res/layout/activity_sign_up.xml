@@ -22,6 +22,38 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".ui.activities.SignInActivity">
 
+        <ImageView
+            android:id="@+id/iv_edit_photo"
+            android:src="@mipmap/profile_thumbnail_default_joidk_easter_egg_round"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/et_firstName"
+            android:layout_width="@dimen/login_input_width"
+            android:layout_height="@dimen/login_input_height"
+            android:layout_margin="@dimen/login_input_margin"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            android:hint="@string/login_first_name"
+            android:digits="@string/validation_digits_name"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textColorHint="@drawable/selector_hint" />
+
+        <EditText
+            android:id="@+id/et_lastName"
+            android:layout_width="@dimen/login_input_width"
+            android:layout_height="@dimen/login_input_height"
+            android:layout_margin="@dimen/login_input_margin"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            android:hint="@string/login_first_name"
+            android:digits="@string/validation_digits_name"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textColorHint="@drawable/selector_hint" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_input_height"
@@ -121,10 +153,8 @@
             android:text="@string/submit"
             android:textColor="@color/white"
             app:cornerRadius="20dp"
-            app:strokeColor="@color/white"
-/>
+            app:strokeColor="@color/white" />
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

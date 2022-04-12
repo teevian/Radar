@@ -21,16 +21,11 @@ public class Validator {
                 put(VALIDATION_KEY.PASSWORD, "^(?=.*[a-z])(?=.*\\d).{8,15}$");
                 //put(VALIDATION_KEY.PASSWORD, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$");
                 put(VALIDATION_KEY.NAME, "[^0-9_!¡?÷?¿+=@#$%ˆ&*()|~<>{};:[\\]]]{2,20}$");
-                put(VALIDATION_KEY.PHONE, "^[0-9]{9}$");
+                put(VALIDATION_KEY.PHONE, "^[0-9]{9,15}$");
                 put(VALIDATION_KEY.ALPHABETIC, "\\w+");
                 put(VALIDATION_KEY.NUMERIC, "\\d+");
                 put(VALIDATION_KEY.ALPHANUMERIC, "(?=.*[a-zA-Z])(?=.*[\\\\d]).+");
             }};
-
-    public static boolean isPhoneNumber(String phoneNumber) {
-        String regexPhoneValidator = "^[+]?[0-9]{8,15}";
-        return false;
-    }
 
     public abstract static class TextValidator implements TextWatcher {
         private final TextView textView;
@@ -42,9 +37,7 @@ public class Validator {
         public abstract void validate(TextView textView, String text);
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-
-        }
+        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) { }
 
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
@@ -53,11 +46,7 @@ public class Validator {
         }
 
         @Override
-        public void afterTextChanged(Editable editable) {
-            //String text = textView.getText().toString();
-            //validate(textView, text);
-            Log.d("YYYYYYYY", "OH OH");
-        }
+        public void afterTextChanged(Editable editable) { }
     }
 
     public static boolean matches(String text, VALIDATION_KEY method) {

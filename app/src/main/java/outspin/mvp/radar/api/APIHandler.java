@@ -146,6 +146,9 @@ public class APIHandler {
     public static JSONObject getResponseFromRequest(@NonNull HttpURLConnection connection, @NonNull JSONObject jsonRequest)
             throws IOException, JSONException {
 
+        if(jsonRequest == null)
+            return JSONParser.getAPIJSONTemplate();
+
         String json = jsonRequest.toString();
         String responseString;
 
@@ -186,6 +189,38 @@ public class APIHandler {
         return new JSONObject(responseString);
     }
 
+    public static class ChangePhoto extends AsyncTask<String, String, JSONObject> {
+        private String responseMessage;
+        private int responseCode;
+
+        @Override
+        protected JSONObject doInBackground(@NonNull String... strings) {
+            JSONObject apiResponse = null;
+            HttpURLConnection connection = null;
+
+            try {
+                connection = openAPIConnection("PATCH", new URL(strings[0]), -1);
+                apiResponse = getResponseFromRequest(connection, null);
+
+                // must be BELOW getResponseFromRequest !!
+                responseCode = connection.getResponseCode();
+                responseMessage = connection.getResponseMessage();
+
+            } catch(IOException | JSONException e) {
+                e.printStackTrace();
+            } finally {
+                assert connection != null;
+                connection.disconnect();
+            }
+
+            return apiResponse;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+        }
+    }
     /**
      *
      */
@@ -207,7 +242,6 @@ public class APIHandler {
             HttpURLConnection connection = null;
 
             try {
-                String json = apiBundle.json.toString();
                 connection = openAPIConnection(apiBundle.httpMethod, apiBundle.url, -1);
                 apiResponse = getResponseFromRequest(connection, apiBundle.json);
 
@@ -215,10 +249,6 @@ public class APIHandler {
                 responseCode = connection.getResponseCode();
                 responseMessage = connection.getResponseMessage();
 
-
-                Log.d("TTTTTTTJSONN.->", "JSON: " + json);
-                Log.d("TTTTTTTJSONN.->", "CODE: " + responseCode);
-                Log.d("TTTTTTTJSONN.->", "RESPONSE: " + apiResponse.toString());
             } catch(IOException | JSONException e) {
                 e.printStackTrace();
             } finally {
@@ -248,8 +278,17 @@ public class APIHandler {
                                    URL url,
                                    JSONObject json) {
             this.httpMethod = method;
-            this.json = json;
             this.url = url;
+
+            if(json == null) {
+                try {
+                    this.json = JSONParser.getAPIJSONTemplate();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                this.json = json;
+            }
         }
 
         public JSONObject getJson() {

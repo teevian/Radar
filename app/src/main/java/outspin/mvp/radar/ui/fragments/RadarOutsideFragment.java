@@ -49,7 +49,6 @@ public class RadarOutsideFragment extends Fragment implements View.OnClickListen
         double pxHeight = displayMetrics.heightPixels;
         double pxWidth = displayMetrics.widthPixels;
 
-
         double dp1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1,
                 requireContext().getResources().getDisplayMetrics());
         int width = (int) (115*dp1);

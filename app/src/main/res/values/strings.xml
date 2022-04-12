@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Radar MVP</string>
 
-    <string name="login_name">name</string>
+    <string name="login_first_name">first name</string>
+    <string name="login_last_name">last name</string>
     <string name="login_phone">phone number</string>
     <string name="login_password">password</string>
     <string name="login_password_duplicate">repeat password</string>

@@ -44,7 +44,6 @@ public class RadarNavigationActivity extends AppCompatActivity
 
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
-
         super.onCreate(savedInstanceState);
 
         mainBinding = ActivityRadarNavigationBinding.inflate(getLayoutInflater());
